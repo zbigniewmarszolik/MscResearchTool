@@ -2,7 +2,9 @@
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
     "MSTest.TestAdapter": "1.1.18",
-    "MSTest.TestFramework": "1.1.18"
+    "MSTest.TestFramework": "1.1.18",
+    "xunit": "2.3.0",
+    "xunit.runner.visualstudio": "2.3.0"
   },
   "frameworks": {
     "uap10.0.10586": {}

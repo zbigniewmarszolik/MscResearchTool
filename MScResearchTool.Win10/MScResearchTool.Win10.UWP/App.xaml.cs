@@ -1,4 +1,8 @@
-﻿using System;
+﻿using Autofac;
+using MScResearchTool.Win10.Domain.ViewModels;
+using MScResearchTool.Win10.UWP.AutofacModules;
+using MScResearchTool.Win10.UWP.Views;
+using System;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
@@ -12,6 +16,8 @@ namespace MScResearchTool.Win10.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        private IContainer _container { get; set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -20,6 +26,8 @@ namespace MScResearchTool.Win10.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            ContainerSetup();
         }
 
         /// <summary>
@@ -56,7 +64,8 @@ namespace MScResearchTool.Win10.UWP
                     // When the navigation stack isn't restored navigate to the first page,
                     // configuring the new page by passing required information as a navigation
                     // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    var mainVm = _container.Resolve<IMainVM>();
+                    rootFrame.Navigate(typeof(MainPage), mainVm);
                 }
                 // Ensure the current window is active
                 Window.Current.Activate();
@@ -85,6 +94,15 @@ namespace MScResearchTool.Win10.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        private void ContainerSetup()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterModule<UserInterfaceModule>();
+
+            _container = builder.Build();
         }
     }
 }
