@@ -29,17 +29,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Start" asp-action="Index">Home - results</a></li>
-                    <li><a asp-area="" asp-controller="Informacje" asp-action="Index">Current tasks</a></li>
-                    <li><a asp-area="" asp-controller="Kontakt" asp-action="Index">Add task</a></li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home - results</a></li>
+                    <li><a asp-area="" asp-controller="Collection" asp-action="Index">Current tasks</a></li>
+                    <li><a asp-area="" asp-controller="Task" asp-action="Index">Add task</a></li>
                 </ul>
             </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
+        <footer class="footer-bar">
             <p>&copy; 2017 - Politechnika Śląska</p>
         </footer>
     </div>

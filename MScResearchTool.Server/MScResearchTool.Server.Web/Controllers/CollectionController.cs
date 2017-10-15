@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MScResearchTool.Server.Web.ViewModels;
+using System.Collections.Generic;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
@@ -11,7 +13,7 @@ namespace MScResearchTool.Server.Web.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View(new List<TaskViewModel>());
         }
     }
 }

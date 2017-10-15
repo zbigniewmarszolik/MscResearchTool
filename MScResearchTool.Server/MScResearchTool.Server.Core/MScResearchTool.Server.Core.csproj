@@ -40,6 +40,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\IntegralSquaresTask.cs" />
+    <Compile Include="Models\IntegralSquaresResult.cs" />
+    <Compile Include="Models\IntegralTrapezoidsResult.cs" />
+    <Compile Include="Models\IntegralTrapezoidsTask.cs" />
+    <Compile Include="Models\ModelBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

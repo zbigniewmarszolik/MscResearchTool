@@ -2,6 +2,17 @@
     ViewData["Title"] = "New task";
 }
 
-<div>
-    <p>Selecting which task to add.</p>
+<div class="buttons-container">
+    <input class="block-button" type="button" value="Add integration by squares" onclick="location.href='@Url.Action("CreateIntegration", "Task")'" />
+    <br class="mobile-separator" />
+    <br class="mobile-separator" />
+    <input class="block-button" type="button" value="Add 2nd algorithm" onclick="location.href='@Url.Action("2", "2")'" />
+    <br class="mobile-separator" />
+    <br class="mobile-separator" />
+    <br class="desktop-separator" />
+    <br class="desktop-separator" />
+    <input class="block-button" type="button" value="Add 3rd algorithm" onclick="location.href='@Url.Action("3", "3")'" />
+    <br class="mobile-separator" />
+    <br class="mobile-separator" />
+    <input class="block-button" type="button" value="Add 4th algorithm" onclick="location.href='@Url.Action("4", "4")'" />
 </div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MScResearchTool.Server.Web.ViewModels;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
@@ -17,6 +18,13 @@ namespace MScResearchTool.Server.Web.Controllers
         public IActionResult CreateIntegration()
         {
             return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateIntegration(IntegralViewModel integralVm)
+        {
+            return RedirectToAction("Index");
         }
     }
 }
