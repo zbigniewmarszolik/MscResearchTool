@@ -5,10 +5,9 @@
 }
 
 <div>
-    <p>Main page. Showing results for past calculations.</p>
-
     @foreach (var item in Model)
     {
         @Html.Partial("_ResultPartial", item);
+        <br />
     }
 </div>

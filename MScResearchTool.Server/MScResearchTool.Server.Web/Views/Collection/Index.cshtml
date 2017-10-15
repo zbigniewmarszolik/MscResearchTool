@@ -5,10 +5,9 @@
 }
 
 <div>
-    <p>Page showing currently active tasks which are waiting for being computed.</p>
-
     @foreach (var item in Model)
     {
         @Html.Partial("_ActiveTaskPartial", item);
+        <br />
     }
 </div>

@@ -1,5 +1,7 @@
 ﻿@model TaskViewModel
 
-@*
-    Partial view for active task, together with button for deleting it.
-*@
+<div class="info">
+    <button class="delete-button" onclick="if (confirm('Are you sure to remove this task?'))
+            location.href='@Url.Action("DeleteTask", "Collection", new { deleteId = @Model.ObjectId })'">Delete task</button>
+    <span>@Model.TaskType distributed for @Model.DroidsCount mobile devices.</span>
+</div>
