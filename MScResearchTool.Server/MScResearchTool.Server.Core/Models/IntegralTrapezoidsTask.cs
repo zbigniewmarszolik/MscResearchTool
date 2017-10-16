@@ -5,9 +5,7 @@ namespace MScResearchTool.Server.Core.Models
 {
     public class IntegralTrapezoidsTask : ModelBase
     {
-        public bool IsActive { get; set; }
-        public int AmountOfDroids { get; set; }
-        public IntegralTrapezoidsResult Result { get; set; }
-        public IList<IntegralTrapezoidsDistribution> Distributions { get; set; }
+        public virtual int AmountOfDroids { get; set; }
+        public virtual IList<IntegralTrapezoidsDistribution> Distributions { get; set; }
     }
 }

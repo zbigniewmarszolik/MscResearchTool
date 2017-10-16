@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MScResearchTool.Server.Core.Types;
 using MScResearchTool.Server.Web.ViewModels;
+using System;
 using System.Collections.Generic;
 
 namespace MScResearchTool.Server.Web.Controllers
@@ -17,34 +19,31 @@ namespace MScResearchTool.Server.Web.Controllers
                 {
                 new TaskViewModel()
                 {
-                    IntegralSquares = new Core.Models.IntegralSquaresTask()
-                    {
-                        Id = 0,
-                        IsActive = true,
-                        AmountOfDroids = 2,
-                        Result = null
-                    },
-                    IntegralTrapezoids = null,
+                    CreationDate = DateTime.Now,
+                    ModelId = 5,
+                    DroidsCount = 3,
+                    TaskType = ETaskType.Trapezoid_integration.ToString()
                 },
                 new TaskViewModel()
                 {
-                    IntegralTrapezoids = new Core.Models.IntegralTrapezoidsTask()
-                    {
-                        Id = 7,
-                        IsActive = true,
-                        AmountOfDroids = 8,
-                        Result = null
-                    },
-                    IntegralSquares = null
+                    CreationDate = new DateTime(1993,11,29,23,51,35),
+                    ModelId = 3,
+                    DroidsCount = 5,
+                    TaskType = ETaskType.Square_integration.ToString()
                 }
             };
 
             foreach(var item in vm)
             {
-                item.AssignTypeAndDroids();
+                item.FixTaskType();
             }
 
             return View(vm);
+        }
+
+        public IActionResult DeleteTask(int deleteId)
+        {
+            return Ok();
         }
     }
 }

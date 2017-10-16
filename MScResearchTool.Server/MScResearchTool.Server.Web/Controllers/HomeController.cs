@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Web.ViewModels;
 using System.Collections.Generic;
+using System;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
@@ -14,53 +15,42 @@ namespace MScResearchTool.Server.Web.Controllers
 
         public IActionResult Index()
         {
-            var vm = new List<ResultViewModel>()
+            var vm = new List<ReportViewModel>()
             {
-                new ResultViewModel()
+                new ReportViewModel()
                 {
-                    IntegralSquares = new Core.Models.IntegralSquaresResult()
-                    {
-                        Id = 0,
-                        Task = null,
-                        AmountOfDroids = 3,
-                        DroidTime = "2s",
-                        WindowsTime = "1s"
-
-                    },
-                    IntegralTrapezoids = null
+                    Id = 0,
+                    GenerationDate = new DateTime(2016,10,03,05,00,15),
+                    Title = "Integration by trapezoids method",
+                    ContentPdf = null
                 },
-                new ResultViewModel()
+                new ReportViewModel()
                 {
-                    IntegralSquares = new Core.Models.IntegralSquaresResult()
-                    {
-                        Id = 1,
-                        Task = null,
-                        AmountOfDroids = 3,
-                        DroidTime = "4s",
-                        WindowsTime = "2s"
-                    },
-                    IntegralTrapezoids = null
+                    Id = 1,
+                    GenerationDate = new DateTime(2014,12,14,17,32,51),
+                    Title = "Integration by squares method",
+                    ContentPdf = null
                 },
-                new ResultViewModel()
+                new ReportViewModel()
                 {
-                    IntegralSquares = null,
-                    IntegralTrapezoids = new Core.Models.IntegralTrapezoidsResult()
-                    {
-                        Id = 2,
-                        Task = null,
-                        AmountOfDroids = 2,
-                        DroidTime = "3s",
-                        WindowsTime = "5s"
-                    }
-                }
+                    Id = 2,
+                    GenerationDate = DateTime.Now,
+                    Title = "Integration by trapezoids method",
+                    ContentPdf = null
+                },
             };
 
-            foreach (var item in vm)
-            {
-                item.AssignTypeAndDroids();
-            }
-
             return View(vm);
+        }
+
+        public IActionResult DeleteReport(int removeId)
+        {
+            return Ok();
+        }
+
+        public IActionResult DownloadReport(int downloadId)
+        {
+            return Ok();
         }
 
         public IActionResult Error()

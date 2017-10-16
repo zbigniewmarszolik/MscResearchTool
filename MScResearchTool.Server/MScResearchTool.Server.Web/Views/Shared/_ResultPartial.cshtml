@@ -1,13 +1,12 @@
-﻿@model ResultViewModel
+﻿@model ReportViewModel
 
-<div class="info">
-    <button class="delete-button" onclick="if (confirm('Are you sure to remove this result?'))
-            location.href='@Url.Action("DeleteResult", "Home", new { removeId = @Model.ObjectId })'">Delete result</button>
-    <button class="restart-button" onclick="location.href='@Url.Action("ReactivateTask", "Home", new { restartId = @Model.ObjectId })'">Reactivate result</button>
-    <br />
-    <span>@Model.ResultType distributed for @Model.DroidsCount mobile devices. Time on devices: @Model.MobileTime. Desktop time: @Model.WinTime.</span>
-
-    @*<a class="delete-button" href="@Url.Action("DeleteResult", "Home", new { removeId = @Model.ObjectId })">Delete result</a>
-    <span">@Model.ResultType distributed for @Model.DroidsCount mobile devices. Time on devices: @Model.MobileTime. Desktop time: @Model.WinTime.</span>
-    <a class="restart-button" href="@Url.Action("ReactivateTask", "Home", new { restartId = @Model.ObjectId })">Reactivate result</a>*@
+<div class="info-container">
+    <button class="info-button" onclick="if (confirm('Are you sure to remove this report?'))
+            location.href='@Url.Action("DeleteReport", "Home", new { removeId = @Model.Id })'">
+        Delete
+    </button>
+    <button class="info-button" onclick="location.href='@Url.Action("DownloadReport", "Home", new { downloadId = @Model.Id })'">
+        Download
+    </button>
+    <span class="info-value">Report for @Model.Title generated on @Model.GenerationDate.</span>
 </div>

@@ -10,7 +10,7 @@
     -webkit-font-smoothing: antialiased;
 }
 
-.buttons-container {
+.blocks-container {
     display: inline-block;
     width: 600px;
 }
@@ -23,11 +23,16 @@
     cursor: default;
     white-space: normal;
     border: none;
+    -webkit-transition-duration: .4s;
+    -moz-transition-duration: .4s;
+    border: 1px solid #000;
 }
 
     .block-button:hover {
         color: #000;
         background-color: #51b0a4;
+        -webkit-transition-duration: .4s;
+        -moz-transition-duration: .4s;
     }
 
 button.block-button {
@@ -35,75 +40,49 @@ button.block-button {
     -moz-appearance: none;
 }
 
-.delete-button {
+.info-button {
     color: #fff;
     text-decoration: none;
     transition-duration: .3s;
-    -webkit-transition-duration: .3s;
-    -moz-transition-duration: .3s;
+    -webkit-transition-duration: .4s;
+    -moz-transition-duration: .4s;
     background-color: #6a6a6a;
     padding: 5px 30px;
+    width: 100%;
     cursor: pointer;
     margin: 0 50px 0 0;
     border: 1px solid #fff;
 }
 
-    .delete-button:hover {
+    .info-button:hover {
         color: #000;
         background-color: #51b0a4;
         transition-duration: .3s;
-        -webkit-transition-duration: .3s;
-        -moz-transition-duration: .3s;
+        -webkit-transition-duration: .4s;
+        -moz-transition-duration: .4s;
         text-decoration: none;
     }
 
-    .delete-button:visited, .delete-button:active {
+    .info-button:visited, .info-button:active {
         text-decoration: none;
         color: #fff;
         background-color: #6a6a6a;
     }
 
-    .delete-button:focus {
+    .info-button:focus {
         text-decoration: none;
         color: #000;
         background-color: #51b0a4;
     }
 
-.restart-button {
-    color: #fff;
-    text-decoration: none;
-    transition-duration: .3s;
-    -webkit-transition-duration: .3s;
-    -moz-transition-duration: .3s;
-    background-color: #6a6a6a;
-    padding: 5px 30px;
-    cursor: pointer;
-    margin: 0 0 0 0;
-    border: 1px solid #fff;
+.info-container {
+    border-style: groove;
+    border-width: 1px 1px 1px 1px;
+    text-align:center;
 }
 
-    .restart-button:hover {
-        color: #000;
-        background-color: #51b0a4;
-        transition-duration: .3s;
-        -webkit-transition-duration: .3s;
-        -moz-transition-duration: .3s;
-        text-decoration: none;
-    }
-
-    .restart-button:visited, .restart-button:active {
-        text-decoration: none;
-    }
-
-    .restart-button:focus {
-        text-decoration: none;
-        color: #000;
-        background-color: #51b0a4;
-    }
-
-.info {
-    border-style:groove;
-    border-width: 1px 1px 1px 1px;
+.info-value{
+    text-align:center;
 }
 
 .navbar-inverse {
@@ -117,12 +96,16 @@ button.block-button {
 
     .navbar-inverse .navbar-nav > li > a {
         color: #fff;
+        -webkit-transition-duration: .4s;
+        -moz-transition-duration: .4s;
     }
 
         .navbar-inverse .navbar-nav > li > a:hover,
         .navbar-inverse .navbar-nav > li > a:focus {
             color: #000;
             background-color: #51b0a4;
+            -webkit-transition-duration: .4s;
+            -moz-transition-duration: .4s;
         }
 
     .navbar-inverse .navbar-nav > .active > a,
@@ -153,7 +136,7 @@ button.block-button {
 }
 
 @media screen and (max-width: 767px) {
-    .buttons-container {
+    .blocks-container {
         width: 100%;
     }
 
@@ -170,11 +153,7 @@ button.block-button {
         display: none;
     }
 
-    .delete-button {
-        width: 100%;
-    }
-
-    .restart-button {
+    .info-button {
         width: 100%;
     }
 }

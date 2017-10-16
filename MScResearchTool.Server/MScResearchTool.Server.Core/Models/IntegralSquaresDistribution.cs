@@ -4,6 +4,6 @@ namespace MScResearchTool.Server.Core.Models
 {
     public class IntegralSquaresDistribution : ModelBase
     {
-        public IntegralSquaresTask Task { get; set; }
+        public virtual IntegralSquaresTask Task { get; set; }
     }
 }

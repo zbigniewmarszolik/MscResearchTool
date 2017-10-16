@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MScResearchTool.Server.Core.Models;
+using MScResearchTool.Server.Web.ViewModels;
 
 namespace MScResearchTool.Server.Web.Configurations
 {
@@ -6,7 +8,8 @@ namespace MScResearchTool.Server.Web.Configurations
     {
         public AutoMapperConfiguration()
         {
-
+            CreateMap<ReportViewModel, Report>();
+            CreateMap<Report, ReportViewModel>();
         }
     }
 }

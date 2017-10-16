@@ -1,7 +1,7 @@
 ﻿@model TaskViewModel
 
-<div class="info">
-    <button class="delete-button" onclick="if (confirm('Are you sure to remove this task?'))
-            location.href='@Url.Action("DeleteTask", "Collection", new { deleteId = @Model.ObjectId })'">Delete task</button>
-    <span>@Model.TaskType distributed for @Model.DroidsCount mobile devices.</span>
+<div class="info-container">
+    <button class="info-button" onclick="if (confirm('Are you sure to remove this task?'))
+            location.href='@Url.Action("DeleteTask", "Collection", new { deleteId = @Model.ModelId })'">Delete task</button>
+    <span class="info-value">@Model.TaskType distributed for @Model.DroidsCount mobile devices, created on @Model.CreationDate.</span>
 </div>
