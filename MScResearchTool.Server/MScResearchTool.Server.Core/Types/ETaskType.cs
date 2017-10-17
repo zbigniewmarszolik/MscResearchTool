@@ -2,6 +2,6 @@
 {
     public enum ETaskType
     {
-        Trapezoid_integration, Square_integration, Other
+         Square_integration, Trapezoid_integration, Other
     }
 }

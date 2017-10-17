@@ -2,8 +2,7 @@
 {
     public class IntegralViewModel
     {
-        //coefficients here
-
-        public string Integration { get; set; }
+        public string Formula { get; set; }
+        public string Method { get; set; }
     }
 }

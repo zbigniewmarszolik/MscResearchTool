@@ -10,6 +10,19 @@
     -webkit-font-smoothing: antialiased;
 }
 
+input, select{
+    width: 100%;
+}
+
+.input-form {
+    text-align: center;
+}
+
+.formula-error {
+    color: #000;
+    font-weight: bold;
+}
+
 .blocks-container {
     display: inline-block;
     width: 600px;

@@ -40,11 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\IntegrationBase.cs" />
     <Compile Include="Domain\ModelBase.cs" />
-    <Compile Include="Models\IntegralSquaresDistribution.cs" />
-    <Compile Include="Models\IntegralSquaresTask.cs" />
-    <Compile Include="Models\IntegralTrapezoidsDistribution.cs" />
-    <Compile Include="Models\IntegralTrapezoidsTask.cs" />
+    <Compile Include="Models\IntegrationDistribution.cs" />
+    <Compile Include="Models\IntegrationTask.cs" />
     <Compile Include="Models\Report.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Types\ETaskType.cs" />

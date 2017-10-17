@@ -1,7 +1,31 @@
-﻿@{
+﻿@model IntegralViewModel
+
+@{
     ViewData["Title"] = "Integral creation";
 }
 
-<div>
-    <p>Setting up the integration task.</p>
+<div class="input-form">
+    <form method="post" action="@Url.Action("CreateIntegration", "Task")" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <label for="formula">Integration formula:</label>
+        <br />
+        <input id="formula" type="text" name="Formula" required="required" value="@Model.Formula" />
+        <br />
+        <br />
+        <label for="method">Integration method:</label>
+        <br />
+        <select id="method" name="Method">
+            <option selected="selected" value="Square_integration">Squares</option>
+            <option value="Trapezoid_integration">Trapezoids</option>
+        </select>
+        <br />
+        <br />
+        <br />
+        <input type="submit" value="Add integration task" class="info-button" />
+    </form>
+
+    @if (ViewData["FormulaError"] != null)
+    {
+        <p class="formula-error">@ViewData["FormulaError"]</p>
+    }
 </div>

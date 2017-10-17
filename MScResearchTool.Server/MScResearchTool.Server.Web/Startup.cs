@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MScResearchTool.Server.Binder.AutofacModules;
+using MScResearchTool.Server.Web.AutofacModules;
 using MScResearchTool.Server.Web.Configurations;
 using System;
 
@@ -31,6 +32,7 @@ namespace MScResearchTool.Server.Web
             var builder = new ContainerBuilder();
 
             builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<WebModule>();
 
             builder.Populate(services);
             builder.RegisterInstance(_mapper).As<IMapper>();

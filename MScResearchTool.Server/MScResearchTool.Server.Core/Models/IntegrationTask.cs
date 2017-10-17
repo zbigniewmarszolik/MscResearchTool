@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace MScResearchTool.Server.Core.Models
 {
-    public class IntegralTrapezoidsTask : ModelBase
+    public class IntegrationTask : IntegrationBase
     {
         public virtual int AmountOfDroids { get; set; }
-        public virtual IList<IntegralTrapezoidsDistribution> Distributions { get; set; }
+        public IList<IntegrationDistribution> Distributions { get; set; }
     }
 }

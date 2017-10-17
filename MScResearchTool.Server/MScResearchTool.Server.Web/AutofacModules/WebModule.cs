@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MScResearchTool.Server.Web.Helpers;
 
 namespace MScResearchTool.Server.Web.AutofacModules
 {
@@ -6,7 +7,7 @@ namespace MScResearchTool.Server.Web.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-
+            builder.RegisterType<IntegralFormulaHelper>().As<IntegralFormulaHelper>();
         }
     }
 }
