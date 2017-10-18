@@ -41,32 +41,59 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         {
             await Task.Run(() =>
             {
-                integrationTask.Distributions = DistributeIntegrations(integrationTask);
+                integrationTask.Distributions = DistributeIntegrationsAsync(integrationTask);
 
                 _integrationTasksRepository.Create(integrationTask);
             });
         }
 
+        public async Task UnstuckTakenTasksAsync()
+        {
+            var set = await ReadIntegrationTasksAsync();
+            var stuck = set.Where(x => x.IsFinished == false && x.IsTaken == true).ToList();
+
+            await Task.Run(() =>
+            {
+                foreach (var item in stuck)
+                {
+                    item.IsTaken = false;
+                    _integrationTasksRepository.Update(item);
+                }
+            });
+        }
+
+        public async Task<IList<IntegrationTask>> ReadAllIntegrationTasksEagerAsync()
+        {
+            IList<IntegrationTask> results = null;
+
+            await Task.Run(() =>
+            {
+                results = _integrationTasksRepository.ReadEager();
+            });
+
+            return results;
+        }
+
         public async Task<IList<IntegrationTask>> ReadAllIntegrationTasksAsync()
         {
-            return await ReadIntegrationTasks();
+            return await ReadIntegrationTasksAsync();
         }
 
         public async Task<IList<IntegrationTask>> ReadAvailableFullIntegrationsAsync()
         {
-            var resultSet = await ReadIntegrationTasks();
+            var resultSet = await ReadIntegrationTasksAsync();
 
-            return resultSet.Where(x => !x.IsTaken).ToList();
+            return resultSet.Where(x => !x.IsTaken && !x.IsFinished).ToList();
         }
 
         public async Task<IntegrationTask> ReadByIdAsync(int taskId)
         {
-            var singleResult = await ReadIntegrationTasks();
+            var singleResult = await ReadIntegrationTasksAsync();
 
             return singleResult.Where(x => x.Id == taskId).First();
         }
 
-        private async Task<IList<IntegrationTask>> ReadIntegrationTasks()
+        private async Task<IList<IntegrationTask>> ReadIntegrationTasksAsync()
         {
             IList<IntegrationTask> results = null;
 
@@ -83,7 +110,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             return results;
         }
 
-        private IList<IntegrationDistribution> DistributeIntegrations(IntegrationTask task)
+        private IList<IntegrationDistribution> DistributeIntegrationsAsync(IntegrationTask task)
         {
             IList<IntegrationDistribution> distributions = new List<IntegrationDistribution>();
 

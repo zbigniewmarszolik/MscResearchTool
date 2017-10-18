@@ -24,21 +24,36 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             });
         }
 
+        public async Task UnstuckTakenDistributionsAsync()
+        {
+            var set = await ReadIntegrationDistributionsAsync();
+            var stuck = set.Where(x => x.IsFinished == false && x.IsTaken == true).ToList();
+
+            await Task.Run(() =>
+            {
+                foreach (var item in stuck)
+                {
+                    item.IsTaken = false;
+                    _integrationDistributionsRepository.Update(item);
+                }
+            });
+        }
+
         public async Task<IList<IntegrationDistribution>> ReadAvailableIntegrationDistributionsAsync()
         {
-            var resultSet = await ReadIntegrationDistributions();
+            var resultSet = await ReadIntegrationDistributionsAsync();
 
-            return resultSet.Where(x => !x.IsTaken).ToList();
+            return resultSet.Where(x => !x.IsTaken && !x.IsFinished).ToList();
         }
 
         public async Task<IntegrationDistribution> ReadByIdAsync(int distributionId)
         {
-            var singleResult = await ReadIntegrationDistributions();
+            var singleResult = await ReadIntegrationDistributionsAsync();
 
             return singleResult.Where(x => x.Id == distributionId).First();
         }
 
-        private async Task<IList<IntegrationDistribution>> ReadIntegrationDistributions()
+        private async Task<IList<IntegrationDistribution>> ReadIntegrationDistributionsAsync()
         {
             IList<IntegrationDistribution> results = null;
 

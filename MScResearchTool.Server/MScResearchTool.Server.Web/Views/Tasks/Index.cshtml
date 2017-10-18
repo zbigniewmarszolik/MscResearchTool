@@ -10,4 +10,9 @@
         @Html.Partial("_ActiveTaskPartial", item);
         <br />
     }
+    <br />
+    <button class="info-button" onclick="if (confirm('Are you sure to unstuck ALL pending tasks?'))
+            location.href='@Url.Action("UnstuckAllTasks", "Tasks")'">
+        Unstuck all tasks in progress
+    </button>
 </div>
