@@ -1,5 +1,9 @@
 ﻿using Autofac;
+using MScResearchTool.Server.Core.Factories;
+using MScResearchTool.Server.Core.Helpers;
+using MScResearchTool.Server.Web.Factories;
 using MScResearchTool.Server.Web.Helpers;
+using MScResearchTool.Server.Web.ViewModels;
 
 namespace MScResearchTool.Server.Web.AutofacModules
 {
@@ -7,8 +11,9 @@ namespace MScResearchTool.Server.Web.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<IntegralFormulaHelper>().As<IntegralFormulaHelper>();
-            builder.RegisterType<ParseDoubleHelper>().As<ParseDoubleHelper>();
+            builder.RegisterType<IntegralInitializationHelper>().As<IIntegralInitializationHelper>();
+            builder.RegisterType<ParseDoubleHelper>().As<IParseDoubleHelper>();
+            builder.RegisterType<TaskVMFactory>().As<ITaskVMFactory<TaskViewModel>>();
         }
     }
 }

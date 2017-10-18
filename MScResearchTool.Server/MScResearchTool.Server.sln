@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2002
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Web", "MScResearchTool.Server.Web\MScResearchTool.Server.Web.csproj", "{DE718489-DF47-4210-A1A3-A729BE12634B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MScResearchTool.Server.Web", "MScResearchTool.Server.Web\MScResearchTool.Server.Web.csproj", "{DE718489-DF47-4210-A1A3-A729BE12634B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{36362C82-19EE-4301-8CAE-407928B36969} = {36362C82-19EE-4301-8CAE-407928B36969}
 		{E33A078B-3697-41BA-8611-08EF2CBF39D1} = {E33A078B-3697-41BA-8611-08EF2CBF39D1}
@@ -14,6 +14,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Binder", "MScResearchTool.Server.Binder\MScResearchTool.Server.Binder.csproj", "{36362C82-19EE-4301-8CAE-407928B36969}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E33A078B-3697-41BA-8611-08EF2CBF39D1} = {E33A078B-3697-41BA-8611-08EF2CBF39D1}
+		{31D920FB-4AEC-4E1B-ADC5-61397966D295} = {31D920FB-4AEC-4E1B-ADC5-61397966D295}
 		{6E9740FF-7C61-4F8D-980B-61F9AF0F065D} = {6E9740FF-7C61-4F8D-980B-61F9AF0F065D}
 	EndProjectSection
 EndProject
@@ -25,7 +26,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Tests", "MScResearchTool.Server.Tests\MScResearchTool.Server.Tests.csproj", "{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E33A078B-3697-41BA-8611-08EF2CBF39D1} = {E33A078B-3697-41BA-8611-08EF2CBF39D1}
+		{31D920FB-4AEC-4E1B-ADC5-61397966D295} = {31D920FB-4AEC-4E1B-ADC5-61397966D295}
 		{6E9740FF-7C61-4F8D-980B-61F9AF0F065D} = {6E9740FF-7C61-4F8D-980B-61F9AF0F065D}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.BusinessLogic", "MScResearchTool.Server.BusinessLogic\MScResearchTool.Server.BusinessLogic.csproj", "{31D920FB-4AEC-4E1B-ADC5-61397966D295}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E33A078B-3697-41BA-8611-08EF2CBF39D1} = {E33A078B-3697-41BA-8611-08EF2CBF39D1}
 	EndProjectSection
 EndProject
 Global
@@ -54,6 +61,10 @@ Global
 		{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

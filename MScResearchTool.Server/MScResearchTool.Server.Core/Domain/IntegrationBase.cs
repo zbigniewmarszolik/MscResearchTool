@@ -11,7 +11,7 @@ namespace MScResearchTool.Server.Core.Domain
         // Integral assumptions:
         public virtual double UpBoundary { get; set; }
         public virtual double DownBoundary { get; set; }
-        public virtual int Precision { get; set; } // Amount of squares / trapezoids. From this number, the integration step is calculated in algorithm internally.
+        public virtual int Accuracy { get; set; } // Amount of squares / trapezoids. From this number, the integration step is calculated in algorithm internally.
 
         // Integral formula:
         public virtual string Formula { get; set; }

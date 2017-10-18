@@ -43,10 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutofacModules\BusinessModule.cs" />
     <Compile Include="AutofacModules\InfrastructureModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MScResearchTool.Server.BusinessLogic\MScResearchTool.Server.BusinessLogic.csproj">
+      <Project>{31d920fb-4aec-4e1b-adc5-61397966d295}</Project>
+      <Name>MScResearchTool.Server.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MScResearchTool.Server.Core\MScResearchTool.Server.Core.csproj">
       <Project>{e33a078b-3697-41ba-8611-08ef2cbf39d1}</Project>
       <Name>MScResearchTool.Server.Core</Name>

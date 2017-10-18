@@ -1,4 +1,5 @@
-﻿using MScResearchTool.Server.Core.Types;
+﻿using MScResearchTool.Server.Core.Helpers;
+using MScResearchTool.Server.Core.Types;
 using NCalc;
 using System;
 using System.Text;
@@ -6,15 +7,8 @@ using System.Text.RegularExpressions;
 
 namespace MScResearchTool.Server.Web.Helpers
 {
-    public class IntegralFormulaHelper
+    public class IntegralInitializationHelper : IIntegralInitializationHelper
     {
-        private ParseDoubleHelper _parseDoubleHelper { get; set; }
-
-        public IntegralFormulaHelper(ParseDoubleHelper parseDoubleHelper)
-        {
-            _parseDoubleHelper = parseDoubleHelper;
-        }
-
         public bool IsFormulaCorrectForCSharp(string integrationFormula)
         {
             object expResult = null;
@@ -168,11 +162,9 @@ namespace MScResearchTool.Server.Web.Helpers
             StringBuilder newFormula = new StringBuilder(formula);
             newFormula.Remove(bracket - 1, 1);
 
-            var euler = _parseDoubleHelper.ParseEulerNumber(Math.E);
-
             newFormula.Insert(bracket - 1, ", ");
             newFormula = newFormula.Replace(",", "!");
-            newFormula.Insert(bracket + 1, euler + ")");
+            newFormula.Insert(bracket + 1, Math.E + ")");
             newFormula = newFormula.Replace(",", ".");
             newFormula = newFormula.Replace("!", ",");
 

@@ -32,6 +32,7 @@ namespace MScResearchTool.Server.Web
             var builder = new ContainerBuilder();
 
             builder.RegisterModule<InfrastructureModule>();
+            builder.RegisterModule<BusinessModule>();
             builder.RegisterModule<WebModule>();
 
             builder.Populate(services);
