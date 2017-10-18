@@ -43,6 +43,7 @@
     <Compile Include="Businesses\IntegrationDistributionsBusiness.cs" />
     <Compile Include="Businesses\IntegrationTasksBusiness.cs" />
     <Compile Include="Businesses\ReportsBusiness.cs" />
+    <Compile Include="Businesses\TaskInfoBusiness.cs" />
     <Compile Include="Factories\IntegrationDistributionFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

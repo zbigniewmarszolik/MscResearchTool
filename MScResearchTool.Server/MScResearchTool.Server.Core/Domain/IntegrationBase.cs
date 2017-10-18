@@ -15,5 +15,10 @@ namespace MScResearchTool.Server.Core.Domain
 
         // Integral formula:
         public virtual string Formula { get; set; }
+
+        // Status properties:
+        public virtual bool IsTaken { get; set; }
+        public virtual bool IsFinished { get; set; }
+        public virtual double ElapsedSeconds { get; set; }
     }
 }

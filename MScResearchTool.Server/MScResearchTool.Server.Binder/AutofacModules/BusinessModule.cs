@@ -13,6 +13,7 @@ namespace MScResearchTool.Server.Binder.AutofacModules
             builder.RegisterType<ReportsBusiness>().As<IReportsBusiness>();
             builder.RegisterType<IntegrationTasksBusiness>().As<IIntegrationTasksBusiness>();
             builder.RegisterType<IntegrationDistributionsBusiness>().As<IIntegrationDistributionsBusiness>();
+            builder.RegisterType<TaskInfoBusiness>().As<ITaskInfoBusiness>();
             builder.RegisterType<IntegrationDistributionFactory>().As<IIntegrationDistributionFactory>();
         }
     }

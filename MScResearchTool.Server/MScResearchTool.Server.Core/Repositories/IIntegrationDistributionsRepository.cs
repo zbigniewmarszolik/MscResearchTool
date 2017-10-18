@@ -7,6 +7,7 @@ namespace MScResearchTool.Server.Core.Repositories
     {
         void Create(IntegrationDistribution integrationDistribution);
         IList<IntegrationDistribution> Read();
+        void Update(IntegrationDistribution integrationDistribution);
         void Delete(int integrationDistributionId);
     }
 }

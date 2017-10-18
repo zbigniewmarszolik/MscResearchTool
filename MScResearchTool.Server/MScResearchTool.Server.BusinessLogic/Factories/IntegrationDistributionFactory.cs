@@ -15,7 +15,9 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
                 UpBoundary = upLimit,
                 Formula = task.Formula,
                 IsTrapezoidMethodRequested = task.IsTrapezoidMethodRequested,
-                Task = task
+                Task = task,
+                IsTaken = false,
+                IsFinished = false
             };
 
             return instance;

@@ -2,8 +2,10 @@
 using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Helpers;
 using MScResearchTool.Server.Core.Models;
+using MScResearchTool.Server.Core.Types;
 using MScResearchTool.Server.Web.ViewModels;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Web.Controllers
@@ -11,15 +13,18 @@ namespace MScResearchTool.Server.Web.Controllers
     public class IntegrationsController : Controller
     {
         private IIntegrationTasksBusiness _integrationTasksBusiness { get; set; }
+        private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private IIntegralInitializationHelper _integralInitializationHelper { get; set; }
         private IParseDoubleHelper _parseDoubleHelper { get; set; }
 
         public IntegrationsController
             (IIntegrationTasksBusiness integrationTasksBusiness,
+            IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             IIntegralInitializationHelper integralInitializationHelper,
             IParseDoubleHelper parseDoubleHelper)
         {
             _integrationTasksBusiness = integrationTasksBusiness;
+            _integrationDistributionsBusiness = integrationDistributionsBusiness;
             _integralInitializationHelper = integralInitializationHelper;
             _parseDoubleHelper = parseDoubleHelper;
         }
@@ -79,12 +84,61 @@ namespace MScResearchTool.Server.Web.Controllers
                 DownBoundary = lowerBoundParsed,
                 Accuracy = integrationVm.Precision,
                 Formula = integrationVm.Formula,
-                IsTrapezoidMethodRequested = _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method)
+                IsTrapezoidMethodRequested = _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method),
+                IsFinished = false,
+                IsTaken = false
             };
 
-            await _integrationTasksBusiness.DistributeAndPersist(integral);
+            await _integrationTasksBusiness.DistributeAndPersistAsync(integral);
 
             return RedirectToAction("Creation", "Tasks");
+        }
+
+        [Route("Api/GetIntegrationTask/{mode}")]
+        [HttpGet]
+        public async Task<IActionResult> GetIntegrationTask(string mode)
+        {
+            if (mode == ECalculationMode.Single.ToString())
+            {
+                var dto = await GetFullTask();
+
+                if (dto != null)
+                {
+                    dto.IsTaken = true;
+                    await _integrationTasksBusiness.UpdateIntegrationTaskAsync(dto);
+                }  
+
+                return Ok(dto);
+            }
+
+            else if (mode == ECalculationMode.Distributed.ToString())
+            {
+                var dto = await GetDistributedTask();
+
+                if(dto != null)
+                {
+                    dto.IsTaken = true;
+                    await _integrationDistributionsBusiness.UpdateIntegrationDistributionAsync(dto);
+                }
+
+                return Ok(dto);
+            }
+
+            else return Ok(null);
+        }
+
+        private async Task<IntegrationTask> GetFullTask()
+        {
+            var result = await _integrationTasksBusiness.ReadAvailableFullIntegrationsAsync();
+
+            return result.FirstOrDefault();
+        }
+
+        private async Task<IntegrationDistribution> GetDistributedTask()
+        {
+            var result = await _integrationDistributionsBusiness.ReadAvailableIntegrationDistributionsAsync();
+
+            return result.FirstOrDefault();
         }
     }
 }

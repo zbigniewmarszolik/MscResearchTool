@@ -15,6 +15,8 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.DownBoundary);
             Map(x => x.IsTrapezoidMethodRequested);
             Map(x => x.Formula);
+            Map(x => x.IsTaken);
+            Map(x => x.IsFinished);
             HasMany(x => x.Distributions)
                 .Inverse()
                 .Cascade.All()

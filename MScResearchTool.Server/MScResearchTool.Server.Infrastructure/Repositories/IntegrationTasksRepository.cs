@@ -61,5 +61,24 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
 
             return integrationTasks;
         }
+
+        public void Update(IntegrationTask integrationTask)
+        {
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    var tx = session.BeginTransaction();
+
+                    session.Update(integrationTask);
+
+                    tx.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

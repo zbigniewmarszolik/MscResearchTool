@@ -6,8 +6,11 @@ namespace MScResearchTool.Server.Core.Businesses
 {
     public interface IIntegrationTasksBusiness
     {
-        Task DistributeAndPersist(IntegrationTask integrationTask);
-        Task<IList<IntegrationTask>> ReadAllIntegrationTasks();
-        Task CascadeDelete(int taskId);
+        Task DistributeAndPersistAsync(IntegrationTask integrationTask);
+        Task<IList<IntegrationTask>> ReadAllIntegrationTasksAsync();
+        Task CascadeDeleteAsync(int taskId);
+        Task<IList<IntegrationTask>> ReadAvailableFullIntegrationsAsync();
+        Task UpdateIntegrationTaskAsync(IntegrationTask integrationTask);
+        Task<IntegrationTask> ReadByIdAsync(int taskId);
     }
 }

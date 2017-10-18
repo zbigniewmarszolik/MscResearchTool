@@ -4,6 +4,7 @@ using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Core.Repositories;
 using System.Collections.Generic;
 using MScResearchTool.Server.Core.Factories;
+using System.Linq;
 
 namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
@@ -20,7 +21,23 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             _integrationDistributionFactory = integrationDistributionFactory;
         }
 
-        public async Task DistributeAndPersist(IntegrationTask integrationTask)
+        public async Task CascadeDeleteAsync(int taskId)
+        {
+            await Task.Run(() =>
+            {
+                _integrationTasksRepository.Delete(taskId);
+            });
+        }
+
+        public async Task UpdateIntegrationTaskAsync(IntegrationTask integrationTask)
+        {
+            await Task.Run(() =>
+            {
+                _integrationTasksRepository.Update(integrationTask);
+            });
+        }
+
+        public async Task DistributeAndPersistAsync(IntegrationTask integrationTask)
         {
             await Task.Run(() =>
             {
@@ -30,15 +47,26 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             });
         }
 
-        public async Task CascadeDelete(int taskId)
+        public async Task<IList<IntegrationTask>> ReadAllIntegrationTasksAsync()
         {
-            await Task.Run(() =>
-            {
-                _integrationTasksRepository.Delete(taskId);
-            });
+            return await ReadIntegrationTasks();
         }
 
-        public async Task<IList<IntegrationTask>> ReadAllIntegrationTasks()
+        public async Task<IList<IntegrationTask>> ReadAvailableFullIntegrationsAsync()
+        {
+            var resultSet = await ReadIntegrationTasks();
+
+            return resultSet.Where(x => !x.IsTaken).ToList();
+        }
+
+        public async Task<IntegrationTask> ReadByIdAsync(int taskId)
+        {
+            var singleResult = await ReadIntegrationTasks();
+
+            return singleResult.Where(x => x.Id == taskId).First();
+        }
+
+        private async Task<IList<IntegrationTask>> ReadIntegrationTasks()
         {
             IList<IntegrationTask> results = null;
 
@@ -46,6 +74,11 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             {
                 results = _integrationTasksRepository.Read();
             });
+
+            foreach(var item in results)
+            {
+                item.Distributions = null;
+            }
 
             return results;
         }

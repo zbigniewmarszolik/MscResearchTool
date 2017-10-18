@@ -61,5 +61,24 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
 
             return integrationDistributions;
         }
+
+        public void Update(IntegrationDistribution integrationDistribution)
+        {
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    var tx = session.BeginTransaction();
+
+                    session.Update(integrationDistribution);
+
+                    tx.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

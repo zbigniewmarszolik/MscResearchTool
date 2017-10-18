@@ -7,6 +7,7 @@ namespace MScResearchTool.Server.Core.Repositories
     {
         void Create(IntegrationTask integrationTask);
         IList<IntegrationTask> Read();
+        void Update(IntegrationTask integrationTask);
         void Delete(int integrationTaskId);
     }
 }
