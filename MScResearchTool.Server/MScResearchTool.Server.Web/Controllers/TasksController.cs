@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
-    public class CollectionController : Controller
+    public class TasksController : Controller
     {
         private IIntegrationTasksBusiness _integrationsTasksBusiness { get; set; }
         private ITaskVMFactory<TaskViewModel> _taskVMFactory { get; set; }
 
-        public CollectionController
+        public TasksController
             (IIntegrationTasksBusiness integrationTasksBusiness,
             ITaskVMFactory<TaskViewModel> taskVMFactory)
         {
@@ -28,12 +28,17 @@ namespace MScResearchTool.Server.Web.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> DeleteTask(int deleteId, string taskType)
+        public async Task<IActionResult> DeleteGenericTask(int deleteId, string taskType)
         {
             if (taskType.Contains("integration"))
                 await _integrationsTasksBusiness.CascadeDelete(deleteId);
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Creation()
+        {
+            return View();
         }
     }
 }

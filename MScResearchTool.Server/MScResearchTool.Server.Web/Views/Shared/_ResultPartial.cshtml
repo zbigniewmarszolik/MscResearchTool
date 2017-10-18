@@ -2,10 +2,10 @@
 
 <div class="info-container">
     <button class="info-button" onclick="if (confirm('Are you sure to remove this report?'))
-            location.href='@Url.Action("DeleteReport", "Home", new { removeId = @Model.Id })'">
+            location.href='@Url.Action("DeleteReport", "Reports", new { removeId = @Model.Id })'">
         Delete
     </button>
-    <button class="info-button" onclick="location.href='@Url.Action("DownloadReport", "Home", new { downloadId = @Model.Id })'">
+    <button class="info-button" onclick="location.href='@Url.Action("DownloadReport", "Reports", new { downloadId = @Model.Id })'">
         Download
     </button>
     <span class="info-value">Report for @Model.Title generated on @Model.GenerationDate.</span>

@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
-    public class TaskController : Controller
+    public class IntegrationsController : Controller
     {
         private IIntegrationTasksBusiness _integrationTasksBusiness { get; set; }
         private IIntegralInitializationHelper _integralInitializationHelper { get; set; }
         private IParseDoubleHelper _parseDoubleHelper { get; set; }
 
-        public TaskController
+        public IntegrationsController
             (IIntegrationTasksBusiness integrationTasksBusiness,
             IIntegralInitializationHelper integralInitializationHelper,
             IParseDoubleHelper parseDoubleHelper)
@@ -27,19 +27,14 @@ namespace MScResearchTool.Server.Web.Controllers
         public IActionResult Index()
         {
             ViewData["InputError"] = null;
-            return View();
-        }
-
-        public IActionResult CreateIntegration()
-        {
-            ViewData["InputError"] = null;
 
             var vm = new IntegrationViewModel()
             {
                 Formula = "x*sin(x)",
                 Precision = 1000,
                 UpperLimit = "100",
-                LowerLimit = "0"
+                LowerLimit = "0",
+                IntervalsCount = 2
             };
 
             return View(vm);
@@ -47,9 +42,15 @@ namespace MScResearchTool.Server.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateIntegration(IntegrationViewModel integrationVm)
+        public async Task<IActionResult> Index(IntegrationViewModel integrationVm)
         {
             ViewData["InputError"] = null;
+
+            if (integrationVm.IntervalsCount < 2)
+            {
+                ViewData["InputError"] = "Number of intervals must be at least 2 or greater.";
+                return View(integrationVm);
+            }
 
             var testFormula = _integralInitializationHelper.IsFormulaCorrectForCSharp(integrationVm.Formula);
 
@@ -83,7 +84,7 @@ namespace MScResearchTool.Server.Web.Controllers
 
             await _integrationTasksBusiness.DistributeAndPersist(integral);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Creation", "Tasks");
         }
     }
 }

@@ -9,16 +9,13 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
     public class IntegrationTasksBusiness : IIntegrationTasksBusiness
     {
-        private IIntegrationDistributionsRepository _integrationDistributionsRepository { get; set; }
         private IIntegrationTasksRepository _integrationTasksRepository { get; set; }
         private IIntegrationDistributionFactory _integrationDistributionFactory { get; set; }
 
         public IntegrationTasksBusiness
-            (IIntegrationDistributionsRepository integrationDistributionsRepository,
-            IIntegrationTasksRepository integrationTasksRepository,
+            (IIntegrationTasksRepository integrationTasksRepository,
             IIntegrationDistributionFactory integrationDistributionFactory)
         {
-            _integrationDistributionsRepository = integrationDistributionsRepository;
             _integrationTasksRepository = integrationTasksRepository;
             _integrationDistributionFactory = integrationDistributionFactory;
         }

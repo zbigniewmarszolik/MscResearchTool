@@ -52,7 +52,7 @@ namespace MScResearchTool.Server.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Reports/Error");
             }
 
             app.Use(async (context, next) =>
@@ -60,7 +60,7 @@ namespace MScResearchTool.Server.Web
                 await next();
                 if (context.Response.StatusCode == 404)
                 {
-                    context.Request.Path = "/Home/Error/";
+                    context.Request.Path = "/Reports/Error/";
                     await next();
                 }
             });
@@ -71,7 +71,7 @@ namespace MScResearchTool.Server.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Reports}/{action=Index}/{id?}");
             });
         }
 

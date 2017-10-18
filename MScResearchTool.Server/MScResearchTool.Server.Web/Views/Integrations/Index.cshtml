@@ -5,7 +5,7 @@
 }
 
 <div class="input-form">
-    <form method="post" action="@Url.Action("CreateIntegration", "Task")" enctype="multipart/form-data">
+    <form method="post" action="@Url.Action("Index", "Integrations")" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
         <label for="formula">Integration formula:</label>
         <br />

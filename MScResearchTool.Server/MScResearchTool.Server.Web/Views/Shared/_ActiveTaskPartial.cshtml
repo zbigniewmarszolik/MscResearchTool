@@ -2,6 +2,6 @@
 
 <div class="info-container">
     <button class="info-button" onclick="if (confirm('Are you sure to remove this task?'))
-            location.href='@Url.Action("DeleteTask", "Collection", new { deleteId = @Model.ModelId, taskType = Model.TaskType })'">Delete task</button>
+            location.href='@Url.Action("DeleteGenericTask", "Tasks", new { deleteId = @Model.ModelId, taskType = Model.TaskType })'">Delete task</button>
     <span class="info-value">@Model.TaskType distributed for @Model.DroidsCount mobile devices, created on @Model.CreationDate.</span>
 </div>

@@ -6,9 +6,9 @@ using System;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
-    public class HomeController : Controller
+    public class ReportsController : Controller
     {
-        public HomeController()
+        public ReportsController()
         {
 
         }
