@@ -8,6 +8,7 @@ namespace MScResearchTool.Server.Web.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<IntegralFormulaHelper>().As<IntegralFormulaHelper>();
+            builder.RegisterType<ParseDoubleHelper>().As<ParseDoubleHelper>();
         }
     }
 }

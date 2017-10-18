@@ -5,7 +5,7 @@ namespace MScResearchTool.Server.Core.Models
 {
     public class IntegrationTask : IntegrationBase
     {
-        public virtual int AmountOfDroids { get; set; }
+        public virtual int DroidIntervals { get; set; }
         public IList<IntegrationDistribution> Distributions { get; set; }
     }
 }
