@@ -42,5 +42,11 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MScResearchTool.Windows.Domain\MScResearchTool.Windows.Domain.csproj">
+      <Project>{abccb3e9-6900-4c9f-82ab-b47f0543e3cf}</Project>
+      <Name>MScResearchTool.Windows.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

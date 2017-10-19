@@ -121,6 +121,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MScResearchTool.Windows.Binder\MScResearchTool.Windows.Binder.csproj">
+      <Project>{8ee350d7-6e18-45b1-8f42-a8f085e33c48}</Project>
+      <Name>MScResearchTool.Windows.Binder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MScResearchTool.Windows.Domain\MScResearchTool.Windows.Domain.csproj">
       <Project>{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}</Project>
       <Name>MScResearchTool.Windows.Domain</Name>
