@@ -13,5 +13,7 @@ namespace MScResearchTool.Server.Core.Models
         public virtual double PartialResult { get; set; }
         public virtual double FullTime { get; set; }
         public virtual double PartialTime { get; set; }
+        public virtual int DesktopRAM { get; set; }
+        public virtual string DesktopCPU { get; set; }
     }
 }

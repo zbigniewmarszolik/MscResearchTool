@@ -5,5 +5,9 @@ namespace MScResearchTool.Server.Core.Models
     public class IntegrationDistribution : IntegrationBase
     {
         public virtual Integration Task { get; set; }
+
+        // Result properties:
+        public virtual int DeviceRAM { get; set; }
+        public virtual string DeviceCPU { get; set; }
     }
 }

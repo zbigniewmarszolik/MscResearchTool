@@ -17,6 +17,12 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.Formula);
             Map(x => x.IsAvailable);
             Map(x => x.IsFinished);
+            Map(x => x.FullResult);
+            Map(x => x.PartialResult);
+            Map(x => x.FullTime);
+            Map(x => x.PartialTime);
+            Map(x => x.DesktopRAM);
+            Map(x => x.DesktopCPU);
             HasMany(x => x.Distributions)
                 .Inverse()
                 .Cascade.All()

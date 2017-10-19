@@ -9,7 +9,7 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
         {
             var instance = new IntegrationDistribution()
             {
-                Accuracy = task.Accuracy/task.DroidIntervals,
+                Accuracy = task.Accuracy / task.DroidIntervals,
                 CreationDate = task.CreationDate,
                 DownBoundary = downLimit,
                 UpBoundary = upLimit,
@@ -17,7 +17,9 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
                 IsTrapezoidMethodRequested = task.IsTrapezoidMethodRequested,
                 Task = task,
                 IsAvailable = true,
-                IsFinished = false
+                IsFinished = false,
+                DeviceRAM = 0,
+                DeviceCPU = "Unknown"
             };
 
             return instance;

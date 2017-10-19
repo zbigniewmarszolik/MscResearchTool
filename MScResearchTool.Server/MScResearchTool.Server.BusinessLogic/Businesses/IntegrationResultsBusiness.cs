@@ -29,10 +29,12 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                 var eagerDistribution = eagerDistributions.FirstOrDefault(x => x.Id == result.Id);
 
                 eagerDistribution.IsFinished = true;
+                eagerDistribution.DeviceRAM = result.RAM;
+                eagerDistribution.DeviceCPU = result.CPU;
 
                 var integration = await _integrationsBusiness.ReadByIdAsync(eagerDistribution.Task.Id);
-                integration.PartialTime = result.ElapsedSeconds;
-                integration.PartialResult = result.Result;
+                integration.PartialTime += result.ElapsedSeconds;
+                integration.PartialResult += result.Result;
 
                 await _integrationDistributionsBusiness.UpdateAsync(eagerDistribution);
                 await _integrationsBusiness.UpdateAsync(integration);
@@ -47,6 +49,8 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                 integration.IsFinished = true;
                 integration.FullTime = result.ElapsedSeconds;
                 integration.FullResult = result.Result;
+                integration.DesktopRAM = result.RAM;
+                integration.DesktopCPU = result.CPU;
 
                 await _integrationsBusiness.UpdateAsync(integration);
 
