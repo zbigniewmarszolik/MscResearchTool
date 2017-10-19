@@ -6,6 +6,7 @@ namespace MScResearchTool.Server.Core.Businesses
 {
     public interface IIntegrationDistributionsBusiness
     {
+        Task<IList<IntegrationDistribution>> ReadAllEagerAsync();
         Task<IList<IntegrationDistribution>> ReadAvailableAsync();
         Task<IntegrationDistribution> ReadByIdAsync(int distributionId);
         Task UpdateAsync(IntegrationDistribution integrationDistribution);

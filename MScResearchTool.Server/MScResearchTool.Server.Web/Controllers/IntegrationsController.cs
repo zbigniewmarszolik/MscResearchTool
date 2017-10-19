@@ -14,6 +14,7 @@ namespace MScResearchTool.Server.Web.Controllers
     {
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
+        private IIntegrationResultsBusiness _integrationResultsBusiness { get; set; }
         private IIntegrationFactory _integrationFactory { get; set; }
         private IViewModelFactory<IntegrationViewModel> _integrationVMFactory { get; set; }
         private IIntegralInitializationHelper _integralInitializationHelper { get; set; }
@@ -22,6 +23,7 @@ namespace MScResearchTool.Server.Web.Controllers
         public IntegrationsController
             (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
+            IIntegrationResultsBusiness integrationResultsBusiness,
             IIntegrationFactory integrationFactory,
             IViewModelFactory<IntegrationViewModel> integrationVMFactory,
             IIntegralInitializationHelper integralInitializationHelper,
@@ -29,6 +31,7 @@ namespace MScResearchTool.Server.Web.Controllers
         {
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
+            _integrationResultsBusiness = integrationResultsBusiness;
             _integrationFactory = integrationFactory;
             _integrationVMFactory = integrationVMFactory;
             _integralInitializationHelper = integralInitializationHelper;
@@ -85,6 +88,15 @@ namespace MScResearchTool.Server.Web.Controllers
             await _integrationsBusiness.DistributeAndPersistAsync(integral);
 
             return RedirectToAction("Creation", "Tasks");
+        }
+
+        [Route("Api/PostIntegrationResult/{mode}")]
+        [HttpPut]
+        public async Task<IActionResult> PostIntegrationResult([FromBody]IntegrationResult integrated)
+        {
+            await _integrationResultsBusiness.ProcessResultAsync(integrated);
+
+            return Ok();
         }
 
         [Route("Api/GetIntegration/{mode}")]

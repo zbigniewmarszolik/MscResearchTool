@@ -16,6 +16,18 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             _integrationDistributionsRepository = integrationDistributionsRepository;
         }
 
+        public async Task<IList<IntegrationDistribution>> ReadAllEagerAsync()
+        {
+            IList<IntegrationDistribution> results = null;
+
+            await Task.Run(() =>
+            {
+                results = _integrationDistributionsRepository.ReadEager();
+            });
+
+            return results;
+        }
+
         public async Task<IList<IntegrationDistribution>> ReadAvailableAsync()
         {
             var resultSet = await ReadIntegrationDistributionsAsync();

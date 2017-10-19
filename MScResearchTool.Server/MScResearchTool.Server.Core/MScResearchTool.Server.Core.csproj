@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Businesses\IIntegrationDistributionsBusiness.cs" />
+    <Compile Include="Businesses\IIntegrationResultsBusiness.cs" />
     <Compile Include="Businesses\IIntegrationsBusiness.cs" />
     <Compile Include="Businesses\IReportsBusiness.cs" />
     <Compile Include="Businesses\ITaskInfoBusiness.cs" />

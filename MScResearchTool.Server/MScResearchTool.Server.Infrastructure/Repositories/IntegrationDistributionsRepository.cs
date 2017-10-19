@@ -44,6 +44,25 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             return integrationDistributions;
         }
 
+        public IList<IntegrationDistribution> ReadEager()
+        {
+            IList<IntegrationDistribution> integrationDistributions;
+
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    integrationDistributions = session.Query<IntegrationDistribution>().Fetch(x => x.Task).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                integrationDistributions = null;
+            }
+
+            return integrationDistributions;
+        }
+
         public void Update(IntegrationDistribution integrationDistribution)
         {
             try
