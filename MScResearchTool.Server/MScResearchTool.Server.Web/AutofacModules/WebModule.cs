@@ -13,7 +13,9 @@ namespace MScResearchTool.Server.Web.AutofacModules
         {
             builder.RegisterType<IntegralInitializationHelper>().As<IIntegralInitializationHelper>();
             builder.RegisterType<ParseDoubleHelper>().As<IParseDoubleHelper>();
-            builder.RegisterType<TaskVMFactory>().As<ITaskVMFactory<TaskViewModel>>();
+            builder.RegisterType<IntegrationFactory>().As<IIntegrationFactory>();
+            builder.RegisterType<TaskVMFactory>().As<IViewModelFactory<TaskViewModel>>();
+            builder.RegisterType<IntegrationVMFactory>().As<IViewModelFactory<IntegrationViewModel>>();
         }
     }
 }

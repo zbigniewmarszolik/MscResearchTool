@@ -7,15 +7,20 @@ using System.Linq;
 
 namespace MScResearchTool.Server.Web.Factories
 {
-    public class TaskVMFactory : ITaskVMFactory<TaskViewModel>
+    public class TaskVMFactory : IViewModelFactory<TaskViewModel>
     {
+        public TaskViewModel GetInstance()
+        {
+            return new TaskViewModel();
+        }
+
         public IList<TaskViewModel> GetCollection(IList<Integration> integrations)
         {
-            var taskViewModels = new List<TaskViewModel>();
+            var collection = new List<TaskViewModel>();
 
             foreach (var item in integrations)
             {
-                var viewModelComponent = new TaskViewModel()
+                var collectionElement = new TaskViewModel()
                 {
                     CreationDate = item.CreationDate,
                     DroidsCount = item.DroidIntervals,
@@ -23,35 +28,35 @@ namespace MScResearchTool.Server.Web.Factories
                 };
 
                 if (item.IsTrapezoidMethodRequested)
-                    viewModelComponent.TaskType = ETaskType.Trapezoid_integration.ToString();
+                    collectionElement.TaskType = ETaskType.Trapezoid_integration.ToString();
 
-                else viewModelComponent.TaskType = ETaskType.Square_integration.ToString();
+                else collectionElement.TaskType = ETaskType.Square_integration.ToString();
 
-                if (!item.IsFinished && item.IsTaken)
-                    viewModelComponent.TaskStatus = "Main task stuck. ";
+                if (!item.IsFinished && !item.IsAvailable)
+                    collectionElement.TaskStatus = "Main task in progress (or stuck). ";
 
                 else if (item.IsFinished)
-                    viewModelComponent.TaskStatus = "Main task finished. ";
+                    collectionElement.TaskStatus = "Main task finished. ";
 
-                else viewModelComponent.TaskStatus = "Main task waiting. ";
+                else collectionElement.TaskStatus = "Main task waiting. ";
 
-                if (item.Distributions.Any(x => x.IsTaken && !x.IsFinished))
-                    viewModelComponent.TaskStatus += "One of more distributions stuck.";
+                if (item.Distributions.Any(x => !x.IsAvailable && !x.IsFinished))
+                    collectionElement.TaskStatus += "One of more distributions in progress (or stuck).";
 
                 else if (item.Distributions.All(x => x.IsFinished))
-                    viewModelComponent.TaskStatus += "All distributions finished.";
+                    collectionElement.TaskStatus += "All distributions finished.";
 
-                else viewModelComponent.TaskStatus += "Distributions waiting.";
+                else collectionElement.TaskStatus += "Distributions waiting.";
 
-                taskViewModels.Add(viewModelComponent);
+                collection.Add(collectionElement);
             }
 
-            foreach (var item in taskViewModels)
+            foreach (var item in collection)
             {
                 item.FixTaskType();
             }
 
-            return taskViewModels;
+            return collection;
         }
     }
 }

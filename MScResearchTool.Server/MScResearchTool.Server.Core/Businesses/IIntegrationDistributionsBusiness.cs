@@ -10,5 +10,6 @@ namespace MScResearchTool.Server.Core.Businesses
         Task<IntegrationDistribution> ReadByIdAsync(int distributionId);
         Task UpdateAsync(IntegrationDistribution integrationDistribution);
         Task UnstuckTakenAsync();
+        Task UnstuckByIdAsync(int distributionId);
     }
 }

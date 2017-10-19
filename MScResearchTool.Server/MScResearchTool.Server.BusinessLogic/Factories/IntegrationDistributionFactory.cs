@@ -16,7 +16,7 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
                 Formula = task.Formula,
                 IsTrapezoidMethodRequested = task.IsTrapezoidMethodRequested,
                 Task = task,
-                IsTaken = false,
+                IsAvailable = true,
                 IsFinished = false
             };
 

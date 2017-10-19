@@ -20,7 +20,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         {
             var resultSet = await ReadIntegrationDistributionsAsync();
 
-            return resultSet.Where(x => !x.IsTaken && !x.IsFinished).ToList();
+            return resultSet.Where(x => x.IsAvailable && !x.IsFinished).ToList();
         }
 
         public async Task<IntegrationDistribution> ReadByIdAsync(int distributionId)
@@ -41,14 +41,28 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         public async Task UnstuckTakenAsync()
         {
             var set = await ReadIntegrationDistributionsAsync();
-            var stuck = set.Where(x => x.IsFinished == false && x.IsTaken == true).ToList();
+            var stuck = set.Where(x => x.IsFinished == false && x.IsAvailable == false).ToList();
 
             await Task.Run(() =>
             {
                 foreach (var item in stuck)
                 {
-                    item.IsTaken = false;
+                    item.IsAvailable = true;
                     _integrationDistributionsRepository.Update(item);
+                }
+            });
+        }
+
+        public async Task UnstuckByIdAsync(int distributionId)
+        {
+            var distribution = await ReadByIdAsync(distributionId);
+
+            await Task.Run(() =>
+            {
+                if(!distribution.IsAvailable)
+                {
+                    distribution.IsAvailable = true;
+                    _integrationDistributionsRepository.Update(distribution);
                 }
             });
         }

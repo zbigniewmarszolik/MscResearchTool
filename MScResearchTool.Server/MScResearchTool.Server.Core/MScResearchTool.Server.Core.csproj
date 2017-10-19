@@ -47,7 +47,8 @@
     <Compile Include="Domain\IntegrationBase.cs" />
     <Compile Include="Domain\ModelBase.cs" />
     <Compile Include="Factories\IIntegrationDistributionFactory.cs" />
-    <Compile Include="Factories\ITaskVMFactory.cs" />
+    <Compile Include="Factories\IIntegrationFactory.cs" />
+    <Compile Include="Factories\IViewModelFactory.cs" />
     <Compile Include="Helpers\IIntegralInitializationHelper.cs" />
     <Compile Include="Helpers\IParseDoubleHelper.cs" />
     <Compile Include="Models\IntegrationDistribution.cs" />

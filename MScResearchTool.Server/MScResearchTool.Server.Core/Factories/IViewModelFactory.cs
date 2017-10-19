@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 namespace MScResearchTool.Server.Core.Factories
 {
-    public interface ITaskVMFactory<TViewModel>
+    public interface IViewModelFactory<TViewModel>
     {
+        TViewModel GetInstance();
         IList<TViewModel> GetCollection(IList<Integration> integrations);
     }
 }

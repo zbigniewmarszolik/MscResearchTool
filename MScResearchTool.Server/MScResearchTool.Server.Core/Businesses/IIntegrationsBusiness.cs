@@ -13,6 +13,7 @@ namespace MScResearchTool.Server.Core.Businesses
         Task<Integration> ReadByIdAsync(int taskId);
         Task UpdateAsync(Integration integrationTask);
         Task UnstuckTakenAsync();
+        Task UnstuckByIdAsync(int taskId);
         Task CascadeDeleteAsync(int taskId);
     }
 }

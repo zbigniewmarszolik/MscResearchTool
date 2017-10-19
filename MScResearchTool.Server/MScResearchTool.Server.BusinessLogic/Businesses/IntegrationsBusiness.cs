@@ -10,14 +10,14 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
     public class IntegrationsBusiness : IIntegrationsBusiness
     {
-        private IIntegrationsRepository _integrationTasksRepository { get; set; }
+        private IIntegrationsRepository _integrationsRepository { get; set; }
         private IIntegrationDistributionFactory _integrationDistributionFactory { get; set; }
 
         public IntegrationsBusiness
-            (IIntegrationsRepository integrationTasksRepository,
+            (IIntegrationsRepository integrationsRepository,
             IIntegrationDistributionFactory integrationDistributionFactory)
         {
-            _integrationTasksRepository = integrationTasksRepository;
+            _integrationsRepository = integrationsRepository;
             _integrationDistributionFactory = integrationDistributionFactory;
         }
 
@@ -27,7 +27,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             {
                 integrationTask.Distributions =  await DistributeIntegrationsAsync(integrationTask);
 
-                _integrationTasksRepository.Create(integrationTask);
+                _integrationsRepository.Create(integrationTask);
             });
         }
 
@@ -42,7 +42,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
             await Task.Run(() =>
             {
-                results = _integrationTasksRepository.ReadEager();
+                results = _integrationsRepository.ReadEager();
             });
 
             return results;
@@ -52,7 +52,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         {
             var resultSet = await ReadIntegrationTasksAsync();
 
-            return resultSet.Where(x => !x.IsTaken && !x.IsFinished).ToList();
+            return resultSet.Where(x => x.IsAvailable && !x.IsFinished).ToList();
         }
 
         public async Task<Integration> ReadByIdAsync(int taskId)
@@ -66,21 +66,35 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         {
             await Task.Run(() =>
             {
-                _integrationTasksRepository.Update(integrationTask);
+                _integrationsRepository.Update(integrationTask);
             });
         }
 
         public async Task UnstuckTakenAsync()
         {
             var set = await ReadIntegrationTasksAsync();
-            var stuck = set.Where(x => x.IsFinished == false && x.IsTaken == true).ToList();
+            var stuck = set.Where(x => x.IsFinished == false && x.IsAvailable == false).ToList();
 
             await Task.Run(() =>
             {
                 foreach (var item in stuck)
                 {
-                    item.IsTaken = false;
-                    _integrationTasksRepository.Update(item);
+                    item.IsAvailable = true;
+                    _integrationsRepository.Update(item);
+                }
+            });
+        }
+
+        public async Task UnstuckByIdAsync(int taskId)
+        {
+            var task = await ReadByIdAsync(taskId);
+
+            await Task.Run(() =>
+            {
+                if(!task.IsAvailable)
+                {
+                    task.IsAvailable = true;
+                    _integrationsRepository.Update(task);
                 }
             });
         }
@@ -89,7 +103,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         {
             await Task.Run(() =>
             {
-                _integrationTasksRepository.Delete(taskId);
+                _integrationsRepository.Delete(taskId);
             });
         }
 
@@ -134,7 +148,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
             await Task.Run(() =>
             {
-                results = _integrationTasksRepository.Read();
+                results = _integrationsRepository.Read();
             });
 
             foreach(var item in results)

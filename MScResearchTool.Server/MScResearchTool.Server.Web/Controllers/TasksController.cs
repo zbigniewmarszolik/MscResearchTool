@@ -10,18 +10,18 @@ namespace MScResearchTool.Server.Web.Controllers
 {
     public class TasksController : Controller
     {
-        private IIntegrationsBusiness _integrationsTasksBusiness { get; set; }
+        private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private ITaskInfoBusiness _taskInfoBusiness { get; set; }
-        private ITaskVMFactory<TaskViewModel> _taskVMFactory { get; set; }
+        private IViewModelFactory<TaskViewModel> _taskVMFactory { get; set; }
 
         public TasksController
-            (IIntegrationsBusiness integrationTasksBusiness,
+            (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             ITaskInfoBusiness taskInfoBusiness,
-            ITaskVMFactory<TaskViewModel> taskVMFactory)
+            IViewModelFactory<TaskViewModel> taskVMFactory)
         {
-            _integrationsTasksBusiness = integrationTasksBusiness;
+            _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
             _taskInfoBusiness = taskInfoBusiness;
             _taskVMFactory = taskVMFactory;
@@ -29,7 +29,7 @@ namespace MScResearchTool.Server.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var integrations = await _integrationsTasksBusiness.ReadAllEagerAsync();
+            var integrations = await _integrationsBusiness.ReadAllEagerAsync();
 
             var vm = _taskVMFactory.GetCollection(integrations);
 
@@ -44,7 +44,18 @@ namespace MScResearchTool.Server.Web.Controllers
         public async Task<IActionResult> DeleteGenericTask(int deleteId, string taskType)
         {
             if (taskType.Contains("integration"))
-                await _integrationsTasksBusiness.CascadeDeleteAsync(deleteId);
+                await _integrationsBusiness.CascadeDeleteAsync(deleteId);
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> UnstuckGenericTask(int unstuckId, string taskType)
+        {
+            if (taskType.Contains("integration"))
+            {
+                await _integrationDistributionsBusiness.UnstuckByIdAsync(unstuckId);
+                await _integrationsBusiness.UnstuckByIdAsync(unstuckId);
+            }
 
             return RedirectToAction("Index");
         }
@@ -52,7 +63,7 @@ namespace MScResearchTool.Server.Web.Controllers
         public async Task<IActionResult> UnstuckAllTasks()
         {
             await _integrationDistributionsBusiness.UnstuckTakenAsync();
-            await _integrationsTasksBusiness.UnstuckTakenAsync();
+            await _integrationsBusiness.UnstuckTakenAsync();
 
             return RedirectToAction("Index");
         }

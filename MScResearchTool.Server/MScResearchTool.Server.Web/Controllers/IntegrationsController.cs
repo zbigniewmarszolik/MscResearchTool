@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
+using MScResearchTool.Server.Core.Factories;
 using MScResearchTool.Server.Core.Helpers;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Core.Types;
 using MScResearchTool.Server.Web.ViewModels;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,19 +12,25 @@ namespace MScResearchTool.Server.Web.Controllers
 {
     public class IntegrationsController : Controller
     {
-        private IIntegrationsBusiness _integrationTasksBusiness { get; set; }
+        private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
+        private IIntegrationFactory _integrationFactory { get; set; }
+        private IViewModelFactory<IntegrationViewModel> _integrationVMFactory { get; set; }
         private IIntegralInitializationHelper _integralInitializationHelper { get; set; }
         private IParseDoubleHelper _parseDoubleHelper { get; set; }
 
         public IntegrationsController
-            (IIntegrationsBusiness integrationTasksBusiness,
+            (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
+            IIntegrationFactory integrationFactory,
+            IViewModelFactory<IntegrationViewModel> integrationVMFactory,
             IIntegralInitializationHelper integralInitializationHelper,
             IParseDoubleHelper parseDoubleHelper)
         {
-            _integrationTasksBusiness = integrationTasksBusiness;
+            _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
+            _integrationFactory = integrationFactory;
+            _integrationVMFactory = integrationVMFactory;
             _integralInitializationHelper = integralInitializationHelper;
             _parseDoubleHelper = parseDoubleHelper;
         }
@@ -33,14 +39,7 @@ namespace MScResearchTool.Server.Web.Controllers
         {
             ViewData["InputError"] = null;
 
-            var vm = new IntegrationViewModel()
-            {
-                Formula = "x*sin(x)",
-                Precision = 1000,
-                UpperLimit = "100",
-                LowerLimit = "0",
-                IntervalsCount = 2
-            };
+            var vm = _integrationVMFactory.GetInstance();
 
             return View(vm);
         }
@@ -76,20 +75,14 @@ namespace MScResearchTool.Server.Web.Controllers
                 return View(integrationVm);
             }
 
-            var integral = new Integration()
-            {
-                CreationDate = DateTime.Now,
-                DroidIntervals = integrationVm.IntervalsCount,
-                UpBoundary = upperBoundParsed,
-                DownBoundary = lowerBoundParsed,
-                Accuracy = integrationVm.Precision,
-                Formula = integrationVm.Formula,
-                IsTrapezoidMethodRequested = _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method),
-                IsFinished = false,
-                IsTaken = false
-            };
+            var integral = _integrationFactory.GetInstance(integrationVm.IntervalsCount,
+                upperBoundParsed,
+                lowerBoundParsed,
+                integrationVm.Precision,
+                integrationVm.Formula,
+                _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method));
 
-            await _integrationTasksBusiness.DistributeAndPersistAsync(integral);
+            await _integrationsBusiness.DistributeAndPersistAsync(integral);
 
             return RedirectToAction("Creation", "Tasks");
         }
@@ -104,8 +97,8 @@ namespace MScResearchTool.Server.Web.Controllers
 
                 if (dto != null)
                 {
-                    dto.IsTaken = true;
-                    await _integrationTasksBusiness.UpdateAsync(dto);
+                    dto.IsAvailable = false;
+                    await _integrationsBusiness.UpdateAsync(dto);
                 }  
 
                 return Ok(dto);
@@ -117,7 +110,7 @@ namespace MScResearchTool.Server.Web.Controllers
 
                 if(dto != null)
                 {
-                    dto.IsTaken = true;
+                    dto.IsAvailable = false;
                     await _integrationDistributionsBusiness.UpdateAsync(dto);
                 }
 
@@ -129,7 +122,7 @@ namespace MScResearchTool.Server.Web.Controllers
 
         private async Task<Integration> GetFullTask()
         {
-            var result = await _integrationTasksBusiness.ReadAvailableAsync();
+            var result = await _integrationsBusiness.ReadAvailableAsync();
 
             return result.FirstOrDefault();
         }

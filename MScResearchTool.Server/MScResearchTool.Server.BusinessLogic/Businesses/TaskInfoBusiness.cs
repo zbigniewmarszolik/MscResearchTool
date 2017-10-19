@@ -6,14 +6,14 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
     public class TaskInfoBusiness : ITaskInfoBusiness
     {
-        private IIntegrationsBusiness _integrationTasksBusiness { get; set; }
+        private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
 
         public TaskInfoBusiness
-            (IIntegrationsBusiness integrationTasksBusiness,
+            (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness)
         {
-            _integrationTasksBusiness = integrationTasksBusiness;
+            _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
         }
 
@@ -23,7 +23,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
             await Task.Run(async () =>
             {
-                var integrationTasks = await _integrationTasksBusiness.ReadAvailableAsync();
+                var integrationTasks = await _integrationsBusiness.ReadAvailableAsync();
                 if (integrationTasks.Count > 0)
                     model.IsIntegrationAvailable = true;
             });

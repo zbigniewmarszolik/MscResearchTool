@@ -17,7 +17,7 @@ namespace MScResearchTool.Server.Core.Domain
         public virtual string Formula { get; set; }
 
         // Status properties:
-        public virtual bool IsTaken { get; set; }
+        public virtual bool IsAvailable { get; set; }
         public virtual bool IsFinished { get; set; }
         public virtual double ElapsedSeconds { get; set; }
     }
