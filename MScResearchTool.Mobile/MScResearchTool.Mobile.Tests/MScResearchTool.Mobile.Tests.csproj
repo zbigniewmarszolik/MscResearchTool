@@ -59,6 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MScResearchTool.Mobile.Android\MScResearchTool.Mobile.Android.csproj">
+      <Project>{39240080-7c03-4eec-997c-44ee7855f5b2}</Project>
+      <Name>MScResearchTool.Mobile.Android</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MScResearchTool.Mobile.BusinessLogic\MScResearchTool.Mobile.BusinessLogic.csproj">
       <Project>{8d109dc8-235e-4896-a80c-56502b3709bf}</Project>
       <Name>MScResearchTool.Mobile.BusinessLogic</Name>
