@@ -1,0 +1,74 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.WPF", "MScResearchTool.Windows.WPF\MScResearchTool.Windows.WPF.csproj", "{0CBF9D6B-B27E-470B-AE6A-994C24539C30}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8EE350D7-6E18-45B1-8F42-A8F085E33C48} = {8EE350D7-6E18-45B1-8F42-A8F085E33C48}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Binder", "MScResearchTool.Windows.Binder\MScResearchTool.Windows.Binder.csproj", "{8EE350D7-6E18-45B1-8F42-A8F085E33C48}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE473507-7326-42F7-8FD6-62B4C583AA93} = {CE473507-7326-42F7-8FD6-62B4C583AA93}
+		{B99B1DCF-E9AA-483B-9252-48762961420C} = {B99B1DCF-E9AA-483B-9252-48762961420C}
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF} = {ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Services", "MScResearchTool.Windows.Services\MScResearchTool.Windows.Services.csproj", "{B99B1DCF-E9AA-483B-9252-48762961420C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF} = {ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Domain", "MScResearchTool.Windows.Domain\MScResearchTool.Windows.Domain.csproj", "{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Business", "MScResearchTool.Windows.Business\MScResearchTool.Windows.Business.csproj", "{CE473507-7326-42F7-8FD6-62B4C583AA93}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF} = {ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Tests", "MScResearchTool.Windows.Tests\MScResearchTool.Windows.Tests.csproj", "{C5A4C2B2-F99C-40C3-80D1-F662E683C625}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CE473507-7326-42F7-8FD6-62B4C583AA93} = {CE473507-7326-42F7-8FD6-62B4C583AA93}
+		{B99B1DCF-E9AA-483B-9252-48762961420C} = {B99B1DCF-E9AA-483B-9252-48762961420C}
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF} = {ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CBF9D6B-B27E-470B-AE6A-994C24539C30}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CBF9D6B-B27E-470B-AE6A-994C24539C30}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CBF9D6B-B27E-470B-AE6A-994C24539C30}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CBF9D6B-B27E-470B-AE6A-994C24539C30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EE350D7-6E18-45B1-8F42-A8F085E33C48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EE350D7-6E18-45B1-8F42-A8F085E33C48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EE350D7-6E18-45B1-8F42-A8F085E33C48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EE350D7-6E18-45B1-8F42-A8F085E33C48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B99B1DCF-E9AA-483B-9252-48762961420C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B99B1DCF-E9AA-483B-9252-48762961420C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B99B1DCF-E9AA-483B-9252-48762961420C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B99B1DCF-E9AA-483B-9252-48762961420C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE473507-7326-42F7-8FD6-62B4C583AA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE473507-7326-42F7-8FD6-62B4C583AA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE473507-7326-42F7-8FD6-62B4C583AA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE473507-7326-42F7-8FD6-62B4C583AA93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58E59C11-502F-4B0C-9206-BE8764097E73}
+	EndGlobalSection
+EndGlobal
