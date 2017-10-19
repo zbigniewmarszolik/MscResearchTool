@@ -4,6 +4,6 @@ namespace MScResearchTool.Server.Core.Factories
 {
     public interface IIntegrationDistributionFactory
     {
-        IntegrationDistribution GetInstance(IntegrationTask task, double downLimit, double upLimit);
+        IntegrationDistribution GetInstance(Integration task, double downLimit, double upLimit);
     }
 }

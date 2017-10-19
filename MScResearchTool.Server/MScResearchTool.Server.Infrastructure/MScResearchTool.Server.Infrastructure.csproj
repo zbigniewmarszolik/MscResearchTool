@@ -55,11 +55,11 @@
   <ItemGroup>
     <Compile Include="Connectors\FluentNHibernateConnector.cs" />
     <Compile Include="Mappings\IntegrationDistributionMap.cs" />
-    <Compile Include="Mappings\IntegrationTaskMap.cs" />
+    <Compile Include="Mappings\IntegrationMap.cs" />
     <Compile Include="Mappings\ReportMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IntegrationDistributionsRepository.cs" />
-    <Compile Include="Repositories\IntegrationTasksRepository.cs" />
+    <Compile Include="Repositories\IntegrationsRepository.cs" />
     <Compile Include="Repositories\ReportsRepository.cs" />
   </ItemGroup>
   <ItemGroup>

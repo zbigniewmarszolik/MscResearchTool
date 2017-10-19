@@ -9,7 +9,7 @@ namespace MScResearchTool.Server.Binder.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ReportsRepository>().As<IReportsRepository>();
-            builder.RegisterType<IntegrationTasksRepository>().As<IIntegrationTasksRepository>();
+            builder.RegisterType<IntegrationsRepository>().As<IIntegrationsRepository>();
             builder.RegisterType<IntegrationDistributionsRepository>().As<IIntegrationDistributionsRepository>();
         }
     }

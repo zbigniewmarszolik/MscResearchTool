@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace MScResearchTool.Server.Infrastructure.Repositories
 {
-    public class IntegrationTasksRepository : IIntegrationTasksRepository
+    public class IntegrationsRepository : IIntegrationsRepository
     {
-        public void Create(IntegrationTask integrationTask)
+        public void Create(Integration integrationTask)
         {
             try
             {
@@ -22,6 +22,63 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             catch (Exception ex)
             {
 
+            }
+        }
+
+        public IList<Integration> Read()
+        {
+            IList<Integration> integrationTasks;
+
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    integrationTasks = session.Query<Integration>().ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                integrationTasks = null;
+            }
+
+            return integrationTasks;
+        }
+
+        public IList<Integration> ReadEager()
+        {
+            IList<Integration> integrationTasks;
+
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    integrationTasks = session.Query<Integration>().Fetch(x => x.Distributions).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                integrationTasks = null;
+            }
+
+            return integrationTasks;
+        }
+
+        public void Update(Integration integrationTask)
+        {
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    var tx = session.BeginTransaction();
+
+                    session.Update(integrationTask);
+
+                    tx.Commit();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
@@ -40,63 +97,6 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             catch (Exception ex)
             {
 
-            }
-        }
-
-        public IList<IntegrationTask> Read()
-        {
-            IList<IntegrationTask> integrationTasks;
-
-            try
-            {
-                using (var session = FluentNHibernateConnector.OpenSession())
-                {
-                    integrationTasks = session.Query<IntegrationTask>().ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                integrationTasks = null;
-            }
-
-            return integrationTasks;
-        }
-
-        public IList<IntegrationTask> ReadEager()
-        {
-            IList<IntegrationTask> integrationTasks;
-
-            try
-            {
-                using (var session = FluentNHibernateConnector.OpenSession())
-                {
-                    integrationTasks = session.Query<IntegrationTask>().Fetch(x => x.Distributions).ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                integrationTasks = null;
-            }
-
-            return integrationTasks;
-        }
-
-        public void Update(IntegrationTask integrationTask)
-        {
-            try
-            {
-                using (var session = FluentNHibernateConnector.OpenSession())
-                {
-                    var tx = session.BeginTransaction();
-
-                    session.Update(integrationTask);
-
-                    tx.Commit();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
             }
         }
     }

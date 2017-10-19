@@ -17,8 +17,8 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.IsTaken);
             Map(x => x.IsFinished);
             References(x => x.Task)
-                .Column("IntegrationTaskId");
-            Table("integrationDistributions");
+                .Column("IntegrationId");
+            Table("distributed_integrations");
         }
     }
 }

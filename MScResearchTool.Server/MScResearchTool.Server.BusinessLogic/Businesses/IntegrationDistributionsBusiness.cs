@@ -16,7 +16,21 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             _integrationDistributionsRepository = integrationDistributionsRepository;
         }
 
-        public async Task UpdateIntegrationDistributionAsync(IntegrationDistribution integrationDistribution)
+        public async Task<IList<IntegrationDistribution>> ReadAvailableAsync()
+        {
+            var resultSet = await ReadIntegrationDistributionsAsync();
+
+            return resultSet.Where(x => !x.IsTaken && !x.IsFinished).ToList();
+        }
+
+        public async Task<IntegrationDistribution> ReadByIdAsync(int distributionId)
+        {
+            var singleResult = await ReadIntegrationDistributionsAsync();
+
+            return singleResult.Where(x => x.Id == distributionId).First();
+        }
+
+        public async Task UpdateAsync(IntegrationDistribution integrationDistribution)
         {
             await Task.Run(() =>
             {
@@ -24,7 +38,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             });
         }
 
-        public async Task UnstuckTakenDistributionsAsync()
+        public async Task UnstuckTakenAsync()
         {
             var set = await ReadIntegrationDistributionsAsync();
             var stuck = set.Where(x => x.IsFinished == false && x.IsTaken == true).ToList();
@@ -37,20 +51,6 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     _integrationDistributionsRepository.Update(item);
                 }
             });
-        }
-
-        public async Task<IList<IntegrationDistribution>> ReadAvailableIntegrationDistributionsAsync()
-        {
-            var resultSet = await ReadIntegrationDistributionsAsync();
-
-            return resultSet.Where(x => !x.IsTaken && !x.IsFinished).ToList();
-        }
-
-        public async Task<IntegrationDistribution> ReadByIdAsync(int distributionId)
-        {
-            var singleResult = await ReadIntegrationDistributionsAsync();
-
-            return singleResult.Where(x => x.Id == distributionId).First();
         }
 
         private async Task<IList<IntegrationDistribution>> ReadIntegrationDistributionsAsync()

@@ -25,24 +25,6 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             }
         }
 
-        public void Delete(int integrationDistributionId)
-        {
-            try
-            {
-                using (var session = FluentNHibernateConnector.OpenSession())
-                {
-                    var distributionToDelete = session.Get("IntegrationDistribution", integrationDistributionId);
-
-                    session.Delete(distributionToDelete);
-                    session.Flush();
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
         public IList<IntegrationDistribution> Read()
         {
             IList<IntegrationDistribution> integrationDistributions;
@@ -78,6 +60,24 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             catch (Exception ex)
             {
                 throw ex;
+            }
+        }
+
+        public void Delete(int integrationDistributionId)
+        {
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    var distributionToDelete = session.Get("IntegrationDistribution", integrationDistributionId);
+
+                    session.Delete(distributionToDelete);
+                    session.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

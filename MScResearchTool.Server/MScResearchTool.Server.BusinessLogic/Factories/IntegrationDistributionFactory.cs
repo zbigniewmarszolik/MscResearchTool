@@ -5,7 +5,7 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
 {
     public class IntegrationDistributionFactory : IIntegrationDistributionFactory
     {
-        public IntegrationDistribution GetInstance(IntegrationTask task, double downLimit, double upLimit)
+        public IntegrationDistribution GetInstance(Integration task, double downLimit, double upLimit)
         {
             var instance = new IntegrationDistribution()
             {

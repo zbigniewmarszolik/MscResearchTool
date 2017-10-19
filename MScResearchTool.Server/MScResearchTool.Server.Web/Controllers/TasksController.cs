@@ -10,13 +10,13 @@ namespace MScResearchTool.Server.Web.Controllers
 {
     public class TasksController : Controller
     {
-        private IIntegrationTasksBusiness _integrationsTasksBusiness { get; set; }
+        private IIntegrationsBusiness _integrationsTasksBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private ITaskInfoBusiness _taskInfoBusiness { get; set; }
         private ITaskVMFactory<TaskViewModel> _taskVMFactory { get; set; }
 
         public TasksController
-            (IIntegrationTasksBusiness integrationTasksBusiness,
+            (IIntegrationsBusiness integrationTasksBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             ITaskInfoBusiness taskInfoBusiness,
             ITaskVMFactory<TaskViewModel> taskVMFactory)
@@ -29,7 +29,7 @@ namespace MScResearchTool.Server.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var integrations = await _integrationsTasksBusiness.ReadAllIntegrationTasksEagerAsync();
+            var integrations = await _integrationsTasksBusiness.ReadAllEagerAsync();
 
             var vm = _taskVMFactory.GetCollection(integrations);
 
@@ -51,8 +51,8 @@ namespace MScResearchTool.Server.Web.Controllers
 
         public async Task<IActionResult> UnstuckAllTasks()
         {
-            await _integrationDistributionsBusiness.UnstuckTakenDistributionsAsync();
-            await _integrationsTasksBusiness.UnstuckTakenTasksAsync();
+            await _integrationDistributionsBusiness.UnstuckTakenAsync();
+            await _integrationsTasksBusiness.UnstuckTakenAsync();
 
             return RedirectToAction("Index");
         }

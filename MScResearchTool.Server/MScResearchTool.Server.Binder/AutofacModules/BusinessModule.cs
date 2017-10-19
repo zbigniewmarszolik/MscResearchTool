@@ -11,7 +11,7 @@ namespace MScResearchTool.Server.Binder.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<ReportsBusiness>().As<IReportsBusiness>();
-            builder.RegisterType<IntegrationTasksBusiness>().As<IIntegrationTasksBusiness>();
+            builder.RegisterType<IntegrationsBusiness>().As<IIntegrationsBusiness>();
             builder.RegisterType<IntegrationDistributionsBusiness>().As<IIntegrationDistributionsBusiness>();
             builder.RegisterType<TaskInfoBusiness>().As<ITaskInfoBusiness>();
             builder.RegisterType<IntegrationDistributionFactory>().As<IIntegrationDistributionFactory>();

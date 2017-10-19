@@ -4,6 +4,6 @@ namespace MScResearchTool.Server.Core.Models
 {
     public class IntegrationDistribution : IntegrationBase
     {
-        public virtual IntegrationTask Task { get; set; }
+        public virtual Integration Task { get; set; }
     }
 }

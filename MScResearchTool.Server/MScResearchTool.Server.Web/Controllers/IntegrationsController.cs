@@ -12,13 +12,13 @@ namespace MScResearchTool.Server.Web.Controllers
 {
     public class IntegrationsController : Controller
     {
-        private IIntegrationTasksBusiness _integrationTasksBusiness { get; set; }
+        private IIntegrationsBusiness _integrationTasksBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private IIntegralInitializationHelper _integralInitializationHelper { get; set; }
         private IParseDoubleHelper _parseDoubleHelper { get; set; }
 
         public IntegrationsController
-            (IIntegrationTasksBusiness integrationTasksBusiness,
+            (IIntegrationsBusiness integrationTasksBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             IIntegralInitializationHelper integralInitializationHelper,
             IParseDoubleHelper parseDoubleHelper)
@@ -76,7 +76,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 return View(integrationVm);
             }
 
-            var integral = new IntegrationTask()
+            var integral = new Integration()
             {
                 CreationDate = DateTime.Now,
                 DroidIntervals = integrationVm.IntervalsCount,
@@ -94,9 +94,9 @@ namespace MScResearchTool.Server.Web.Controllers
             return RedirectToAction("Creation", "Tasks");
         }
 
-        [Route("Api/GetIntegrationTask/{mode}")]
+        [Route("Api/GetIntegration/{mode}")]
         [HttpGet]
-        public async Task<IActionResult> GetIntegrationTask(string mode)
+        public async Task<IActionResult> GetIntegration(string mode)
         {
             if (mode == ECalculationMode.Single.ToString())
             {
@@ -105,7 +105,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 if (dto != null)
                 {
                     dto.IsTaken = true;
-                    await _integrationTasksBusiness.UpdateIntegrationTaskAsync(dto);
+                    await _integrationTasksBusiness.UpdateAsync(dto);
                 }  
 
                 return Ok(dto);
@@ -118,7 +118,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 if(dto != null)
                 {
                     dto.IsTaken = true;
-                    await _integrationDistributionsBusiness.UpdateIntegrationDistributionAsync(dto);
+                    await _integrationDistributionsBusiness.UpdateAsync(dto);
                 }
 
                 return Ok(dto);
@@ -127,16 +127,16 @@ namespace MScResearchTool.Server.Web.Controllers
             else return Ok(null);
         }
 
-        private async Task<IntegrationTask> GetFullTask()
+        private async Task<Integration> GetFullTask()
         {
-            var result = await _integrationTasksBusiness.ReadAvailableFullIntegrationsAsync();
+            var result = await _integrationTasksBusiness.ReadAvailableAsync();
 
             return result.FirstOrDefault();
         }
 
         private async Task<IntegrationDistribution> GetDistributedTask()
         {
-            var result = await _integrationDistributionsBusiness.ReadAvailableIntegrationDistributionsAsync();
+            var result = await _integrationDistributionsBusiness.ReadAvailableAsync();
 
             return result.FirstOrDefault();
         }

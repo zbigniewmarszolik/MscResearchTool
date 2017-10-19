@@ -26,24 +26,6 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             
         }
 
-        public void Delete(int reportId)
-        {
-            try
-            {
-                using (var session = FluentNHibernateConnector.OpenSession())
-                {
-                    var reportToDelete = session.Get("Report", reportId);
-
-                    session.Delete(reportToDelete);
-                    session.Flush();
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
         public IList<Report> Read()
         {
             IList<Report> reports;
@@ -61,6 +43,24 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             }
 
             return reports;
+        }
+
+        public void Delete(int reportId)
+        {
+            try
+            {
+                using (var session = FluentNHibernateConnector.OpenSession())
+                {
+                    var reportToDelete = session.Get("Report", reportId);
+
+                    session.Delete(reportToDelete);
+                    session.Flush();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

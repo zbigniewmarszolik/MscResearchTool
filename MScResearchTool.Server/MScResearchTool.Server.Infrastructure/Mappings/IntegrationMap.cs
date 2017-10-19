@@ -3,9 +3,9 @@ using MScResearchTool.Server.Core.Models;
 
 namespace MScResearchTool.Server.Infrastructure.Mappings
 {
-    public class IntegrationTaskMap : ClassMap<IntegrationTask>
+    public class IntegrationMap : ClassMap<Integration>
     {
-        public IntegrationTaskMap()
+        public IntegrationMap()
         {
             Id(x => x.Id);
             Map(x => x.CreationDate);
@@ -20,8 +20,8 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             HasMany(x => x.Distributions)
                 .Inverse()
                 .Cascade.All()
-                .KeyColumn("IntegrationTaskId");
-            Table("integrationTasks");
+                .KeyColumn("IntegrationId");
+            Table("integrations");
         }
     }
 }
