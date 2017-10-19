@@ -59,6 +59,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MScResearchTool.Server.BusinessLogic\MScResearchTool.Server.BusinessLogic.csproj">
+      <Project>{31d920fb-4aec-4e1b-adc5-61397966d295}</Project>
+      <Name>MScResearchTool.Server.BusinessLogic</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MScResearchTool.Server.Core\MScResearchTool.Server.Core.csproj">
       <Project>{e33a078b-3697-41ba-8611-08ef2cbf39d1}</Project>
       <Name>MScResearchTool.Server.Core</Name>
@@ -66,6 +70,10 @@
     <ProjectReference Include="..\MScResearchTool.Server.Infrastructure\MScResearchTool.Server.Infrastructure.csproj">
       <Project>{6e9740ff-7c61-4f8d-980b-61f9af0f065d}</Project>
       <Name>MScResearchTool.Server.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MScResearchTool.Server.Web\MScResearchTool.Server.Web.csproj">
+      <Project>{de718489-df47-4210-a1a3-a729be12634b}</Project>
+      <Name>MScResearchTool.Server.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
