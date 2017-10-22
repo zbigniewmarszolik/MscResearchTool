@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Autofac;
+using MScResearchTool.Windows.WPF.AutofacModules;
+using System.Windows;
 
 namespace MScResearchTool.Windows.WPF
 {
@@ -8,7 +10,20 @@ namespace MScResearchTool.Windows.WPF
         {
             base.OnStartup(e);
 
-            var setup = new Setup();
+            var container = InitializeContainer();
+
+            var manager =  container.Resolve<ViewManager>();
+
+            manager.Open();
+        }
+
+        private IContainer InitializeContainer()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterModule<UserInterfaceModule>();
+
+            return builder.Build();
         }
     }
 }

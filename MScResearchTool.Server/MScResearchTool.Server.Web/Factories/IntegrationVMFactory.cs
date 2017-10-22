@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using MScResearchTool.Server.Core.Factories;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Web.ViewModels;
 
 namespace MScResearchTool.Server.Web.Factories
 {
-    public class IntegrationVMFactory : IViewModelFactory<IntegrationViewModel>
+    public class IntegrationVMFactory
     {
         public IntegrationViewModel GetInstance()
         {

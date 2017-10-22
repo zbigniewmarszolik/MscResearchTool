@@ -1,5 +1,4 @@
-﻿using MScResearchTool.Server.Core.Helpers;
-using MScResearchTool.Server.Core.Types;
+﻿using MScResearchTool.Server.Core.Types;
 using NCalc;
 using System;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace MScResearchTool.Server.Web.Helpers
 {
-    public class IntegralInitializationHelper : IIntegralInitializationHelper
+    public class IntegralInitializationHelper
     {
         public bool IsFormulaCorrectForCSharp(string integrationFormula)
         {

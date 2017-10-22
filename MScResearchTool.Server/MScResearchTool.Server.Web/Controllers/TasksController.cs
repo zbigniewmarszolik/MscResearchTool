@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
-using MScResearchTool.Server.Core.Factories;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Core.Types;
-using MScResearchTool.Server.Web.ViewModels;
+using MScResearchTool.Server.Web.Factories;
 using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Web.Controllers
@@ -13,13 +12,13 @@ namespace MScResearchTool.Server.Web.Controllers
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private ITaskInfoBusiness _taskInfoBusiness { get; set; }
-        private IViewModelFactory<TaskViewModel> _taskVMFactory { get; set; }
+        private TaskVMFactory _taskVMFactory { get; set; }
 
         public TasksController
             (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             ITaskInfoBusiness taskInfoBusiness,
-            IViewModelFactory<TaskViewModel> taskVMFactory)
+            TaskVMFactory taskVMFactory)
         {
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;

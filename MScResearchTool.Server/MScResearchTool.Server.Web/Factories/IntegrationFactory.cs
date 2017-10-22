@@ -1,10 +1,9 @@
-﻿using MScResearchTool.Server.Core.Factories;
-using MScResearchTool.Server.Core.Models;
+﻿using MScResearchTool.Server.Core.Models;
 using System;
 
 namespace MScResearchTool.Server.Web.Factories
 {
-    public class IntegrationFactory : IIntegrationFactory
+    public class IntegrationFactory
     {
         public Integration GetInstance(int intervals, double upperBound, double lowerBound, int precision, string formula, bool isTrapezoidMethod)
         {

@@ -1,6 +1,6 @@
 ﻿namespace MScResearchTool.Windows.Domain.ViewModels
 {
-    public interface IMainVM
+    public interface IStatusViewModel
     {
     }
 }

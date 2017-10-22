@@ -81,9 +81,18 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AutofacModules\UserInterfaceModule.cs" />
-    <Compile Include="Setup.cs" />
-    <Compile Include="ViewModels\MainVM.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
+    <Compile Include="ViewManager.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SelectionViewModel.cs" />
+    <Compile Include="ViewModels\StatusViewModel.cs" />
+    <Compile Include="Views\SelectionView.xaml.cs">
+      <DependentUpon>SelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatusView.xaml.cs">
+      <DependentUpon>StatusView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewBase.cs" />
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -115,7 +124,15 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\SelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StatusView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

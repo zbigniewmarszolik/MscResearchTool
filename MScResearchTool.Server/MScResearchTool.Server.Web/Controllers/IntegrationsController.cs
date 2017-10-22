@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
-using MScResearchTool.Server.Core.Factories;
-using MScResearchTool.Server.Core.Helpers;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Core.Types;
+using MScResearchTool.Server.Web.Factories;
+using MScResearchTool.Server.Web.Helpers;
 using MScResearchTool.Server.Web.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,19 +15,19 @@ namespace MScResearchTool.Server.Web.Controllers
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private IIntegrationResultsBusiness _integrationResultsBusiness { get; set; }
-        private IIntegrationFactory _integrationFactory { get; set; }
-        private IViewModelFactory<IntegrationViewModel> _integrationVMFactory { get; set; }
-        private IIntegralInitializationHelper _integralInitializationHelper { get; set; }
-        private IParseDoubleHelper _parseDoubleHelper { get; set; }
+        private IntegrationFactory _integrationFactory { get; set; }
+        private IntegrationVMFactory _integrationVMFactory { get; set; }
+        private IntegralInitializationHelper _integralInitializationHelper { get; set; }
+        private ParseDoubleHelper _parseDoubleHelper { get; set; }
 
         public IntegrationsController
             (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             IIntegrationResultsBusiness integrationResultsBusiness,
-            IIntegrationFactory integrationFactory,
-            IViewModelFactory<IntegrationViewModel> integrationVMFactory,
-            IIntegralInitializationHelper integralInitializationHelper,
-            IParseDoubleHelper parseDoubleHelper)
+            IntegrationFactory integrationFactory,
+            IntegrationVMFactory integrationVMFactory,
+            IntegralInitializationHelper integralInitializationHelper,
+            ParseDoubleHelper parseDoubleHelper)
         {
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;

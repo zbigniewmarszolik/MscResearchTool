@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MScResearchTool.Server.Core.Factories;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Web.ViewModels;
 using MScResearchTool.Server.Core.Types;
@@ -7,7 +6,7 @@ using System.Linq;
 
 namespace MScResearchTool.Server.Web.Factories
 {
-    public class TaskVMFactory : IViewModelFactory<TaskViewModel>
+    public class TaskVMFactory
     {
         public TaskViewModel GetInstance()
         {

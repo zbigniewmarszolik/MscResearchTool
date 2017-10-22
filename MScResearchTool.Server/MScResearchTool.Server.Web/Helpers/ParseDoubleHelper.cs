@@ -1,10 +1,9 @@
-﻿using MScResearchTool.Server.Core.Helpers;
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace MScResearchTool.Server.Web.Helpers
 {
-    public class ParseDoubleHelper : IParseDoubleHelper
+    public class ParseDoubleHelper
     {
         public double ParseInvariantCulture(string input)
         {

@@ -41,7 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\IMainVM.cs" />
+    <Compile Include="ViewModels\ILoadableWindowViewModel.cs" />
+    <Compile Include="ViewModels\IMainViewModel.cs" />
+    <Compile Include="ViewModels\ISelectionViewModel.cs" />
+    <Compile Include="ViewModels\IStatusViewModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
