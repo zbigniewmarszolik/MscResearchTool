@@ -9,24 +9,14 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         public ISelectionViewModel SelectionViewModel
         { 
             get => _selectionViewModel;
-
-            set
-            {
-                _selectionViewModel = value;
-                OnPropertyChanged(() => SelectionViewModel);
-            }
+            set { _selectionViewModel = value; OnPropertyChanged(() => SelectionViewModel); }
         }
 
         private IStatusViewModel _statusViewModel;
         public IStatusViewModel StatusViewModel
         {
             get => _statusViewModel;
-
-            set
-            {
-                _statusViewModel = value;
-                OnPropertyChanged(() => StatusViewModel);
-            }
+            set { _statusViewModel = value; OnPropertyChanged(() => StatusViewModel); }
         }
     }
 }

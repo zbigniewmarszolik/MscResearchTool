@@ -13,14 +13,8 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         private string _statusText;
         public string StatusText
         {
-
             get => _statusText;
-
-            set
-            {
-                _statusText = value;
-                OnPropertyChanged(() => StatusText);
-            }
+            set { _statusText = value; OnPropertyChanged(() => StatusText); }
         }
 
         public StatusViewModel(IMainViewModel mainVM)
@@ -34,8 +28,16 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         {
             MainVM.SelectionViewModel.Clicked = () =>
             {
-                StatusText = "TESTING...";
+                StatusText = AdjustText();
             };
+        }
+
+        private string AdjustText()
+        {
+            if (StatusText == "" || StatusText == null)
+                return "stage 1";
+
+            else return "stage 2";
         }
     }
 }

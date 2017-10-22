@@ -23,6 +23,9 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
         public async Task ProcessResultAsync(IntegrationResult result)
         {
+            if (result.Result.ToString() == "NaN")
+                result.Result = 0.0;
+
             if (result.IsDistributed)
             {
                 var eagerDistributions = await _integrationDistributionsBusiness.ReadAllEagerAsync();

@@ -7,11 +7,10 @@ namespace MScResearchTool.Windows.WPF
     {
         private IMainViewModel ViewModel { get; }
         
-        public ViewManager(
-            IMainViewModel viewModel,
+        public ViewManager
+            (IMainViewModel viewModel,
             ISelectionViewModel selectionViewModel,
-            IStatusViewModel statusViewModel
-            )
+            IStatusViewModel statusViewModel)
         {
             ViewModel = viewModel;
 

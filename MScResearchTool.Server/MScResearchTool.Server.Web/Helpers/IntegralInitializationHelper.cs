@@ -50,6 +50,11 @@ namespace MScResearchTool.Server.Web.Helpers
             else return true;
         }
 
+        public string PrepareFormulaForExpression(string originalFormula)
+        {
+            return ReplaceWrongChars(originalFormula);
+        }
+
         private string ReplaceWrongChars(string formula)
         {
             if (formula.Contains("sin"))
@@ -117,7 +122,7 @@ namespace MScResearchTool.Server.Web.Helpers
 
             int counter = 0;
 
-            while (formula.Contains("ln")) // TO CORRECT (check all logarithm options)
+            while (formula.Contains("ln"))
             {
                 formula = DefineNaturalLogarithm(formula, counter);
                 counter++;

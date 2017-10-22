@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MScResearchTool.Windows.Binder.AutofacModules;
 using MScResearchTool.Windows.WPF.AutofacModules;
 using System.Windows;
 
@@ -22,6 +23,8 @@ namespace MScResearchTool.Windows.WPF
             var builder = new ContainerBuilder();
 
             builder.RegisterModule<UserInterfaceModule>();
+            builder.RegisterModule<ServicesModule>();
+            builder.RegisterModule<BusinessModule>();
 
             return builder.Build();
         }

@@ -53,26 +53,31 @@ namespace MScResearchTool.Server.Web.Controllers
         {
             ViewData["InputError"] = null;
 
+            var readyFormula = "";
+
             if (integrationVm.IntervalsCount < 2)
             {
                 ViewData["InputError"] = "Number of intervals must be at least 2 or greater.";
                 return View(integrationVm);
             }
 
-            var testFormula = _integralInitializationHelper.IsFormulaCorrectForCSharp(integrationVm.Formula);
+            var isFormulaEvaluateable = _integralInitializationHelper.IsFormulaCorrectForCSharp(integrationVm.Formula);
 
-            if (testFormula == false)
+            if (isFormulaEvaluateable == false)
             {
                 ViewData["InputError"] = "Wrong formula. It can not be evaluated. Please try again. Make sure you use 'x' as a variable.";
                 return View(integrationVm);
             }
 
+            else readyFormula = _integralInitializationHelper.PrepareFormulaForExpression(integrationVm.Formula);
+
+
             var upperBoundParsed = _parseDoubleHelper.ParseInvariantCulture(integrationVm.UpperLimit);
             var lowerBoundParsed = _parseDoubleHelper.ParseInvariantCulture(integrationVm.LowerLimit);
 
-            var testConstraints = _integralInitializationHelper.AreConstraintsCorrect(upperBoundParsed, lowerBoundParsed, integrationVm.Precision);
+            var areConstraintsCorrect = _integralInitializationHelper.AreConstraintsCorrect(upperBoundParsed, lowerBoundParsed, integrationVm.Precision);
 
-            if (testConstraints == false)
+            if (areConstraintsCorrect == false)
             {
                 ViewData["InputError"] = "Wrong constraints. Make sure that 'b' > 'a' and 'n' is positive integer value.";
                 return View(integrationVm);
@@ -82,7 +87,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 upperBoundParsed,
                 lowerBoundParsed,
                 integrationVm.Precision,
-                integrationVm.Formula,
+                readyFormula,
                 _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method));
 
             await _integrationsBusiness.DistributeAndPersistAsync(integral);
