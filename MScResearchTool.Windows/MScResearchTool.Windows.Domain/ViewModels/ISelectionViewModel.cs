@@ -1,9 +1,20 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Input;
 
 namespace MScResearchTool.Windows.Domain.ViewModels
 {
     public interface ISelectionViewModel
     {
-       Action Clicked { get; set; }       
+        Action AppStateChangedAction { get; set; }
+
+        ICommand IntegrationCommand { get; }
+        ICommand ReconnectCommand { get; }
+
+        Visibility TextBoxVisibility { get; set; }
+
+        bool IsReconnectEnabled { get; set; }
+        bool IsIntegrationEnabled { get; set; }
+        bool IsProgressing { get; set; }
     }
 }

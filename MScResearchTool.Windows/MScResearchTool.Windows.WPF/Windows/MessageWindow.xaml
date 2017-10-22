@@ -1,13 +1,18 @@
-﻿<local:ViewBase x:Class="MScResearchTool.Windows.WPF.Views.SelectionView"
-                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                xmlns:local="clr-namespace:MScResearchTool.Windows.WPF.Views"
-                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                mc:Ignorable="d" 
-                d:DesignHeight="384" d:DesignWidth="1366">
-    <StackPanel>
+﻿<Window x:Class="MScResearchTool.Windows.WPF.Windows.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ShowInTaskbar="False"
+        Background="White"
+        BorderBrush="Black"
+        BorderThickness="5"
+        AllowsTransparency="True"
+        Height="288" Width="683">
+    <StackPanel Margin="0, 15, 0, 0">
         <StackPanel.Resources>
             <Style TargetType="{x:Type Button}">
                 <Setter Property="Margin" Value="0,15,0,0"/>
@@ -35,10 +40,8 @@
                 </Style.Triggers>
             </Style>
         </StackPanel.Resources>
-        <Button Content="Start integration" Command="{Binding IntegrationCommand}" IsEnabled="{Binding IsIntegrationEnabled}"/>
-        <Button Content="Start other algorithm" IsEnabled="False"/>
-        <TextBlock FontWeight="DemiBold" FontSize="20" Text="Connecting." Visibility="{Binding TextBoxVisibility}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 15, 0, 0" />
-        <controls:ProgressRing IsActive="{Binding IsProgressing}" MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Margin="0, 15, 0, 0" />
-        <Button Content="Reconnect" Command="{Binding ReconnectCommand}" IsEnabled="{Binding IsReconnectEnabled}" />
+        <TextBlock x:Name="TitleBlock" FontWeight="DemiBold" FontSize="30" />
+        <TextBlock x:Name="ContentBlock" FontWeight="DemiBold" FontSize="20" TextWrapping="Wrap" />
+        <Button Height="100" Width="200" x:Name="CloseButton" Click="CloseButton_Click" />
     </StackPanel>
-</local:ViewBase>
+</Window>

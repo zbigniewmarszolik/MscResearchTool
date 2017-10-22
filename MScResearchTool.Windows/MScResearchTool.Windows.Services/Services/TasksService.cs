@@ -23,18 +23,23 @@ namespace MScResearchTool.Windows.Services.Services
 
             var uri = new Uri(string.Format(directUrl));
 
-            HttpResponseMessage responseMessage = await Client.GetAsync(uri);
-
-            if (responseMessage.IsSuccessStatusCode)
+            try
             {
-                var responseData = responseMessage.Content.ReadAsStringAsync().Result;
+                HttpResponseMessage responseMessage = await Client.GetAsync(uri);
 
-                var taskInfo = JsonConvert.DeserializeObject<TaskInfo>(responseData);
+                if (responseMessage.IsSuccessStatusCode)
+                {
+                    var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                return taskInfo;
+                    var taskInfo = JsonConvert.DeserializeObject<TaskInfo>(responseData);
+
+                    return taskInfo;
+                }
             }
-
-            else ConnectionErrorAction("Error connecting to the server for reading available tasks.");
+            catch(Exception e)
+            {
+                ConnectionErrorAction("Error connecting to the server for reading available tasks.");
+            }
 
             return null;
         }

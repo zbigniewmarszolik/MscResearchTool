@@ -4,12 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MScResearchTool.Windows.WPF.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <UniformGrid Rows="1">
-            <TextBlock Text="Current status: " VerticalAlignment="Center"/>
-            <TextBox Text="{Binding StatusText}" VerticalAlignment="Center"/>
-        </UniformGrid>
-    </Grid>
+                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                mc:Ignorable="d" 
+             d:DesignHeight="384" d:DesignWidth="1366">
+    <StackPanel>
+        <TextBlock FontWeight="DemiBold" FontSize="20" Text="{Binding StatusText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <controls:ProgressRing IsActive="{Binding IsBusy}" MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Margin="0, 15, 0, 0" />
+    </StackPanel>
 </local:ViewBase>

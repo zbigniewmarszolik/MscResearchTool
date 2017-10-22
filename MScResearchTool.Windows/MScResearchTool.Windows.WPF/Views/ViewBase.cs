@@ -14,7 +14,7 @@ namespace MScResearchTool.Windows.WPF.Views
         {
             var vm = DataContext as ILoadableWindowViewModel;
 
-            vm?.WindowLoaded?.Invoke();
+            vm?.WindowLoadedAction?.Invoke();
         }
     }
 }

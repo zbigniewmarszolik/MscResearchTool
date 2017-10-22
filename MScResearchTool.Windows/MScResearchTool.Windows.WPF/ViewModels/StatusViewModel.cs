@@ -6,7 +6,7 @@ namespace MScResearchTool.Windows.WPF.ViewModels
 {
     public class StatusViewModel : BindableBase, IStatusViewModel, ILoadableWindowViewModel
     {
-        public Action WindowLoaded { get; set; }
+        public Action WindowLoadedAction { get; set; }
 
         private IMainViewModel MainVM { get; }
 
@@ -17,16 +17,23 @@ namespace MScResearchTool.Windows.WPF.ViewModels
             set { _statusText = value; OnPropertyChanged(() => StatusText); }
         }
 
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get => _isBusy;
+            set { _isBusy = value; OnPropertyChanged(() => IsBusy); }
+        }
+
         public StatusViewModel(IMainViewModel mainVM)
         {
             MainVM = mainVM;
 
-            WindowLoaded = OnWindowLoaded;
+            WindowLoadedAction = OnWindowLoaded;
         }
 
         public void OnWindowLoaded()
         {
-            MainVM.SelectionViewModel.Clicked = () =>
+            MainVM.SelectionViewModel.AppStateChangedAction = () =>
             {
                 StatusText = AdjustText();
             };
@@ -35,9 +42,22 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         private string AdjustText()
         {
             if (StatusText == "" || StatusText == null)
-                return "stage 1";
+            {
+                IsBusy = true;
+                return "Obtaining task metadata.";
+            }
 
-            else return "stage 2";
+            else if (StatusText == "Obtaining task metadata.")
+                return "Calculating task.";
+
+            else if (StatusText == "Calculating task.")
+                return "Sending results to server.";
+
+            else
+            {
+                IsBusy = false;
+                return "";
+            }
         }
     }
 }

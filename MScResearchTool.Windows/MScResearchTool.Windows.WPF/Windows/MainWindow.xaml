@@ -5,19 +5,18 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       xmlns:views="clr-namespace:MScResearchTool.Windows.WPF.Views"
+                      GlowBrush="Black"
                       mc:Ignorable="d"
                       WindowStartupLocation="CenterScreen"
-                      Title="MainWindow" Height="600" Width="800">
+                      Title="MSC Research Tool" Height="678" Width="1366">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
         
-        
-
         <views:SelectionView DataContext="{Binding SelectionViewModel}"/>
         <views:StatusView Grid.Row="1" DataContext="{Binding StatusViewModel}"/>
-
+        
     </Grid>
 </controls:MetroWindow>
