@@ -4,6 +4,13 @@
     ViewData["Title"] = "Current tasks";
 }
 
+<button class="pinned-button" onclick="if (confirm('Are you sure to unstuck ALL pending tasks?'))
+            location.href='@Url.Action("UnstuckAllTasks", "Tasks")'">
+    Unstuck all tasks in progress
+</button>
+
+<br />
+
 <div>
     @foreach (var item in Model)
     {
@@ -11,8 +18,4 @@
         <br />
     }
     <br />
-    <button class="info-button" onclick="if (confirm('Are you sure to unstuck ALL pending tasks?'))
-            location.href='@Url.Action("UnstuckAllTasks", "Tasks")'">
-        Unstuck all tasks in progress
-    </button>
 </div>

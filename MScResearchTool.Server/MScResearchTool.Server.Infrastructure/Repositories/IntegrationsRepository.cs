@@ -88,7 +88,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             {
                 using (var session = FluentNHibernateConnector.OpenSession())
                 {
-                    var taskToDelete = session.Get("IntegrationTask", integrationTaskId);
+                    var taskToDelete = session.Get("Integration", integrationTaskId);
 
                     session.Delete(taskToDelete);
                     session.Flush();
