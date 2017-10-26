@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,13 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Factories\HttpClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IntegrationResultsService.cs" />
+    <Compile Include="Services\IntegrationsService.cs" />
+    <Compile Include="Services\ServiceBase.cs" />
+    <Compile Include="Services\TasksService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MScResearchTool.Mobile.Domain\MScResearchTool.Mobile.Domain.csproj">
       <Project>{b4cb68ea-99d9-461f-ad39-489350ca45f8}</Project>
       <Name>MScResearchTool.Mobile.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
