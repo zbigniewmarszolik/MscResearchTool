@@ -18,6 +18,8 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.IsFinished);
             Map(x => x.DeviceRAM);
             Map(x => x.DeviceCPU);
+            Map(x => x.DeviceResult);
+            Map(x => x.DeviceTime);
             References(x => x.Task)
                 .Column("IntegrationId");
             Table("distributed_integrations");

@@ -34,6 +34,8 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                 eagerDistribution.IsFinished = true;
                 eagerDistribution.DeviceRAM = result.RAM;
                 eagerDistribution.DeviceCPU = result.CPU;
+                eagerDistribution.DeviceResult = result.Result;
+                eagerDistribution.DeviceTime = result.ElapsedSeconds;
 
                 var integration = await _integrationsBusiness.ReadByIdAsync(eagerDistribution.Task.Id);
                 integration.PartialTime += result.ElapsedSeconds;
@@ -68,7 +70,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
             if (eagerIntegration.IsFinished && eagerIntegration.Distributions.All(x => x.IsFinished))
             {
-                await _reportsBusiness.GenerateReportAsync(); // TO CORRECT -> pass some parameters to make the method able to decide which report it should generate
+                await _reportsBusiness.GenerateIntegrationReportAsync(mainTaskId);
                 await _integrationsBusiness.CascadeDeleteAsync(mainTaskId);
             }
         }
