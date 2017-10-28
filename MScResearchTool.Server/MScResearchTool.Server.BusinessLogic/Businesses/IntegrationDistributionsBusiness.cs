@@ -30,7 +30,12 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
         public async Task<IList<IntegrationDistribution>> ReadAvailableAsync()
         {
-            var resultSet = await ReadIntegrationDistributionsAsync();
+            IList<IntegrationDistribution> resultSet = null;
+
+            await Task.Run(() =>
+            {
+                resultSet = _integrationDistributionsRepository.ReadEager();
+            });
 
             return resultSet.Where(x => x.IsAvailable && !x.IsFinished).ToList();
         }

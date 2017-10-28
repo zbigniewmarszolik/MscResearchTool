@@ -20,7 +20,7 @@ namespace MScResearchTool.Mobile.BusinessLogic.Businesses
                 else result = IntegrateBySquares(integrationDistributionTask);
 
                 result.Id = integrationDistributionTask.Id;
-                result.IsDistributed = false;
+                result.IsDistributed = true;
             });
 
             return result;

@@ -59,7 +59,10 @@
     <Reference Include="Mono.Android" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
     <Compile Include="AutofacModules\AndroidModule.cs" />
+    <Compile Include="BackgroundServices\BackgroundServiceBase.cs" />
+    <Compile Include="BackgroundServices\DistributedComputingService.cs" />
     <Compile Include="Helpers\DroidHardwareHelper.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

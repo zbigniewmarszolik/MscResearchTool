@@ -116,7 +116,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 {
                     dto.IsAvailable = false;
                     await _integrationsBusiness.UpdateAsync(dto);
-                }  
+                }
 
                 return Ok(dto);
             }
@@ -130,6 +130,8 @@ namespace MScResearchTool.Server.Web.Controllers
                     dto.IsAvailable = false;
                     await _integrationDistributionsBusiness.UpdateAsync(dto);
                 }
+
+                dto.Task = null;
 
                 return Ok(dto);
             }
