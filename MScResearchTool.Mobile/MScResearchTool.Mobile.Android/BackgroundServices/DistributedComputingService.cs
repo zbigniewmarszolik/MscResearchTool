@@ -13,7 +13,7 @@ using Autofac;
 namespace MScResearchTool.Mobile.Android.BackgroundServices
 {
     [Service]
-    class DistributedComputingService : BackgroundServiceBase
+    public class DistributedComputingService : BackgroundServiceBase
     {
         private ITasksService _tasksService { get; set; }
         private IIntegrationsService _integrationsService { get; set; }
@@ -28,7 +28,7 @@ namespace MScResearchTool.Mobile.Android.BackgroundServices
 
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
-            Construct();
+            ConstructServiceComponents();
 
             Task.Run(async () =>
             {
@@ -66,7 +66,7 @@ namespace MScResearchTool.Mobile.Android.BackgroundServices
             }
         }
 
-        private void Construct()
+        private void ConstructServiceComponents()
         {
             _tasksService = Container.Resolve<ITasksService>();
             _integrationsService = Container.Resolve<IIntegrationsService>();

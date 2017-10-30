@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="Theme.MasterRT" parent="android:Theme.Material">
+    <item name="android:background">#fff</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:colorPrimary">#000</item>
+    <item name="android:colorPrimaryDark">#33BCBA</item>
+    <item name="android:colorAccent">#6A6A6A</item>
+  </style>
+  
+  <style name="Theme.Splash" parent="android:Theme.Holo.Light">
+    <item name="android:windowBackground">@drawable/splashBitMap</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+
+  <style name="alertDialog" parent="android:Theme.Material.Dialog">
+    <item name="android:textColor">#fff</item>
+    <item name="android:textColorPrimary">#fff</item>
+    <item name="android:textColorTertiary">#fff</item>
+    <item name="android:buttonBarButtonStyle">@style/MasterRT.DialogButton</item>
+    <item name="android:background">#000</item>
+  </style>
+
+  <style name="MasterRT.DialogButton" parent="@android:style/TextAppearance.Material.Button">
+    <item name="android:textColor">#000</item>
+    <item name="android:background">#33BCBA</item>
+    <item name="android:layout_marginLeft">10dp</item>
+  </style>
+
+</resources>

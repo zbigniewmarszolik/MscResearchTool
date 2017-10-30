@@ -64,9 +64,19 @@
     <Compile Include="BackgroundServices\BackgroundServiceBase.cs" />
     <Compile Include="BackgroundServices\DistributedComputingService.cs" />
     <Compile Include="Helpers\DroidHardwareHelper.cs" />
-    <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Types\EButtonValues.cs" />
+    <Compile Include="UI\Manual\Contract\IManualPresenter.cs" />
+    <Compile Include="UI\Manual\Contract\IManualView.cs" />
+    <Compile Include="UI\Manual\ManualActivity.cs" />
+    <Compile Include="UI\Manual\ManualPresenter.cs" />
+    <Compile Include="UI\Menu\Contract\IMenuPresenter.cs" />
+    <Compile Include="UI\Menu\Contract\IMenuView.cs" />
+    <Compile Include="UI\Menu\MenuActivity.cs" />
+    <Compile Include="UI\Menu\MenuPresenter.cs" />
+    <Compile Include="UI\Splash\SplashActivity.cs" />
+    <Compile Include="UI\ViewBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
@@ -74,15 +84,17 @@
     <None Include="Resources\AboutResources.txt" />
     <None Include="Properties\AndroidManifest.xml" />
     <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\activity_manual.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\Main.axml">
+    <AndroidResource Include="Resources\layout\activity_menu.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\mipmap-hdpi\" />
     <Folder Include="Resources\mipmap-mdpi\" />
     <Folder Include="Resources\mipmap-xhdpi\" />
@@ -98,6 +110,15 @@
       <Project>{b4cb68ea-99d9-461f-ad39-489350ca45f8}</Project>
       <Name>MScResearchTool.Mobile.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\SplashBitMap.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\droidSplash.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
