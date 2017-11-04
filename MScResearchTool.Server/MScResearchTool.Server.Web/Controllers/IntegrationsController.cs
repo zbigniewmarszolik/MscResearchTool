@@ -49,7 +49,7 @@ namespace MScResearchTool.Server.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IntegrationViewModel integrationVm)
+        public async Task<IActionResult> Index(IntegrationViewModel integrationVm, string submitter)
         {
             ViewData["InputError"] = null;
 
@@ -92,7 +92,16 @@ namespace MScResearchTool.Server.Web.Controllers
 
             await _integrationsBusiness.DistributeAndPersistAsync(integral);
 
-            return RedirectToAction("Creation", "Tasks");
+            switch(submitter)
+            {
+                case "Add single integration task":
+                    return RedirectToAction("Creation", "Tasks");
+
+                case "Add integration task and prepare next":
+                    return View(integrationVm);
+
+                default: return RedirectToAction("Creation", "Tasks");
+            }
         }
 
         [Route("Api/PostIntegrationResult/{mode}")]

@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using MScResearchTool.Server.Core.Models;
-using MScResearchTool.Server.Web.ViewModels;
+﻿using MScResearchTool.Server.Web.ViewModels;
+using MScResearchTool.Server.Core.Types;
 
 namespace MScResearchTool.Server.Web.Factories
 {
@@ -14,15 +13,11 @@ namespace MScResearchTool.Server.Web.Factories
                 Precision = 1000,
                 UpperLimit = "100",
                 LowerLimit = "0",
-                IntervalsCount = 2
+                IntervalsCount = 2,
+                Method = ETaskType.Square_integration.ToString()
             };
 
             return instance;
-        }
-
-        public IList<IntegrationViewModel> GetCollection(IList<Integration> integrations)
-        {
-            return new List<IntegrationViewModel>();
         }
     }
 }
