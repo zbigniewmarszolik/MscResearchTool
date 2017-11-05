@@ -34,13 +34,17 @@ namespace MScResearchTool.Server.Web.Factories
 
                 else collectionElement.TaskStatus = "Main task waiting. ";
 
-                if (item.Distributions.Any(x => !x.IsAvailable && !x.IsFinished))
-                    collectionElement.TaskStatus += "One of more distributions in progress (or stuck).";
-
-                else if (item.Distributions.All(x => x.IsFinished))
+                if (item.Distributions.All(x => x.IsFinished))
+                {
                     collectionElement.TaskStatus += "All distributions finished.";
+                }
 
-                else collectionElement.TaskStatus += "Distributions waiting.";
+                else if(item.Distributions.All(x => x.IsAvailable))
+                {
+                    collectionElement.TaskStatus += "Distributions waiting.";
+                }
+
+                else collectionElement.TaskStatus += "One of more distributions in progress (or stuck).";
 
                 collection.Add(collectionElement);
             }

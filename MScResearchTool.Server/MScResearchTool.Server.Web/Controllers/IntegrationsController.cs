@@ -88,6 +88,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 lowerBoundParsed,
                 integrationVm.Precision,
                 readyFormula,
+                integrationVm.Formula,
                 _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method));
 
             await _integrationsBusiness.DistributeAndPersistAsync(integral);

@@ -88,7 +88,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
                     document.Add(new Paragraph(title, titleStyle));
 
-                    document.Add(new Paragraph("Formula: " + integration.Formula, standardStyle));
+                    document.Add(new Paragraph("Formula: " + integration.UnresolvedFormula, standardStyle));
                     document.Add(new Paragraph("Accuracy: " + integration.Accuracy, standardStyle));
                     document.Add(new Paragraph("Lower integration limit: " + integration.DownBoundary, standardStyle));
                     document.Add(new Paragraph("Upper integration limit: " + integration.UpBoundary, standardStyle));

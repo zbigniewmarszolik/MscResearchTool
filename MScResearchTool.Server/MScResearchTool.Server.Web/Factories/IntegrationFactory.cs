@@ -5,7 +5,7 @@ namespace MScResearchTool.Server.Web.Factories
 {
     public class IntegrationFactory
     {
-        public Integration GetInstance(int intervals, double upperBound, double lowerBound, int precision, string formula, bool isTrapezoidMethod)
+        public Integration GetInstance(int intervals, double upperBound, double lowerBound, int precision, string processedFormula, string originalInputFormula, bool isTrapezoidMethod)
         {
             var instance = new Integration()
             {
@@ -14,7 +14,8 @@ namespace MScResearchTool.Server.Web.Factories
                 DroidIntervals = intervals,
                 UpBoundary = upperBound,
                 DownBoundary = lowerBound,
-                Formula = formula,
+                Formula = processedFormula,
+                UnresolvedFormula = originalInputFormula,
                 IsTrapezoidMethodRequested = isTrapezoidMethod,
                 IsFinished = false,
                 IsAvailable = true

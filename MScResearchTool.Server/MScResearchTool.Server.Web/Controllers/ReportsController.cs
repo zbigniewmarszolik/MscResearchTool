@@ -50,6 +50,18 @@ namespace MScResearchTool.Server.Web.Controllers
             return File(report.ContentPdf, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
         }
 
+        public async Task<IActionResult> RemoveAllReports()
+        {
+            var reports = await _reportsBusiness.ReadAllAsync();
+
+            foreach(var item in reports)
+            {
+                await _reportsBusiness.DeleteAsync(item.Id);
+            }
+
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
