@@ -19,5 +19,8 @@ namespace MScResearchTool.Server.Core.Domain
         // Status properties:
         public virtual bool IsAvailable { get; set; }
         public virtual bool IsFinished { get; set; }
+
+        // Result error property:
+        public virtual bool IsResultNaN { get; set; }
     }
 }

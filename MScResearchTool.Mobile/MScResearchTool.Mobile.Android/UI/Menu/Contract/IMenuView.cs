@@ -4,7 +4,8 @@
     {
         void StartService();
         void StopService();
-        bool IsDistributedComputingRunning();
+        void EnableBackgroundButton();
+        void DisableBackgroundButton();
         void AssignStartToButton();
         void AssignStopToButton();
         void StartManualControl();

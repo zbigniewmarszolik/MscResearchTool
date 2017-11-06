@@ -17,6 +17,7 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
                 Task = task,
                 IsAvailable = true,
                 IsFinished = false,
+                IsResultNaN = false,
                 DeviceRAM = 0,
                 DeviceCPU = "Unknown"
             };

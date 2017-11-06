@@ -31,30 +31,6 @@ namespace MScResearchTool.Mobile.Android
 		public partial class Attribute
 		{
 			
-			// aapt resource value: 0x7f010005
-			public const int max = 2130771973;
-			
-			// aapt resource value: 0x7f010000
-			public const int ringColor = 2130771968;
-			
-			// aapt resource value: 0x7f010001
-			public const int ringProgressColor = 2130771969;
-			
-			// aapt resource value: 0x7f010002
-			public const int ringWidth = 2130771970;
-			
-			// aapt resource value: 0x7f010007
-			public const int style = 2130771975;
-			
-			// aapt resource value: 0x7f010003
-			public const int textColor = 2130771971;
-			
-			// aapt resource value: 0x7f010006
-			public const int textIsShow = 2130771974;
-			
-			// aapt resource value: 0x7f010004
-			public const int textSize = 2130771972;
-			
 			static Attribute()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
@@ -87,32 +63,26 @@ namespace MScResearchTool.Mobile.Android
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060006
+			public const int HideButton = 2131099654;
+			
 			// aapt resource value: 0x7f060000
-			public const int FILL = 2131099648;
-			
-			// aapt resource value: 0x7f060008
-			public const int HideButton = 2131099656;
-			
-			// aapt resource value: 0x7f060002
-			public const int IntegrateButton = 2131099650;
-			
-			// aapt resource value: 0x7f060005
-			public const int MainProgressBar = 2131099653;
-			
-			// aapt resource value: 0x7f060007
-			public const int ManualButton = 2131099655;
+			public const int IntegrateButton = 2131099648;
 			
 			// aapt resource value: 0x7f060003
-			public const int OtherButton = 2131099651;
+			public const int MainProgressBar = 2131099651;
 			
-			// aapt resource value: 0x7f060004
-			public const int ReconnectButton = 2131099652;
+			// aapt resource value: 0x7f060005
+			public const int ManualButton = 2131099653;
 			
 			// aapt resource value: 0x7f060001
-			public const int STROKE = 2131099649;
+			public const int OtherButton = 2131099649;
 			
-			// aapt resource value: 0x7f060006
-			public const int StartStopButton = 2131099654;
+			// aapt resource value: 0x7f060002
+			public const int ReconnectButton = 2131099650;
+			
+			// aapt resource value: 0x7f060004
+			public const int StartStopButton = 2131099652;
 			
 			static Id()
 			{
@@ -180,53 +150,6 @@ namespace MScResearchTool.Mobile.Android
 			}
 			
 			private Style()
-			{
-			}
-		}
-		
-		public partial class Styleable
-		{
-			
-			public static int[] RingProgressBar = new int[] {
-					2130771968,
-					2130771969,
-					2130771970,
-					2130771971,
-					2130771972,
-					2130771973,
-					2130771974,
-					2130771975};
-			
-			// aapt resource value: 5
-			public const int RingProgressBar_max = 5;
-			
-			// aapt resource value: 0
-			public const int RingProgressBar_ringColor = 0;
-			
-			// aapt resource value: 1
-			public const int RingProgressBar_ringProgressColor = 1;
-			
-			// aapt resource value: 2
-			public const int RingProgressBar_ringWidth = 2;
-			
-			// aapt resource value: 7
-			public const int RingProgressBar_style = 7;
-			
-			// aapt resource value: 3
-			public const int RingProgressBar_textColor = 3;
-			
-			// aapt resource value: 6
-			public const int RingProgressBar_textIsShow = 6;
-			
-			// aapt resource value: 4
-			public const int RingProgressBar_textSize = 4;
-			
-			static Styleable()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Styleable()
 			{
 			}
 		}

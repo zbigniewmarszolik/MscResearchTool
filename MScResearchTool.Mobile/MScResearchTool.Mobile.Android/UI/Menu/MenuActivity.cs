@@ -44,6 +44,8 @@ namespace MScResearchTool.Mobile.Android.UI.Menu
             _manualButton = FindViewById<Button>(Resource.Id.ManualButton);
             _hideButton = FindViewById<Button>(Resource.Id.HideButton);
 
+            _hideButton.Enabled = false;
+
             _startStopButton.Click += (sender, e) =>
             {
                 if (_startStopButton.Text == EButtonValues.START.ToString())
@@ -78,22 +80,20 @@ namespace MScResearchTool.Mobile.Android.UI.Menu
 
         public void StopService()
         {
-            ActivityManager activityManager = (ActivityManager)GetSystemService(ActivityService);
-            activityManager.KillBackgroundProcesses(PackageName + "." + typeof(DistributedComputingService).Name);
+            //ActivityManager activityManager = (ActivityManager)GetSystemService(ActivityService);
+            //activityManager.KillBackgroundProcesses(PackageName + "." + typeof(DistributedComputingService).Name);
+
+            ApplicationContext.StopService(new Intent(this, typeof(DistributedComputingService)));
         }
 
-        public bool IsDistributedComputingRunning()
+        public void EnableBackgroundButton()
         {
-            ActivityManager activityManager = (ActivityManager)GetSystemService(ActivityService);
-            foreach (var item in activityManager.GetRunningServices(Integer.MaxValue))
-            {
-                if (typeof(DistributedComputingService).Name.Equals(item.Service.ClassName))
-                {
-                    return true;
-                }
-            }
+            _hideButton.Enabled = true;
+        }
 
-            return false;
+        public void DisableBackgroundButton()
+        {
+            _hideButton.Enabled = false;
         }
 
         public void AssignStartToButton()

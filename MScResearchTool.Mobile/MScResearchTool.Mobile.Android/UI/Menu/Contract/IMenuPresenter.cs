@@ -8,7 +8,6 @@
         void ManualButtonClicked();
         void HideButtonClicked();
         void AbortApplication();
-        void CheckForService();
         void OnDestroy();
     }
 }

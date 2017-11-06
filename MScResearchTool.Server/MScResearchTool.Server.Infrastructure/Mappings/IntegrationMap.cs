@@ -18,6 +18,7 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.UnresolvedFormula);
             Map(x => x.IsAvailable);
             Map(x => x.IsFinished);
+            Map(x => x.IsResultNaN);
             Map(x => x.FullResult);
             Map(x => x.PartialResult);
             Map(x => x.FullTime);

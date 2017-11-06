@@ -24,7 +24,12 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         public async Task ProcessResultAsync(IntegrationResult result)
         {
             if (result.Result.ToString() == "NaN")
+            {
                 result.Result = 0.0;
+                result.IsResultNotANumber = true;
+            }
+
+            else result.IsResultNotANumber = false;
 
             if (result.IsDistributed)
             {
@@ -36,6 +41,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                 eagerDistribution.DeviceCPU = result.CPU;
                 eagerDistribution.DeviceResult = result.Result;
                 eagerDistribution.DeviceTime = result.ElapsedSeconds;
+                eagerDistribution.IsResultNaN = result.IsResultNotANumber;
 
                 var integration = await _integrationsBusiness.ReadByIdAsync(eagerDistribution.Task.Id);
                 integration.PartialTime += result.ElapsedSeconds;
@@ -56,6 +62,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                 integration.FullResult = result.Result;
                 integration.DesktopRAM = result.RAM;
                 integration.DesktopCPU = result.CPU;
+                integration.IsResultNaN = result.IsResultNotANumber;
 
                 await _integrationsBusiness.UpdateAsync(integration);
 

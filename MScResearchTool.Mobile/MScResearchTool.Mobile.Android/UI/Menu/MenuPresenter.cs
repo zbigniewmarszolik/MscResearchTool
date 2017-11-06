@@ -15,12 +15,14 @@ namespace MScResearchTool.Mobile.Android.UI.Menu
         {
             _view.StartService();
             _view.AssignStopToButton();
+            _view.EnableBackgroundButton();
         }
 
         public void StopButtonClicked()
         {
             _view.StopService();
             _view.AssignStartToButton();
+            _view.DisableBackgroundButton();
         }
 
         public void ManualButtonClicked()
@@ -36,16 +38,6 @@ namespace MScResearchTool.Mobile.Android.UI.Menu
         public void AbortApplication()
         {
             _view.Shutdown();
-        }
-
-        public void CheckForService()
-        {
-            var isRunning = _view.IsDistributedComputingRunning();
-
-            if (isRunning)
-                _view.AssignStopToButton();
-
-            else _view.AssignStartToButton();
         }
 
         public void OnDestroy()

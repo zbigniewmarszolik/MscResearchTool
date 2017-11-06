@@ -99,7 +99,12 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     document.Add(new Paragraph(" "));
 
                     document.Add(new Paragraph("Desktop results section:", headerStyle));
-                    document.Add(new Paragraph("Result: " + integration.FullResult, standardStyle));
+
+                    if (integration.IsResultNaN)
+                        document.Add(new Paragraph("Result: " + "NOT A NUMBER", standardStyle));
+
+                    else document.Add(new Paragraph("Result: " + integration.FullResult, standardStyle));
+
                     document.Add(new Paragraph("Time [seconds]: " + integration.FullTime, standardStyle));
                     document.Add(new Paragraph("CPU info: " + integration.DesktopCPU, standardStyle));
                     document.Add(new Paragraph("RAM amount [MB]: " + integration.DesktopRAM, standardStyle));
@@ -107,7 +112,12 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     document.Add(new Paragraph(" "));
 
                     document.Add(new Paragraph("Android results section:", headerStyle));
-                    document.Add(new Paragraph("Result: " + integration.PartialResult, standardStyle));
+
+                    if (integration.IsResultNaN)
+                        document.Add(new Paragraph("Result: " + "NOT A NUMBER", standardStyle));
+
+                    else document.Add(new Paragraph("Result: " + integration.PartialResult, standardStyle));
+
                     document.Add(new Paragraph("Time [seconds]: " + integration.PartialTime, standardStyle));
 
                     document.Add(new Paragraph(" "));

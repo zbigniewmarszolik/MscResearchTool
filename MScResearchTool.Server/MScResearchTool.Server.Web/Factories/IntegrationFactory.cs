@@ -18,7 +18,8 @@ namespace MScResearchTool.Server.Web.Factories
                 UnresolvedFormula = originalInputFormula,
                 IsTrapezoidMethodRequested = isTrapezoidMethod,
                 IsFinished = false,
-                IsAvailable = true
+                IsAvailable = true,
+                IsResultNaN = false
             };
 
             return instance;

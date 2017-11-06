@@ -38,14 +38,28 @@ namespace MScResearchTool.Mobile.Android.BackgroundServices
             return StartCommandResult.Sticky;
         }
 
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+        }
+
         private async Task ControlComputations()
         {
             bool shouldTakeBreak = false;
 
             while (true)
             {
+                //Handler mainHandler = new Handler(Looper.MainLooper);
+                //Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
+                //{
+                //    var duration = ToastLength.Short;
+                //    Toast.MakeText(this, "Service TICK", duration).Show();
+                //});
+
+                //mainHandler.Post(runnableToast);
+
                 if (shouldTakeBreak)
-                    Thread.Sleep(60000);
+                    Thread.Sleep(2000);
 
                 var check = await _tasksService.GetTasksAvailabilityAsync();
 
