@@ -101,7 +101,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     document.Add(new Paragraph("Desktop results section:", headerStyle));
 
                     if (integration.IsResultNaN)
-                        document.Add(new Paragraph("Result: " + "NOT A NUMBER", standardStyle));
+                        document.Add(new Paragraph("Result: NOT A NUMBER", standardStyle));
 
                     else document.Add(new Paragraph("Result: " + integration.FullResult, standardStyle));
 
@@ -113,8 +113,8 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
                     document.Add(new Paragraph("Android results section:", headerStyle));
 
-                    if (integration.IsResultNaN)
-                        document.Add(new Paragraph("Result: " + "NOT A NUMBER", standardStyle));
+                    if (integration.Distributions.Any(x => x.IsResultNaN))
+                        document.Add(new Paragraph("Result: NOT A NUMBER", standardStyle));
 
                     else document.Add(new Paragraph("Result: " + integration.PartialResult, standardStyle));
 
@@ -125,7 +125,11 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
                     for (var i = 1; i <= integration.Distributions.Count; i++)
                     {
-                        document.Add(new Paragraph("[" + i + "] " + "device result: " + integration.Distributions[i - 1].DeviceResult, standardStyle));
+                        if(integration.Distributions[i - 1].IsResultNaN)
+                            document.Add(new Paragraph("[" + i + "] " + "device result: NOT A NUMBER", standardStyle));
+
+                        else document.Add(new Paragraph("[" + i + "] " + "device result: " + integration.Distributions[i - 1].DeviceResult, standardStyle));
+
                         document.Add(new Paragraph("[" + i + "] " + "device time [seconds]: " + integration.Distributions[i - 1].DeviceTime, standardStyle));
                         document.Add(new Paragraph("[" + i + "] " + "device CPU info: " + integration.Distributions[i - 1].DeviceCPU, standardStyle));
                         document.Add(new Paragraph("[" + i + "] " + "device RAM amount [MB]: " + integration.Distributions[i - 1].DeviceRAM, standardStyle));
