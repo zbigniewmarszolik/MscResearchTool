@@ -51,15 +51,6 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
             while (true)
             {
-                Handler mainHandler = new Handler(Looper.MainLooper);
-                Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
-                {
-                    var duration = ToastLength.Short;
-                    Toast.MakeText(this, "Service TICK", duration).Show();
-                });
-
-                mainHandler.Post(runnableToast);
-
                 if (shouldTakeBreak)
                     Thread.Sleep(180000);
 
@@ -76,6 +67,16 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                     result.RAM = _droidHardwareHelper.GetMemoryAmount();
 
                     await _integrationResultsService.PostResultAsync(result);
+
+                    Handler mainHandler = new Handler(Looper.MainLooper);
+
+                    Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
+                    {
+                        var duration = ToastLength.Short;
+                        Toast.MakeText(this, "MSc Research Tool has just sent calculation result to the server.", duration).Show();
+                    });
+
+                    mainHandler.Post(runnableToast);
                 }
 
                 else shouldTakeBreak = true;

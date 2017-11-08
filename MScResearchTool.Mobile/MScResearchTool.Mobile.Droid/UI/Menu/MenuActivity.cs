@@ -125,6 +125,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
                 builder.SetPositiveButton("Yes", (sender, e) =>
                 {
                     _processHelper.KillComputingServiceProcess(this);
+                    AssignStartToButton();
                     StartActivity(typeof(ManualActivity));
                 });
 
