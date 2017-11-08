@@ -7,7 +7,7 @@ using Android.Views;
 
 namespace MScResearchTool.Mobile.Droid.UI.Manual
 {
-    [Activity(Theme = "@style/Theme.MasterRT", Label = "MSc RT Hand Control")]
+    [Activity(Theme = "@style/Theme.MasterRT", Label = "MSc Research Tool")]
     public class ManualActivity : ViewBase, IManualView
     {
         private IManualPresenter _presenter { get; set; }
