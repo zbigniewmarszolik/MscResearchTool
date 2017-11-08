@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+  <Button
+      android:id="@+id/IntegrateButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Start integration" />
+  <Button
+      android:id="@+id/OtherButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Start other algorithm"
+      android:enabled="false" />
+  <Button
+      android:id="@+id/ReconnectButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Reconnect" />
+  <ProgressBar
+      style="?android:attr/progressBarStyleHorizontal"
+      android:id="@+id/MainProgressBar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:indeterminate="true" />
+</LinearLayout>
