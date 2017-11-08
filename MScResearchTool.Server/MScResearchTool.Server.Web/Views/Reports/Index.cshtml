@@ -4,6 +4,11 @@
     ViewData["Title"] = "Results";
 }
 
+<button class="pinned-button" onclick="if (confirm('Are you sure to permanently delete ALL reports?'))
+            location.href='@Url.Action("RemoveAllReports", "Reports")'">
+    Delete all reports
+</button>
+
 <div>
     @foreach (var item in Model)
     {

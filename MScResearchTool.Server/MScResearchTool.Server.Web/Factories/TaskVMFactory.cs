@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using MScResearchTool.Server.Core.Factories;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Web.ViewModels;
 using MScResearchTool.Server.Core.Types;
@@ -7,13 +6,8 @@ using System.Linq;
 
 namespace MScResearchTool.Server.Web.Factories
 {
-    public class TaskVMFactory : IViewModelFactory<TaskViewModel>
+    public class TaskVMFactory
     {
-        public TaskViewModel GetInstance()
-        {
-            return new TaskViewModel();
-        }
-
         public IList<TaskViewModel> GetCollection(IList<Integration> integrations)
         {
             var collection = new List<TaskViewModel>();
@@ -40,13 +34,17 @@ namespace MScResearchTool.Server.Web.Factories
 
                 else collectionElement.TaskStatus = "Main task waiting. ";
 
-                if (item.Distributions.Any(x => !x.IsAvailable && !x.IsFinished))
-                    collectionElement.TaskStatus += "One of more distributions in progress (or stuck).";
-
-                else if (item.Distributions.All(x => x.IsFinished))
+                if (item.Distributions.All(x => x.IsFinished))
+                {
                     collectionElement.TaskStatus += "All distributions finished.";
+                }
 
-                else collectionElement.TaskStatus += "Distributions waiting.";
+                else if(item.Distributions.All(x => x.IsAvailable))
+                {
+                    collectionElement.TaskStatus += "Distributions waiting.";
+                }
+
+                else collectionElement.TaskStatus += "One of more distributions in progress (or stuck).";
 
                 collection.Add(collectionElement);
             }

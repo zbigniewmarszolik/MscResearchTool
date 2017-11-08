@@ -1,5 +1,4 @@
-﻿using MScResearchTool.Server.Core.Helpers;
-using MScResearchTool.Server.Core.Types;
+﻿using MScResearchTool.Server.Core.Types;
 using NCalc;
 using System;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace MScResearchTool.Server.Web.Helpers
 {
-    public class IntegralInitializationHelper : IIntegralInitializationHelper
+    public class IntegralInitializationHelper
     {
         public bool IsFormulaCorrectForCSharp(string integrationFormula)
         {
@@ -49,6 +48,11 @@ namespace MScResearchTool.Server.Web.Helpers
                 return false;
 
             else return true;
+        }
+
+        public string PrepareFormulaForExpression(string originalFormula)
+        {
+            return ReplaceWrongChars(originalFormula);
         }
 
         private string ReplaceWrongChars(string formula)
@@ -118,7 +122,7 @@ namespace MScResearchTool.Server.Web.Helpers
 
             int counter = 0;
 
-            while (formula.Contains("ln")) // TO CORRECT (check all logarithm options)
+            while (formula.Contains("ln"))
             {
                 formula = DefineNaturalLogarithm(formula, counter);
                 counter++;

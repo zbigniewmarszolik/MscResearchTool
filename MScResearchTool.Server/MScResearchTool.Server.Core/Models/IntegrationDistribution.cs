@@ -9,5 +9,7 @@ namespace MScResearchTool.Server.Core.Models
         // Result properties:
         public virtual int DeviceRAM { get; set; }
         public virtual string DeviceCPU { get; set; }
+        public virtual double DeviceResult { get; set; }
+        public virtual double DeviceTime { get; set; }
     }
 }

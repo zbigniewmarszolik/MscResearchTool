@@ -2,7 +2,6 @@
 using MScResearchTool.Server.BusinessLogic.Businesses;
 using MScResearchTool.Server.BusinessLogic.Factories;
 using MScResearchTool.Server.Core.Businesses;
-using MScResearchTool.Server.Core.Factories;
 
 namespace MScResearchTool.Server.Binder.AutofacModules
 {
@@ -15,7 +14,7 @@ namespace MScResearchTool.Server.Binder.AutofacModules
             builder.RegisterType<IntegrationsBusiness>().As<IIntegrationsBusiness>();
             builder.RegisterType<IntegrationDistributionsBusiness>().As<IIntegrationDistributionsBusiness>();
             builder.RegisterType<IntegrationResultsBusiness>().As<IIntegrationResultsBusiness>();
-            builder.RegisterType<IntegrationDistributionFactory>().As<IIntegrationDistributionFactory>();
+            builder.RegisterType<IntegrationDistributionFactory>().As<IntegrationDistributionFactory>();
         }
     }
 }

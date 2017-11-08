@@ -10,7 +10,7 @@
     -webkit-font-smoothing: antialiased;
 }
 
-input, select{
+input, select {
     width: 100%;
 }
 
@@ -43,7 +43,7 @@ input, select{
 
     .block-button:hover {
         color: #000;
-        background-color: #51b0a4;
+        background-color: #33BCBA;
         -webkit-transition-duration: .4s;
         -moz-transition-duration: .4s;
     }
@@ -52,6 +52,44 @@ button.block-button {
     -webkit-appearance: none;
     -moz-appearance: none;
 }
+
+.pinned-button {
+    color: #fff;
+    text-decoration: none;
+    transition-duration: .3s;
+    -webkit-transition-duration: .4s;
+    -moz-transition-duration: .4s;
+    background-color: #6a6a6a;
+    padding: 5px 30px;
+    width: 100%;
+    cursor: pointer;
+    margin: 0 50px 0 0;
+    border: 1px solid #fff;
+    position: absolute;
+    left: 0;
+    top: 50px;
+}
+
+    .pinned-button:hover {
+        color: #000;
+        background-color: #33BCBA;
+        transition-duration: .3s;
+        -webkit-transition-duration: .4s;
+        -moz-transition-duration: .4s;
+        text-decoration: none;
+    }
+
+    .pinned-button:visited, .pinned-button:active {
+        text-decoration: none;
+        color: #fff;
+        background-color: #6a6a6a;
+    }
+
+    .pinned-button:focus {
+        text-decoration: none;
+        color: #000;
+        background-color: #33BCBA;
+    }
 
 .info-button {
     color: #fff;
@@ -69,7 +107,7 @@ button.block-button {
 
     .info-button:hover {
         color: #000;
-        background-color: #51b0a4;
+        background-color: #33BCBA;
         transition-duration: .3s;
         -webkit-transition-duration: .4s;
         -moz-transition-duration: .4s;
@@ -85,17 +123,17 @@ button.block-button {
     .info-button:focus {
         text-decoration: none;
         color: #000;
-        background-color: #51b0a4;
+        background-color: #33BCBA;
     }
 
 .info-container {
     border-style: groove;
     border-width: 1px 1px 1px 1px;
-    text-align:center;
+    text-align: center;
 }
 
-.info-value{
-    text-align:center;
+.info-value {
+    text-align: center;
 }
 
 .navbar-inverse {
@@ -116,7 +154,7 @@ button.block-button {
         .navbar-inverse .navbar-nav > li > a:hover,
         .navbar-inverse .navbar-nav > li > a:focus {
             color: #000;
-            background-color: #51b0a4;
+            background-color: #33BCBA;
             -webkit-transition-duration: .4s;
             -moz-transition-duration: .4s;
         }
@@ -125,7 +163,7 @@ button.block-button {
     .navbar-inverse .navbar-nav > .active > a:hover,
     .navbar-inverse .navbar-nav > .active > a:focus {
         color: #000;
-        background-color: #51b0a4;
+        background-color: #33BCBA;
     }
 
 .footer-bar {

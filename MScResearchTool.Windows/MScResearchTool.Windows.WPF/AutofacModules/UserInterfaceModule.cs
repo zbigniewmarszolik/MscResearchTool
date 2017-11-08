@@ -8,7 +8,10 @@ namespace MScResearchTool.Windows.WPF.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MainVM>().As<IMainVM>();
+            builder.RegisterType<MainViewModel>().As<IMainViewModel>().SingleInstance();
+            builder.RegisterType<SelectionViewModel>().As<ISelectionViewModel>();
+            builder.RegisterType<StatusViewModel>().As<IStatusViewModel>();
+            builder.RegisterType<ViewManager>().As<ViewManager>();
         }
     }
 }

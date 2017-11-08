@@ -3,54 +3,63 @@ using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Web.ViewModels;
 using System.Collections.Generic;
 using System;
+using MScResearchTool.Server.Core.Businesses;
+using System.Threading.Tasks;
+using AutoMapper;
+using MScResearchTool.Server.Core.Models;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
     public class ReportsController : Controller
     {
-        public ReportsController()
-        {
+        private IReportsBusiness _reportsBusiness { get; set; }
+        private IMapper _mapper { get; set; }
 
+        public ReportsController(IReportsBusiness reportsBusiness, IMapper mapper)
+        {
+            _reportsBusiness = reportsBusiness;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var vm = new List<ReportViewModel>()
+            var dataModels = await _reportsBusiness.ReadAllAsync();
+            var vms = new List<ReportViewModel>();
+
+            foreach(var item in dataModels)
             {
-                new ReportViewModel()
-                {
-                    Id = 0,
-                    GenerationDate = new DateTime(2016,10,03,05,00,15),
-                    Title = "Integration by trapezoids method",
-                    ContentPdf = null
-                },
-                new ReportViewModel()
-                {
-                    Id = 1,
-                    GenerationDate = new DateTime(2014,12,14,17,32,51),
-                    Title = "Integration by squares method",
-                    ContentPdf = null
-                },
-                new ReportViewModel()
-                {
-                    Id = 2,
-                    GenerationDate = DateTime.Now,
-                    Title = "Integration by trapezoids method",
-                    ContentPdf = null
-                },
-            };
+                var vm = _mapper.Map<Report, ReportViewModel>(item);
+                vms.Add(vm);
+            }
 
-            return View(vm);
+            return View(vms);
         }
 
-        public IActionResult DeleteReport(int removeId)
+        public async Task<IActionResult> DeleteReport(int removeId)
         {
-            return Ok();
+            await _reportsBusiness.DeleteAsync(removeId);
+
+            return RedirectToAction("Index");
         }
 
-        public IActionResult DownloadReport(int downloadId)
+        public async Task<IActionResult> DownloadReport(int downloadId)
         {
-            return Ok();
+            var report = await _reportsBusiness.ReadByIdAsync(downloadId);
+
+            string fileName = report.Title;
+            return File(report.ContentPdf, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
+
+        public async Task<IActionResult> RemoveAllReports()
+        {
+            var reports = await _reportsBusiness.ReadAllAsync();
+
+            foreach(var item in reports)
+            {
+                await _reportsBusiness.DeleteAsync(item.Id);
+            }
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Error()

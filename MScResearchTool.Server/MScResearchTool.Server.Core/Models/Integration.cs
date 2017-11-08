@@ -15,5 +15,8 @@ namespace MScResearchTool.Server.Core.Models
         public virtual double PartialTime { get; set; }
         public virtual int DesktopRAM { get; set; }
         public virtual string DesktopCPU { get; set; }
+
+        // Report only:
+        public virtual string UnresolvedFormula { get; set; }
     }
 }

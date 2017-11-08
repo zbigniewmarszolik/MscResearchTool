@@ -9,5 +9,6 @@ namespace MScResearchTool.Server.Core.Models
         public double ElapsedSeconds { get; set; }
         public int RAM { get; set; }
         public string CPU { get; set; }
+        public bool IsResultNotANumber { get; set; }
     }
 }

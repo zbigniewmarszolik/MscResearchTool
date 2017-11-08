@@ -1,0 +1,14 @@
+﻿<local:ViewBase x:Class="MScResearchTool.Windows.WPF.Views.StatusView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MScResearchTool.Windows.WPF.Views"
+                xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                mc:Ignorable="d" 
+             d:DesignHeight="384" d:DesignWidth="1366">
+    <StackPanel>
+        <TextBlock FontWeight="DemiBold" FontSize="20" Text="{Binding StatusText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <controls:ProgressRing IsActive="{Binding IsBusy}" MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Margin="0, 15, 0, 0" />
+    </StackPanel>
+</local:ViewBase>

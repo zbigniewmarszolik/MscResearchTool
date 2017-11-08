@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
-using MScResearchTool.Server.Core.Factories;
-using MScResearchTool.Server.Core.Helpers;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Core.Types;
+using MScResearchTool.Server.Web.Factories;
+using MScResearchTool.Server.Web.Helpers;
 using MScResearchTool.Server.Web.ViewModels;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,19 +15,19 @@ namespace MScResearchTool.Server.Web.Controllers
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private IIntegrationResultsBusiness _integrationResultsBusiness { get; set; }
-        private IIntegrationFactory _integrationFactory { get; set; }
-        private IViewModelFactory<IntegrationViewModel> _integrationVMFactory { get; set; }
-        private IIntegralInitializationHelper _integralInitializationHelper { get; set; }
-        private IParseDoubleHelper _parseDoubleHelper { get; set; }
+        private IntegrationFactory _integrationFactory { get; set; }
+        private IntegrationVMFactory _integrationVMFactory { get; set; }
+        private IntegralInitializationHelper _integralInitializationHelper { get; set; }
+        private ParseDoubleHelper _parseDoubleHelper { get; set; }
 
         public IntegrationsController
             (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             IIntegrationResultsBusiness integrationResultsBusiness,
-            IIntegrationFactory integrationFactory,
-            IViewModelFactory<IntegrationViewModel> integrationVMFactory,
-            IIntegralInitializationHelper integralInitializationHelper,
-            IParseDoubleHelper parseDoubleHelper)
+            IntegrationFactory integrationFactory,
+            IntegrationVMFactory integrationVMFactory,
+            IntegralInitializationHelper integralInitializationHelper,
+            ParseDoubleHelper parseDoubleHelper)
         {
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
@@ -49,9 +49,11 @@ namespace MScResearchTool.Server.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IntegrationViewModel integrationVm)
+        public async Task<IActionResult> Index(IntegrationViewModel integrationVm, string submitter)
         {
             ViewData["InputError"] = null;
+
+            var readyFormula = "";
 
             if (integrationVm.IntervalsCount < 2)
             {
@@ -59,20 +61,23 @@ namespace MScResearchTool.Server.Web.Controllers
                 return View(integrationVm);
             }
 
-            var testFormula = _integralInitializationHelper.IsFormulaCorrectForCSharp(integrationVm.Formula);
+            var isFormulaEvaluateable = _integralInitializationHelper.IsFormulaCorrectForCSharp(integrationVm.Formula);
 
-            if (testFormula == false)
+            if (isFormulaEvaluateable == false)
             {
                 ViewData["InputError"] = "Wrong formula. It can not be evaluated. Please try again. Make sure you use 'x' as a variable.";
                 return View(integrationVm);
             }
 
+            else readyFormula = _integralInitializationHelper.PrepareFormulaForExpression(integrationVm.Formula);
+
+
             var upperBoundParsed = _parseDoubleHelper.ParseInvariantCulture(integrationVm.UpperLimit);
             var lowerBoundParsed = _parseDoubleHelper.ParseInvariantCulture(integrationVm.LowerLimit);
 
-            var testConstraints = _integralInitializationHelper.AreConstraintsCorrect(upperBoundParsed, lowerBoundParsed, integrationVm.Precision);
+            var areConstraintsCorrect = _integralInitializationHelper.AreConstraintsCorrect(upperBoundParsed, lowerBoundParsed, integrationVm.Precision);
 
-            if (testConstraints == false)
+            if (areConstraintsCorrect == false)
             {
                 ViewData["InputError"] = "Wrong constraints. Make sure that 'b' > 'a' and 'n' is positive integer value.";
                 return View(integrationVm);
@@ -82,12 +87,22 @@ namespace MScResearchTool.Server.Web.Controllers
                 upperBoundParsed,
                 lowerBoundParsed,
                 integrationVm.Precision,
+                readyFormula,
                 integrationVm.Formula,
                 _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method));
 
             await _integrationsBusiness.DistributeAndPersistAsync(integral);
 
-            return RedirectToAction("Creation", "Tasks");
+            switch(submitter)
+            {
+                case "Add single integration task":
+                    return RedirectToAction("Creation", "Tasks");
+
+                case "Add integration task and prepare next":
+                    return View(integrationVm);
+
+                default: return RedirectToAction("Creation", "Tasks");
+            }
         }
 
         [Route("Api/PostIntegrationResult/{mode}")]
@@ -111,7 +126,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 {
                     dto.IsAvailable = false;
                     await _integrationsBusiness.UpdateAsync(dto);
-                }  
+                }
 
                 return Ok(dto);
             }
@@ -125,6 +140,8 @@ namespace MScResearchTool.Server.Web.Controllers
                     dto.IsAvailable = false;
                     await _integrationDistributionsBusiness.UpdateAsync(dto);
                 }
+
+                dto.Task = null;
 
                 return Ok(dto);
             }

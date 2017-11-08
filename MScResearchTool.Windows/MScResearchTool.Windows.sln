@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.WPF", "MScResearchTool.Windows.WPF\MScResearchTool.Windows.WPF.csproj", "{0CBF9D6B-B27E-470B-AE6A-994C24539C30}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -21,14 +21,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Ser
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Domain", "MScResearchTool.Windows.Domain\MScResearchTool.Windows.Domain.csproj", "{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.Tests", "MScResearchTool.Windows.Tests\MScResearchTool.Windows.Tests.csproj", "{C5A4C2B2-F99C-40C3-80D1-F662E683C625}"
-	ProjectSection(ProjectDependencies) = postProject
-		{F12D403D-6A94-4CDD-8B08-8F876E77098F} = {F12D403D-6A94-4CDD-8B08-8F876E77098F}
-		{0CBF9D6B-B27E-470B-AE6A-994C24539C30} = {0CBF9D6B-B27E-470B-AE6A-994C24539C30}
-		{B99B1DCF-E9AA-483B-9252-48762961420C} = {B99B1DCF-E9AA-483B-9252-48762961420C}
-		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF} = {ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Windows.BusinessLogic", "MScResearchTool.Windows.BusinessLogic\MScResearchTool.Windows.BusinessLogic.csproj", "{F12D403D-6A94-4CDD-8B08-8F876E77098F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -57,10 +49,6 @@ Global
 		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABCCB3E9-6900-4C9F-82AB-B47F0543E3CF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5A4C2B2-F99C-40C3-80D1-F662E683C625}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F12D403D-6A94-4CDD-8B08-8F876E77098F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F12D403D-6A94-4CDD-8B08-8F876E77098F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F12D403D-6A94-4CDD-8B08-8F876E77098F}.Release|Any CPU.ActiveCfg = Release|Any CPU

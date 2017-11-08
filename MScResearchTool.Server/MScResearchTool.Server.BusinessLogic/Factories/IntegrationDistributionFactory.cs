@@ -1,9 +1,8 @@
-﻿using MScResearchTool.Server.Core.Factories;
-using MScResearchTool.Server.Core.Models;
+﻿using MScResearchTool.Server.Core.Models;
 
 namespace MScResearchTool.Server.BusinessLogic.Factories
 {
-    public class IntegrationDistributionFactory : IIntegrationDistributionFactory
+    public class IntegrationDistributionFactory
     {
         public IntegrationDistribution GetInstance(Integration task, double downLimit, double upLimit)
         {
@@ -18,6 +17,7 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
                 Task = task,
                 IsAvailable = true,
                 IsFinished = false,
+                IsResultNaN = false,
                 DeviceRAM = 0,
                 DeviceCPU = "Unknown"
             };

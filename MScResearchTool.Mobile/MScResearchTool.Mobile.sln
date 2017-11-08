@@ -1,22 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Mobile.Android", "MScResearchTool.Mobile.Android\MScResearchTool.Mobile.Android.csproj", "{39240080-7C03-4EEC-997C-44EE7855F5B2}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E62B4C21-9A46-44F7-B018-88C680DD4B75} = {E62B4C21-9A46-44F7-B018-88C680DD4B75}
-		{B4CB68EA-99D9-461F-AD39-489350CA45F8} = {B4CB68EA-99D9-461F-AD39-489350CA45F8}
-	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Mobile.Tests", "MScResearchTool.Mobile.Tests\MScResearchTool.Mobile.Tests.csproj", "{50972CF3-3342-4977-8684-03C00BB4E83C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{E62B4C21-9A46-44F7-B018-88C680DD4B75} = {E62B4C21-9A46-44F7-B018-88C680DD4B75}
-		{782CC16C-2B0D-4EB1-85B6-38F52BFF4A8C} = {782CC16C-2B0D-4EB1-85B6-38F52BFF4A8C}
-		{8D109DC8-235E-4896-A80C-56502B3709BF} = {8D109DC8-235E-4896-A80C-56502B3709BF}
-		{B4CB68EA-99D9-461F-AD39-489350CA45F8} = {B4CB68EA-99D9-461F-AD39-489350CA45F8}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Mobile.Services", "MScResearchTool.Mobile.Services\MScResearchTool.Mobile.Services.csproj", "{782CC16C-2B0D-4EB1-85B6-38F52BFF4A8C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B4CB68EA-99D9-461F-AD39-489350CA45F8} = {B4CB68EA-99D9-461F-AD39-489350CA45F8}
@@ -36,22 +22,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Mobile.Busi
 		{B4CB68EA-99D9-461F-AD39-489350CA45F8} = {B4CB68EA-99D9-461F-AD39-489350CA45F8}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Mobile.Droid", "MScResearchTool.Mobile.Droid\MScResearchTool.Mobile.Droid.csproj", "{C15006C4-30D2-4C5E-A30D-08AC5BE4BBB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{39240080-7C03-4EEC-997C-44EE7855F5B2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{39240080-7C03-4EEC-997C-44EE7855F5B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{39240080-7C03-4EEC-997C-44EE7855F5B2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{39240080-7C03-4EEC-997C-44EE7855F5B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{39240080-7C03-4EEC-997C-44EE7855F5B2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{39240080-7C03-4EEC-997C-44EE7855F5B2}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{50972CF3-3342-4977-8684-03C00BB4E83C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{50972CF3-3342-4977-8684-03C00BB4E83C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{50972CF3-3342-4977-8684-03C00BB4E83C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{50972CF3-3342-4977-8684-03C00BB4E83C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{782CC16C-2B0D-4EB1-85B6-38F52BFF4A8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{782CC16C-2B0D-4EB1-85B6-38F52BFF4A8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{782CC16C-2B0D-4EB1-85B6-38F52BFF4A8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,6 +46,12 @@ Global
 		{8D109DC8-235E-4896-A80C-56502B3709BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D109DC8-235E-4896-A80C-56502B3709BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8D109DC8-235E-4896-A80C-56502B3709BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C15006C4-30D2-4C5E-A30D-08AC5BE4BBB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C15006C4-30D2-4C5E-A30D-08AC5BE4BBB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C15006C4-30D2-4C5E-A30D-08AC5BE4BBB4}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C15006C4-30D2-4C5E-A30D-08AC5BE4BBB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C15006C4-30D2-4C5E-A30D-08AC5BE4BBB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C15006C4-30D2-4C5E-A30D-08AC5BE4BBB4}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

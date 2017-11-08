@@ -3,19 +3,19 @@ using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Core.Repositories;
 using System.Collections.Generic;
-using MScResearchTool.Server.Core.Factories;
 using System.Linq;
+using MScResearchTool.Server.BusinessLogic.Factories;
 
 namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
     public class IntegrationsBusiness : IIntegrationsBusiness
     {
         private IIntegrationsRepository _integrationsRepository { get; set; }
-        private IIntegrationDistributionFactory _integrationDistributionFactory { get; set; }
+        private IntegrationDistributionFactory _integrationDistributionFactory { get; set; }
 
         public IntegrationsBusiness
             (IIntegrationsRepository integrationsRepository,
-            IIntegrationDistributionFactory integrationDistributionFactory)
+            IntegrationDistributionFactory integrationDistributionFactory)
         {
             _integrationsRepository = integrationsRepository;
             _integrationDistributionFactory = integrationDistributionFactory;

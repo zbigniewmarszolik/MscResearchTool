@@ -35,13 +35,24 @@
         <label for="method">Integration method:</label>
         <br />
         <select id="method" name="Method">
-            <option selected="selected" value="Square_integration">Squares</option>
-            <option value="Trapezoid_integration">Trapezoids</option>
+            @{
+                if (Model.Method == "Square_integration")
+                {
+                    <option selected="selected" value="Square_integration">Squares</option>
+                    <option value="Trapezoid_integration">Trapezoids</option>
+                }
+                else
+                {
+                    <option value="Square_integration">Squares</option>
+                    <option selected="selected" value="Trapezoid_integration">Trapezoids</option>
+                }
+            }
         </select>
         <br />
         <br />
         <br />
-        <input type="submit" value="Add integration task" class="info-button" />
+        <input name="submitter" type="submit" value="Add single integration task" class="info-button" />
+        <input name="submitter" type="submit" value="Add integration task and prepare next" class="info-button" />
     </form>
 
     @if (ViewData["InputError"] != null)
@@ -49,3 +60,4 @@
         <p class="input-error">@ViewData["InputError"]</p>
     }
 </div>
+
