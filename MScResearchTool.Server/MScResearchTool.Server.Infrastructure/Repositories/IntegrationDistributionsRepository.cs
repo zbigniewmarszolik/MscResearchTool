@@ -21,7 +21,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
         }
 
@@ -39,6 +39,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             catch (Exception ex)
             {
                 integrationDistributions = null;
+                throw ex;
             }
 
             return integrationDistributions;
@@ -58,6 +59,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             catch (Exception ex)
             {
                 integrationDistributions = null;
+                throw ex;
             }
 
             return integrationDistributions;
@@ -96,7 +98,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
         }
     }
