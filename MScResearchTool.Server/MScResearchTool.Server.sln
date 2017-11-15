@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2002
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MScResearchTool.Server.Web", "MScResearchTool.Server.Web\MScResearchTool.Server.Web.csproj", "{DE718489-DF47-4210-A1A3-A729BE12634B}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -23,18 +23,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Infr
 		{E33A078B-3697-41BA-8611-08EF2CBF39D1} = {E33A078B-3697-41BA-8611-08EF2CBF39D1}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Tests", "MScResearchTool.Server.Tests\MScResearchTool.Server.Tests.csproj", "{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}"
-	ProjectSection(ProjectDependencies) = postProject
-		{DE718489-DF47-4210-A1A3-A729BE12634B} = {DE718489-DF47-4210-A1A3-A729BE12634B}
-		{E33A078B-3697-41BA-8611-08EF2CBF39D1} = {E33A078B-3697-41BA-8611-08EF2CBF39D1}
-		{31D920FB-4AEC-4E1B-ADC5-61397966D295} = {31D920FB-4AEC-4E1B-ADC5-61397966D295}
-		{6E9740FF-7C61-4F8D-980B-61F9AF0F065D} = {6E9740FF-7C61-4F8D-980B-61F9AF0F065D}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.BusinessLogic", "MScResearchTool.Server.BusinessLogic\MScResearchTool.Server.BusinessLogic.csproj", "{31D920FB-4AEC-4E1B-ADC5-61397966D295}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E33A078B-3697-41BA-8611-08EF2CBF39D1} = {E33A078B-3697-41BA-8611-08EF2CBF39D1}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Tests.Infrastructure", "MScResearchTool.Server.Tests.Infrastructure\MScResearchTool.Server.Tests.Infrastructure.csproj", "{94D5BB57-0096-4D2F-A2B4-DB73068C321E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Tests.Core", "MScResearchTool.Server.Tests.Core\MScResearchTool.Server.Tests.Core.csproj", "{F6792BCE-48C2-4CC0-95DB-A18A3CBCDAA3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Tests.Business", "MScResearchTool.Server.Tests.Business\MScResearchTool.Server.Tests.Business.csproj", "{E678FF35-5810-4FCA-955A-A92A07F33785}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,14 +56,22 @@ Global
 		{6E9740FF-7C61-4F8D-980B-61F9AF0F065D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6E9740FF-7C61-4F8D-980B-61F9AF0F065D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6E9740FF-7C61-4F8D-980B-61F9AF0F065D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BD3FA8F-10E9-4F38-8CA9-5BC0D52DAA2B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{31D920FB-4AEC-4E1B-ADC5-61397966D295}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94D5BB57-0096-4D2F-A2B4-DB73068C321E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94D5BB57-0096-4D2F-A2B4-DB73068C321E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94D5BB57-0096-4D2F-A2B4-DB73068C321E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94D5BB57-0096-4D2F-A2B4-DB73068C321E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6792BCE-48C2-4CC0-95DB-A18A3CBCDAA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6792BCE-48C2-4CC0-95DB-A18A3CBCDAA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6792BCE-48C2-4CC0-95DB-A18A3CBCDAA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6792BCE-48C2-4CC0-95DB-A18A3CBCDAA3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E678FF35-5810-4FCA-955A-A92A07F33785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E678FF35-5810-4FCA-955A-A92A07F33785}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E678FF35-5810-4FCA-955A-A92A07F33785}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E678FF35-5810-4FCA-955A-A92A07F33785}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

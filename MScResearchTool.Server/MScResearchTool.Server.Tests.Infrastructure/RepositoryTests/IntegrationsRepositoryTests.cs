@@ -7,7 +7,9 @@ using System.Linq;
 using System.Transactions;
 using Xunit;
 
-namespace MScResearchTool.Server.Tests.RepositoryTests
+[assembly: CollectionBehavior(DisableTestParallelization = true)]
+
+namespace MScResearchTool.Server.Tests.Infrastructure.RepositoryTests
 {
     public class IntegrationsRepositoryTests
     {
@@ -70,7 +72,7 @@ namespace MScResearchTool.Server.Tests.RepositoryTests
         }
 
         [Fact]
-        public void Read_Standard_ReadingEager()
+        public void ReadEager_Standard_ReadingEager()
         {
             var integration = new Integration()
             {
@@ -167,7 +169,7 @@ namespace MScResearchTool.Server.Tests.RepositoryTests
 
             Assert.Equal(updatedAccuracy, result.Accuracy);
 
-            _integrationsRepository.Delete(update.Id);
+            _integrationsRepository.Delete(integration.Id);
         }
 
         [Fact]
