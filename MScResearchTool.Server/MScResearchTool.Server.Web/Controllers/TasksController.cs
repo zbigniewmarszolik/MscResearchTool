@@ -3,6 +3,8 @@ using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Core.Types;
 using MScResearchTool.Server.Web.Factories;
+using MScResearchTool.Server.Web.ViewModels;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Web.Controllers
@@ -30,7 +32,14 @@ namespace MScResearchTool.Server.Web.Controllers
         {
             var integrations = await _integrationsBusiness.ReadAllEagerAsync();
 
-            var vm = _taskVMFactory.GetCollection(integrations);
+            IList<TaskViewModel> vm = new List<TaskViewModel>();
+
+            var integrationTasks = _taskVMFactory.GetIntegrationsCollection(integrations);
+
+            foreach(var item in integrationTasks)
+            {
+                vm.Add(item);
+            }
 
             return View(vm);
         }

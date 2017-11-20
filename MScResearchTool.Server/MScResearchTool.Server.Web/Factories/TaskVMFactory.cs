@@ -8,7 +8,7 @@ namespace MScResearchTool.Server.Web.Factories
 {
     public class TaskVMFactory
     {
-        public IList<TaskViewModel> GetCollection(IList<Integration> integrations)
+        public IList<TaskViewModel> GetIntegrationsCollection(IList<Integration> integrations)
         {
             var collection = new List<TaskViewModel>();
 
