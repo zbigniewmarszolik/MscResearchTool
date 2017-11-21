@@ -91,7 +91,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
             await Task.Run(() =>
             {
-                if(!task.IsAvailable)
+                if(!task.IsAvailable && !task.IsFinished)
                 {
                     task.IsAvailable = true;
                     _integrationsRepository.Update(task);

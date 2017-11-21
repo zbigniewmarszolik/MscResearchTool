@@ -3,6 +3,8 @@ using MScResearchTool.Mobile.Droid.UI.Manual.Contract;
 using MScResearchTool.Mobile.Domain.Businesses;
 using MScResearchTool.Mobile.Domain.Services;
 using System.Threading.Tasks;
+using System;
+using MScResearchTool.Mobile.Domain.Models;
 
 namespace MScResearchTool.Mobile.Droid.UI.Manual
 {
@@ -27,6 +29,10 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _integrationResultsService = integrationResultsService;
             _integrationsBusiness = integrationsBusiness;
             _droidHardwareHelper = droidHardwareHelper;
+
+            _tasksService.ConnectionErrorAction = x => ShowError(x);
+            _integrationsService.ConnectionErrorAction = x => ShowError(x);
+            _integrationResultsService.ConnectionErrorAction = x => ShowError(x);
         }
 
         public async void OnTakeView(IManualView view)
@@ -46,13 +52,33 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _view.DisableAllButtons();
             _view.EnableProgressBar();
 
-            var integration = await _integrationsService.GetIntegrationAsync();
+            IntegrationDistribution integration = null;
+
+            try
+            {
+                integration = await _integrationsService.GetIntegrationAsync();
+            }
+            catch (Exception e)
+            {
+                _view.DisableProgressBar();
+                _view.DisableAllButtons();
+                return;
+            }
+
             var result = await _integrationsBusiness.CalculateIntegrationAsync(integration);
 
             result.CPU = _droidHardwareHelper.GetProcessorInfo();
             result.RAM = _droidHardwareHelper.GetMemoryAmount();
 
-            await _integrationResultsService.PostResultAsync(result);
+            try
+            {
+                await _integrationResultsService.PostResultAsync(result);
+            }
+            catch (Exception e)
+            {
+                _view.DisableProgressBar();
+                return;
+            }
 
             _view.DisableProgressBar();
             _view.ShowResult(result.Result, result.ElapsedSeconds);
@@ -73,14 +99,29 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _view.DisableAllButtons();
             _view.EnableProgressBar();
 
-            var check = await _tasksService.GetTasksAvailabilityAsync();
+            TaskInfo check = null;
+
+            try
+            {
+                check = await _tasksService.GetTasksAvailabilityAsync();
+            }
+            catch (Exception e)
+            {
+                _view.DisableProgressBar();
+                return;
+            }
 
             if (check.IsIntegrationAvailable)
                 _view.EnableIntegration();
 
-            else _view.EnableReconnect();
+            _view.EnableReconnect();
 
             _view.DisableProgressBar();
+        }
+
+        private void ShowError(string errorMsg)
+        {
+            _view.ShowServerError(errorMsg);
         }
     }
 }

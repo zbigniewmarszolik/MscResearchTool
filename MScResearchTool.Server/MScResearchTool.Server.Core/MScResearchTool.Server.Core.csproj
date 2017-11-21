@@ -47,6 +47,8 @@
     <Compile Include="Businesses\ITaskInfoBusiness.cs" />
     <Compile Include="Domain\IntegrationBase.cs" />
     <Compile Include="Domain\ModelBase.cs" />
+    <Compile Include="Enums\ECalculationMode.cs" />
+    <Compile Include="Enums\ETaskType.cs" />
     <Compile Include="Models\IntegrationDistribution.cs" />
     <Compile Include="Models\IntegrationResult.cs" />
     <Compile Include="Models\Integration.cs" />
@@ -56,8 +58,6 @@
     <Compile Include="Repositories\IIntegrationDistributionsRepository.cs" />
     <Compile Include="Repositories\IIntegrationsRepository.cs" />
     <Compile Include="Repositories\IReportsRepository.cs" />
-    <Compile Include="Types\ECalculationMode.cs" />
-    <Compile Include="Types\ETaskType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

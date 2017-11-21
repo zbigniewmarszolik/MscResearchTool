@@ -36,6 +36,8 @@ namespace MScResearchTool.Mobile.Services.Services
                 catch (Exception ex)
                 {
                     ConnectionErrorAction("Error connecting to the server for posting integration result.");
+
+                    throw ex;
                 }
             });
         }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
+using MScResearchTool.Server.Core.Enums;
 using MScResearchTool.Server.Core.Models;
-using MScResearchTool.Server.Core.Types;
+using MScResearchTool.Server.Web.Converters;
+using MScResearchTool.Server.Web.Facades;
 using MScResearchTool.Server.Web.Factories;
 using MScResearchTool.Server.Web.ViewModels;
 using System.Collections.Generic;
@@ -14,32 +16,32 @@ namespace MScResearchTool.Server.Web.Controllers
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private ITaskInfoBusiness _taskInfoBusiness { get; set; }
-        private TaskVMFactory _taskVMFactory { get; set; }
+        private DeleteStrategyFactory _deleteStrategyFactory { get; set; }
+        private UnstuckStrategyFactory _unstuckStrategyFactory { get; set; }
+        private TaskVMFacade _taskVMFacade { get; set; }
+        private TaskTypeConverter _taskTypeConverter { get; set; }
 
         public TasksController
             (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             ITaskInfoBusiness taskInfoBusiness,
-            TaskVMFactory taskVMFactory)
+            DeleteStrategyFactory deleteStrategyFactory,
+            UnstuckStrategyFactory unstuckStrategyFactory,
+            TaskVMFacade taskVMFacade,
+            TaskTypeConverter taskTypeConverter)
         {
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
             _taskInfoBusiness = taskInfoBusiness;
-            _taskVMFactory = taskVMFactory;
+            _deleteStrategyFactory = deleteStrategyFactory;
+            _unstuckStrategyFactory = unstuckStrategyFactory;
+            _taskVMFacade = taskVMFacade;
+            _taskTypeConverter = taskTypeConverter;
         }
 
         public async Task<IActionResult> Index()
         {
-            var integrations = await _integrationsBusiness.ReadAllEagerAsync();
-
-            IList<TaskViewModel> vm = new List<TaskViewModel>();
-
-            var integrationTasks = _taskVMFactory.GetIntegrationsCollection(integrations);
-
-            foreach(var item in integrationTasks)
-            {
-                vm.Add(item);
-            }
+            var vm = await _taskVMFacade.GetTaskViewModels();
 
             return View(vm);
         }
@@ -51,19 +53,14 @@ namespace MScResearchTool.Server.Web.Controllers
 
         public async Task<IActionResult> DeleteGenericTask(int deleteId, string taskType)
         {
-            if (taskType.Contains("integration"))
-                await _integrationsBusiness.CascadeDeleteAsync(deleteId);
+            await _deleteStrategyFactory.ResolveDeleteStrategy(_taskTypeConverter.StringToEnumerator(taskType)).DeleteAsync(deleteId);
 
             return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> UnstuckGenericTask(int unstuckId, string taskType)
         {
-            if (taskType.Contains("integration"))
-            {
-                await _integrationDistributionsBusiness.UnstuckByIdAsync(unstuckId);
-                await _integrationsBusiness.UnstuckByIdAsync(unstuckId);
-            }
+            await _unstuckStrategyFactory.ResolveUnstuckStrategy(_taskTypeConverter.StringToEnumerator(taskType)).UnstuckAsync(unstuckId);
 
             return RedirectToAction("Index");
         }

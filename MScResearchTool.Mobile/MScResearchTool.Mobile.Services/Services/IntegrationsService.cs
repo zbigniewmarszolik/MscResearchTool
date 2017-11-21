@@ -36,9 +36,11 @@ namespace MScResearchTool.Mobile.Services.Services
                     return integration;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 ConnectionErrorAction("Error connecting to the server for getting integration task to calculate.");
+
+                throw ex;
             }
 
             return null;

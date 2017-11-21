@@ -5,8 +5,8 @@ using Android.Widget;
 using Autofac;
 using Java.Lang;
 using MScResearchTool.Mobile.Droid.BackgroundServices;
+using MScResearchTool.Mobile.Droid.Enums;
 using MScResearchTool.Mobile.Droid.Helpers;
-using MScResearchTool.Mobile.Droid.Types;
 using MScResearchTool.Mobile.Droid.UI.Manual;
 using MScResearchTool.Mobile.Droid.UI.Menu.Contract;
 

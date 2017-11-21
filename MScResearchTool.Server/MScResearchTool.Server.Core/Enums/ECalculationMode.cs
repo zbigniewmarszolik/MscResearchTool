@@ -1,4 +1,4 @@
-﻿namespace MScResearchTool.Server.Core.Types
+﻿namespace MScResearchTool.Server.Core.Enums
 {
     public enum ECalculationMode
     {

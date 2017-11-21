@@ -36,9 +36,11 @@ namespace MScResearchTool.Mobile.Services.Services
                     return taskInfo;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
                 ConnectionErrorAction("Error connecting to the server for reading available tasks.");
+
+                throw ex;
             }
 
             return null;

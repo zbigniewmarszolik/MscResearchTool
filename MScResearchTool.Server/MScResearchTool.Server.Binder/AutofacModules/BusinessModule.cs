@@ -14,7 +14,8 @@ namespace MScResearchTool.Server.Binder.AutofacModules
             builder.RegisterType<IntegrationsBusiness>().As<IIntegrationsBusiness>();
             builder.RegisterType<IntegrationDistributionsBusiness>().As<IIntegrationDistributionsBusiness>();
             builder.RegisterType<IntegrationResultsBusiness>().As<IIntegrationResultsBusiness>();
-            builder.RegisterType<IntegrationDistributionFactory>().As<IntegrationDistributionFactory>();
+
+            builder.RegisterType<IntegrationDistributionFactory>();
         }
     }
 }
