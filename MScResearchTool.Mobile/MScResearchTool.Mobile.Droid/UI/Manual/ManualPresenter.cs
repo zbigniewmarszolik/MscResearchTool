@@ -29,10 +29,6 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _integrationResultsService = integrationResultsService;
             _integrationsBusiness = integrationsBusiness;
             _droidHardwareHelper = droidHardwareHelper;
-
-            _tasksService.ConnectionErrorAction = x => ShowError(x);
-            _integrationsService.ConnectionErrorAction = x => ShowError(x);
-            _integrationResultsService.ConnectionErrorAction = x => ShowError(x);
         }
 
         public async void OnTakeView(IManualView view)
@@ -62,6 +58,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             {
                 _view.DisableProgressBar();
                 _view.DisableAllButtons();
+                _view.ShowServerError("Error connecting to the server for getting integration task to calculate.");
                 return;
             }
 
@@ -77,6 +74,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             catch (Exception e)
             {
                 _view.DisableProgressBar();
+                _view.ShowServerError("Error connecting to the server for posting integration result.");
                 return;
             }
 
@@ -108,6 +106,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             catch (Exception e)
             {
                 _view.DisableProgressBar();
+                _view.ShowServerError("Error connecting to the server for reading available tasks.");
                 return;
             }
 
@@ -117,11 +116,6 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _view.EnableReconnect();
 
             _view.DisableProgressBar();
-        }
-
-        private void ShowError(string errorMsg)
-        {
-            _view.ShowServerError(errorMsg);
         }
     }
 }

@@ -6,7 +6,6 @@ namespace MScResearchTool.Mobile.Domain.Services
 {
     public interface ITasksService
     {
-        Action<string> ConnectionErrorAction { get; set; }
         Task<TaskInfo> GetTasksAvailabilityAsync();
     }
 }
