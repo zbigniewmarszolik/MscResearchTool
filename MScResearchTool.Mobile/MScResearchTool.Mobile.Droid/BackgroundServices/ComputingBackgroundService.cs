@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using System.Threading;
 using MScResearchTool.Mobile.Domain.Businesses;
 using MScResearchTool.Mobile.Droid.Helpers;
-using Autofac;
 using Android.Widget;
 using MScResearchTool.Mobile.Domain.Models;
 using System;
+using MScResearchTool.Mobile.Droid.Attributes;
 
 namespace MScResearchTool.Mobile.Droid.BackgroundServices
 {
@@ -19,11 +19,17 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
         Exported = true)]
     public class ComputingBackgroundService : BackgroundServiceBase
     {
+        [InjectDependency]
         private ITasksService _tasksService { get; set; }
+        [InjectDependency]
         private IIntegrationsService _integrationsService { get; set; }
+        [InjectDependency]
         private IIntegrationResultsService _integrationResultsService { get; set; }
+        [InjectDependency]
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
+        [InjectDependency]
         private DroidHardwareHelper _droidHardwareHelper { get; set; }
+
         private Handler _handler { get; set; }
 
         public override IBinder OnBind(Intent intent)
@@ -33,7 +39,9 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
-            ConstructServiceComponents();
+            base.OnStartCommand(intent, flags, startId);
+
+            _handler = new Handler(Looper.MainLooper);
 
             Task.Run(async () =>
             {
@@ -80,17 +88,6 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
                 else shouldTakeBreak = true;
             }
-        }
-
-        private void ConstructServiceComponents()
-        {
-            _tasksService = Container.Resolve<ITasksService>();
-            _integrationsService = Container.Resolve<IIntegrationsService>();
-            _integrationResultsService = Container.Resolve<IIntegrationResultsService>();
-            _integrationsBusiness = Container.Resolve<IIntegrationsBusiness>();
-            _droidHardwareHelper = Container.Resolve<DroidHardwareHelper>();
-
-            _handler = new Handler(Looper.MainLooper);
         }
 
         private async Task Integrate()

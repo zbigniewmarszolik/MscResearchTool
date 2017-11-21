@@ -2,8 +2,8 @@
 using Android.Content;
 using Android.OS;
 using Android.Widget;
-using Autofac;
 using Java.Lang;
+using MScResearchTool.Mobile.Droid.Attributes;
 using MScResearchTool.Mobile.Droid.BackgroundServices;
 using MScResearchTool.Mobile.Droid.Enums;
 using MScResearchTool.Mobile.Droid.Helpers;
@@ -15,7 +15,9 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
     [Activity(Theme = "@style/Theme.MasterRT", Label = "MSc Research Tool")]
     public class MenuActivity : ViewBase, IMenuView
     {
+        [InjectDependency]
         private IMenuPresenter _presenter { get; set; }
+        [InjectDependency]
         private ProcessHelper _processHelper { get; set; }
 
         private Button _startStopButton { get; set; }
@@ -30,9 +32,6 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
 
             ViewComponentsInitialization();
 
-            _processHelper = Container.Resolve<ProcessHelper>();
-
-            _presenter = Container.Resolve<IMenuPresenter>();
             _presenter.OnTakeView(this);
         }
 
