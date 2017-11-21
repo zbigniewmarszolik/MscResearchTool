@@ -11,7 +11,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 {
     public abstract class BackgroundServiceBase : Service
     {
-        private IContainer Container => App.Container;
+        private IContainer _container => App.Container;
 
         [return: GeneratedEnum]
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
@@ -22,7 +22,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             foreach (var property in properties.Where(p => p.GetCustomAttributes(typeof(InjectDependencyAttribute), false).Any()))
             {
                 object instance = null;
-                if (!App.Container.TryResolve(property.PropertyType, out instance))
+                if (!_container.TryResolve(property.PropertyType, out instance))
                 {
                     throw new InvalidOperationException("Could not resolve type " + property.PropertyType.ToString());
                 }

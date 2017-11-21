@@ -10,7 +10,7 @@ namespace MScResearchTool.Mobile.Droid.UI
 {
     public abstract class ViewBase : Activity
     {
-        private IContainer Container => App.Container;
+        private IContainer _container => App.Container;
 
         protected abstract void ViewComponentsInitialization();
 
@@ -24,7 +24,7 @@ namespace MScResearchTool.Mobile.Droid.UI
             foreach (var property in properties.Where(p => p.GetCustomAttributes(typeof(InjectDependencyAttribute), false).Any()))
             {
                 object instance = null;
-                if (!App.Container.TryResolve(property.PropertyType, out instance))
+                if (!_container.TryResolve(property.PropertyType, out instance))
                 {
                     throw new InvalidOperationException("Could not resolve type " + property.PropertyType.ToString());
                 }
