@@ -42,9 +42,14 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
         public async Task<IntegrationDistribution> ReadByIdAsync(int distributionId)
         {
-            var singleResult = await ReadIntegrationDistributionsAsync();
+            IList<IntegrationDistribution> results = null;
 
-            return singleResult.Where(x => x.Id == distributionId).First();
+            await Task.Run(() =>
+            {
+                results = _integrationDistributionsRepository.Read();
+            });
+
+            return results.Where(x => x.Id == distributionId).First();
         }
 
         public async Task UpdateAsync(IntegrationDistribution integrationDistribution)
@@ -57,7 +62,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
         public async Task UnstuckTakenAsync()
         {
-            var set = await ReadIntegrationDistributionsAsync();
+            var set = _integrationDistributionsRepository.ReadEager();
             var stuck = set.Where(x => x.IsFinished == false && x.IsAvailable == false).ToList();
 
             await Task.Run(() =>
@@ -70,35 +75,29 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             });
         }
 
-        public async Task UnstuckByIdAsync(int distributionId)
+        public async Task UnstuckByIdAsync(int integrationId)
         {
-            var distribution = await ReadByIdAsync(distributionId);
+            IList<IntegrationDistribution> distributions = null;
+            IList<IntegrationDistribution> correspondingDistributions = null;
 
             await Task.Run(() =>
             {
-                if(!distribution.IsAvailable)
+                distributions = _integrationDistributionsRepository.ReadEager();
+
+                correspondingDistributions = distributions.Where(x => x.Task.Id == integrationId).ToList();
+            });
+
+            await Task.Run(() =>
+            {
+                foreach(var item in correspondingDistributions)
                 {
-                    distribution.IsAvailable = true;
-                    _integrationDistributionsRepository.Update(distribution);
+                    if (!item.IsAvailable && !item.IsFinished)
+                    {
+                        item.IsAvailable = true;
+                        _integrationDistributionsRepository.Update(item);
+                    }
                 }
             });
-        }
-
-        private async Task<IList<IntegrationDistribution>> ReadIntegrationDistributionsAsync()
-        {
-            IList<IntegrationDistribution> results = null;
-
-            await Task.Run(() =>
-            {
-                results = _integrationDistributionsRepository.Read();
-            });
-
-            foreach(var item in results)
-            {
-                item.Task = null;
-            }
-
-            return results;
         }
     }
 }

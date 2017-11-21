@@ -21,7 +21,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             }
             catch(Exception ex)
             {
-
+                throw ex;
             }
             
         }
@@ -40,6 +40,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             catch (Exception ex)
             {
                 reports = null;
+                throw ex;
             }
 
             return reports;
@@ -59,7 +60,7 @@ namespace MScResearchTool.Server.Infrastructure.Repositories
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
         }
     }

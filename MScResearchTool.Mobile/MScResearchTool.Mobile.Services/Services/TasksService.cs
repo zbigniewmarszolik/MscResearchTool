@@ -10,8 +10,6 @@ namespace MScResearchTool.Mobile.Services.Services
 {
     public class TasksService : ServiceBase, ITasksService
     {
-        public Action<string> ConnectionErrorAction { get; set; }
-
         public TasksService(HttpClientFactory httpClientFactory)
         {
             Client = httpClientFactory.GetInstance();
@@ -36,9 +34,9 @@ namespace MScResearchTool.Mobile.Services.Services
                     return taskInfo;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ConnectionErrorAction("Error connecting to the server for reading available tasks.");
+                throw ex;
             }
 
             return null;

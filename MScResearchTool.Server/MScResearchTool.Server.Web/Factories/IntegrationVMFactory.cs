@@ -1,10 +1,18 @@
-﻿using MScResearchTool.Server.Web.ViewModels;
-using MScResearchTool.Server.Core.Types;
+﻿using MScResearchTool.Server.Core.Enums;
+using MScResearchTool.Server.Web.Converters;
+using MScResearchTool.Server.Web.ViewModels;
 
 namespace MScResearchTool.Server.Web.Factories
 {
     public class IntegrationVMFactory
     {
+        private TaskTypeConverter _taskTypeConverter { get; set; }
+
+        public IntegrationVMFactory(TaskTypeConverter taskTypeConverter)
+        {
+            _taskTypeConverter = taskTypeConverter;
+        }
+
         public IntegrationViewModel GetInstance()
         {
             var instance = new IntegrationViewModel()
@@ -14,7 +22,7 @@ namespace MScResearchTool.Server.Web.Factories
                 UpperLimit = "100",
                 LowerLimit = "0",
                 IntervalsCount = 2,
-                Method = ETaskType.Square_integration.ToString()
+                Method = _taskTypeConverter.EnumeratorToString(ETaskType.SquareIntegration)
             };
 
             return instance;

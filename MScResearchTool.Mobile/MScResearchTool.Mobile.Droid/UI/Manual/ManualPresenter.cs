@@ -3,6 +3,8 @@ using MScResearchTool.Mobile.Droid.UI.Manual.Contract;
 using MScResearchTool.Mobile.Domain.Businesses;
 using MScResearchTool.Mobile.Domain.Services;
 using System.Threading.Tasks;
+using System;
+using MScResearchTool.Mobile.Domain.Models;
 
 namespace MScResearchTool.Mobile.Droid.UI.Manual
 {
@@ -46,13 +48,35 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _view.DisableAllButtons();
             _view.EnableProgressBar();
 
-            var integration = await _integrationsService.GetIntegrationAsync();
+            IntegrationDistribution integration = null;
+
+            try
+            {
+                integration = await _integrationsService.GetIntegrationAsync();
+            }
+            catch (Exception e)
+            {
+                _view.DisableProgressBar();
+                _view.DisableAllButtons();
+                _view.ShowServerError("Error connecting to the server for getting integration task to calculate.");
+                return;
+            }
+
             var result = await _integrationsBusiness.CalculateIntegrationAsync(integration);
 
             result.CPU = _droidHardwareHelper.GetProcessorInfo();
             result.RAM = _droidHardwareHelper.GetMemoryAmount();
 
-            await _integrationResultsService.PostResultAsync(result);
+            try
+            {
+                await _integrationResultsService.PostResultAsync(result);
+            }
+            catch (Exception e)
+            {
+                _view.DisableProgressBar();
+                _view.ShowServerError("Error connecting to the server for posting integration result.");
+                return;
+            }
 
             _view.DisableProgressBar();
             _view.ShowResult(result.Result, result.ElapsedSeconds);
@@ -73,12 +97,23 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _view.DisableAllButtons();
             _view.EnableProgressBar();
 
-            var check = await _tasksService.GetTasksAvailabilityAsync();
+            TaskInfo check = null;
+
+            try
+            {
+                check = await _tasksService.GetTasksAvailabilityAsync();
+            }
+            catch (Exception e)
+            {
+                _view.DisableProgressBar();
+                _view.ShowServerError("Error connecting to the server for reading available tasks.");
+                return;
+            }
 
             if (check.IsIntegrationAvailable)
                 _view.EnableIntegration();
 
-            else _view.EnableReconnect();
+            _view.EnableReconnect();
 
             _view.DisableProgressBar();
         }

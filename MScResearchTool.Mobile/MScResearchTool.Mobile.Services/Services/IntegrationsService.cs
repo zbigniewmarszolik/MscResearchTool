@@ -10,8 +10,6 @@ namespace MScResearchTool.Mobile.Services.Services
 {
     public class IntegrationsService : ServiceBase, IIntegrationsService
     {
-        public Action<string> ConnectionErrorAction { get; set; }
-
         public IntegrationsService(HttpClientFactory httpClientFactory)
         {
             Client = httpClientFactory.GetInstance();
@@ -36,9 +34,9 @@ namespace MScResearchTool.Mobile.Services.Services
                     return integration;
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                ConnectionErrorAction("Error connecting to the server for getting integration task to calculate.");
+                throw ex;
             }
 
             return null;

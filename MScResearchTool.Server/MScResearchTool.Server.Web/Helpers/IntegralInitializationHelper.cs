@@ -1,4 +1,5 @@
-﻿using MScResearchTool.Server.Core.Types;
+﻿using MScResearchTool.Server.Core.Enums;
+using MScResearchTool.Server.Web.Converters;
 using NCalc;
 using System;
 using System.Text;
@@ -8,6 +9,13 @@ namespace MScResearchTool.Server.Web.Helpers
 {
     public class IntegralInitializationHelper
     {
+        private TaskTypeConverter _taskTypeConverter { get; set; }
+
+        public IntegralInitializationHelper(TaskTypeConverter taskTypeConverter)
+        {
+            _taskTypeConverter = taskTypeConverter;
+        }
+
         public bool IsFormulaCorrectForCSharp(string integrationFormula)
         {
             object expResult = null;
@@ -44,10 +52,13 @@ namespace MScResearchTool.Server.Web.Helpers
 
         public bool IsForTrapezoidIntegration(string integrationMethod)
         {
-            if (integrationMethod.Equals(ETaskType.Square_integration.ToString()))
+            if (integrationMethod.Equals(_taskTypeConverter.EnumeratorToString(ETaskType.SquareIntegration)))
                 return false;
 
-            else return true;
+            else if (integrationMethod.Equals(_taskTypeConverter.EnumeratorToString(ETaskType.TrapezoidIntegration)))
+                return true;
+
+            else throw new ArgumentException();
         }
 
         public string PrepareFormulaForExpression(string originalFormula)

@@ -1,14 +1,25 @@
 ﻿using System.Collections.Generic;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Web.ViewModels;
-using MScResearchTool.Server.Core.Types;
 using System.Linq;
+using MScResearchTool.Server.Web.Converters;
+using MScResearchTool.Server.Core.Enums;
+using MScResearchTool.Server.Web.Strategies.StatusStrategy;
 
 namespace MScResearchTool.Server.Web.Factories
 {
     public class TaskVMFactory
     {
-        public IList<TaskViewModel> GetCollection(IList<Integration> integrations)
+        private TaskTypeConverter _taskTypeConverter { get; set; }
+        private StatusStrategyFactory _statusStrategyFactory { get; set; }
+
+        public TaskVMFactory(TaskTypeConverter taskTypeConverter, StatusStrategyFactory statusStrategyFactory)
+        {
+            _taskTypeConverter = taskTypeConverter;
+            _statusStrategyFactory = statusStrategyFactory;
+        }
+
+        public IList<TaskViewModel> GetIntegrationsCollection(IList<Integration> integrations)
         {
             var collection = new List<TaskViewModel>();
 
@@ -18,40 +29,31 @@ namespace MScResearchTool.Server.Web.Factories
                 {
                     CreationDate = item.CreationDate,
                     DroidsCount = item.DroidIntervals,
-                    ModelId = item.Id
+                    ModelId = item.Id,
+                    TaskType = "unavailable"
                 };
 
                 if (item.IsTrapezoidMethodRequested)
-                    collectionElement.TaskType = ETaskType.Trapezoid_integration.ToString();
+                    collectionElement.TaskType = _taskTypeConverter.EnumeratorToString(ETaskType.TrapezoidIntegration);
 
-                else collectionElement.TaskType = ETaskType.Square_integration.ToString();
+                else collectionElement.TaskType = _taskTypeConverter.EnumeratorToString(ETaskType.SquareIntegration);
 
-                if (!item.IsFinished && !item.IsAvailable)
-                    collectionElement.TaskStatus = "Main task in progress (or stuck). ";
+                var state = new Status(item.IsFinished, item.IsAvailable);
 
-                else if (item.IsFinished)
-                    collectionElement.TaskStatus = "Main task finished. ";
+                IList<Status> distStates = new List<Status>();
 
-                else collectionElement.TaskStatus = "Main task waiting. ";
-
-                if (item.Distributions.All(x => x.IsFinished))
+                foreach(var j in item.Distributions)
                 {
-                    collectionElement.TaskStatus += "All distributions finished.";
+                    distStates.Add(new Status(j.IsFinished, j.IsAvailable));
                 }
 
-                else if(item.Distributions.All(x => x.IsAvailable))
-                {
-                    collectionElement.TaskStatus += "Distributions waiting.";
-                }
+                var mainStatusStrategy = _statusStrategyFactory.CreateForMainTask(state);
+                collectionElement.TaskStatus = mainStatusStrategy.MainTaskStatus();
 
-                else collectionElement.TaskStatus += "One of more distributions in progress (or stuck).";
+                var distributionsStatusStrategy = _statusStrategyFactory.CreateForDistributions(distStates);
+                collectionElement.TaskStatus += distributionsStatusStrategy.DistributionsStatus();
 
                 collection.Add(collectionElement);
-            }
-
-            foreach (var item in collection)
-            {
-                item.FixTaskType();
             }
 
             return collection;

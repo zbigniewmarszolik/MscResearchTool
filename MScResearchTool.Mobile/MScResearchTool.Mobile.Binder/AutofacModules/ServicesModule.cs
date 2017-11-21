@@ -9,7 +9,8 @@ namespace MScResearchTool.Mobile.Binder.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<HttpClientFactory>().As<HttpClientFactory>();
+            builder.RegisterType<HttpClientFactory>();
+
             builder.RegisterType<TasksService>().As<ITasksService>();
             builder.RegisterType<IntegrationsService>().As<IIntegrationsService>();
             builder.RegisterType<IntegrationResultsService>().As<IIntegrationResultsService>();

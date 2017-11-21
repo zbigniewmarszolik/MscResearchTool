@@ -9,6 +9,8 @@ using MScResearchTool.Mobile.Domain.Businesses;
 using MScResearchTool.Mobile.Droid.Helpers;
 using Autofac;
 using Android.Widget;
+using MScResearchTool.Mobile.Domain.Models;
+using System;
 
 namespace MScResearchTool.Mobile.Droid.BackgroundServices
 {
@@ -22,6 +24,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
         private IIntegrationResultsService _integrationResultsService { get; set; }
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private DroidHardwareHelper _droidHardwareHelper { get; set; }
+        private Handler _handler { get; set; }
 
         public override IBinder OnBind(Intent intent)
         {
@@ -47,6 +50,8 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
         private async Task ControlComputations()
         {
+            TaskInfo taskInfo = null;
+
             bool shouldTakeBreak = false;
 
             while (true)
@@ -54,29 +59,23 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                 if (shouldTakeBreak)
                     Thread.Sleep(180000);
 
-                var check = await _tasksService.GetTasksAvailabilityAsync();
+                try
+                {
+                    taskInfo = await _tasksService.GetTasksAvailabilityAsync();
+                }
+                catch(Exception e)
+                {
+                    BackgroundError("Service failed in connecting to the server for reading available tasks.");
+                    shouldTakeBreak = true;
+                    taskInfo = null;
+                    continue;
+                }
 
-                if (check.IsIntegrationAvailable)
+                if (taskInfo.IsIntegrationAvailable)
                 {
                     shouldTakeBreak = false;
 
-                    var integration = await _integrationsService.GetIntegrationAsync();
-                    var result = await _integrationsBusiness.CalculateIntegrationAsync(integration);
-
-                    result.CPU = _droidHardwareHelper.GetProcessorInfo();
-                    result.RAM = _droidHardwareHelper.GetMemoryAmount();
-
-                    await _integrationResultsService.PostResultAsync(result);
-
-                    Handler mainHandler = new Handler(Looper.MainLooper);
-
-                    Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
-                    {
-                        var duration = ToastLength.Short;
-                        Toast.MakeText(this, "MSc Research Tool has just sent calculation result to the server.", duration).Show();
-                    });
-
-                    mainHandler.Post(runnableToast);
+                    await Integrate();
                 }
 
                 else shouldTakeBreak = true;
@@ -90,6 +89,49 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             _integrationResultsService = Container.Resolve<IIntegrationResultsService>();
             _integrationsBusiness = Container.Resolve<IIntegrationsBusiness>();
             _droidHardwareHelper = Container.Resolve<DroidHardwareHelper>();
+
+            _handler = new Handler(Looper.MainLooper);
+        }
+
+        private async Task Integrate()
+        {
+            IntegrationDistribution integration = null;
+
+            try
+            {
+                integration = await _integrationsService.GetIntegrationAsync();
+            }
+            catch(Exception e)
+            {
+                BackgroundError("Service failed in connecting to the server for getting integration task to calculate.");
+                return;
+            }
+
+            var result = await _integrationsBusiness.CalculateIntegrationAsync(integration);
+
+            result.CPU = _droidHardwareHelper.GetProcessorInfo();
+            result.RAM = _droidHardwareHelper.GetMemoryAmount();
+
+            try
+            {
+                await _integrationResultsService.PostResultAsync(result);
+            }
+            catch(Exception e)
+            {
+                BackgroundError("Service failed in connecting to the server for posting integration result.");
+                return;
+            }
+        }
+
+        private void BackgroundError(string errorValue)
+        {
+            Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
+            {
+                var duration = ToastLength.Long;
+                Toast.MakeText(this, errorValue, duration).Show();
+            });
+
+            _handler.Post(runnableToast);
         }
     }
 }

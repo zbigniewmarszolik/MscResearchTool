@@ -8,5 +8,6 @@
         void EnableProgressBar();
         void DisableProgressBar();
         void ShowResult(double result, double seconds);
+        void ShowServerError(string errorMessage);
     }
 }

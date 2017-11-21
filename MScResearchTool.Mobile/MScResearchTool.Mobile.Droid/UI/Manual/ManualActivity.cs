@@ -90,5 +90,20 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             Dialog dialogBox = builder.Create();
             dialogBox.Show();
         }
+
+        public void ShowServerError(string errorMessage)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this, Resource.Style.alertDialog);
+
+            builder.SetMessage(errorMessage);
+
+            builder.SetNeutralButton("OK", (sender, e) =>
+            {
+                EnableReconnect();
+            });
+
+            Dialog dialogBox = builder.Create();
+            dialogBox.Show();
+        }
     }
 }

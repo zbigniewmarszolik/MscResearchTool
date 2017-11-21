@@ -1,4 +1,4 @@
-﻿namespace MScResearchTool.Mobile.Droid.Types
+﻿namespace MScResearchTool.Mobile.Droid.Enums
 {
     public enum EButtonValues
     {

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Web.ViewModels;
 using System.Collections.Generic;
-using System;
 using MScResearchTool.Server.Core.Businesses;
 using System.Threading.Tasks;
 using AutoMapper;

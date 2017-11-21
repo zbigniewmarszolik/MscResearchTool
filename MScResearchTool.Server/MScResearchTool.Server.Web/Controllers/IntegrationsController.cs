@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
+using MScResearchTool.Server.Core.Enums;
 using MScResearchTool.Server.Core.Models;
-using MScResearchTool.Server.Core.Types;
+using MScResearchTool.Server.Web.Builders;
 using MScResearchTool.Server.Web.Factories;
 using MScResearchTool.Server.Web.Helpers;
 using MScResearchTool.Server.Web.ViewModels;
@@ -15,7 +16,6 @@ namespace MScResearchTool.Server.Web.Controllers
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private IIntegrationResultsBusiness _integrationResultsBusiness { get; set; }
-        private IntegrationFactory _integrationFactory { get; set; }
         private IntegrationVMFactory _integrationVMFactory { get; set; }
         private IntegralInitializationHelper _integralInitializationHelper { get; set; }
         private ParseDoubleHelper _parseDoubleHelper { get; set; }
@@ -24,7 +24,6 @@ namespace MScResearchTool.Server.Web.Controllers
             (IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             IIntegrationResultsBusiness integrationResultsBusiness,
-            IntegrationFactory integrationFactory,
             IntegrationVMFactory integrationVMFactory,
             IntegralInitializationHelper integralInitializationHelper,
             ParseDoubleHelper parseDoubleHelper)
@@ -32,7 +31,6 @@ namespace MScResearchTool.Server.Web.Controllers
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
             _integrationResultsBusiness = integrationResultsBusiness;
-            _integrationFactory = integrationFactory;
             _integrationVMFactory = integrationVMFactory;
             _integralInitializationHelper = integralInitializationHelper;
             _parseDoubleHelper = parseDoubleHelper;
@@ -83,13 +81,16 @@ namespace MScResearchTool.Server.Web.Controllers
                 return View(integrationVm);
             }
 
-            var integral = _integrationFactory.GetInstance(integrationVm.IntervalsCount,
-                upperBoundParsed,
-                lowerBoundParsed,
-                integrationVm.Precision,
-                readyFormula,
-                integrationVm.Formula,
-                _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method));
+            var builder = new IntegrationBuilder();
+            builder.NumberOfDistributions = integrationVm.IntervalsCount;
+            builder.UpperLimit = upperBoundParsed;
+            builder.LowerLimit = lowerBoundParsed;
+            builder.IntegrationPrecision = integrationVm.Precision;
+            builder.IntegrationFormula = readyFormula;
+            builder.UnmodifiedInputFormula = integrationVm.Formula;
+            builder.IsTrapezoidMethodRequired = _integralInitializationHelper.IsForTrapezoidIntegration(integrationVm.Method);
+
+            var integral = builder.Build();
 
             await _integrationsBusiness.DistributeAndPersistAsync(integral);
 
