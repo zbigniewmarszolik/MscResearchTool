@@ -31,6 +31,7 @@ namespace MScResearchTool.Mobile.Droid
             builder.RegisterModule<AndroidModule>();
             builder.RegisterModule<BusinessModule>();
             builder.RegisterModule<ServicesModule>();
+
             Container = builder.Build();
         }
     }

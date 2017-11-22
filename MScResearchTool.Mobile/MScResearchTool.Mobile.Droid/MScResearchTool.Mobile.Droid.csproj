@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Attributes\InjectDependencyAttribute.cs" />
     <Compile Include="AutofacModules\AndroidModule.cs" />
     <Compile Include="BackgroundServices\BackgroundServiceBase.cs" />
     <Compile Include="BackgroundServices\ComputingBackgroundService.cs" />

@@ -2,14 +2,15 @@
 using Android.OS;
 using Android.Widget;
 using MScResearchTool.Mobile.Droid.UI.Manual.Contract;
-using Autofac;
 using Android.Views;
+using MScResearchTool.Mobile.Droid.Attributes;
 
 namespace MScResearchTool.Mobile.Droid.UI.Manual
 {
     [Activity(Theme = "@style/Theme.MasterRT", Label = "MSc Research Tool")]
     public class ManualActivity : ViewBase, IManualView
     {
+        [InjectDependency]
         private IManualPresenter _presenter { get; set; }
 
         private Button _integrateButton { get; set; }
@@ -24,7 +25,6 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
 
             ViewComponentsInitialization();
 
-            _presenter = Container.Resolve<IManualPresenter>();
             _presenter.OnTakeView(this);
         }
 
