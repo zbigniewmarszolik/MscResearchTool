@@ -63,6 +63,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessTests\IntegrationDistributionsBusinessTests.cs" />
+    <Compile Include="BusinessTests\IntegrationResultsBusinessTests.cs" />
+    <Compile Include="BusinessTests\IntegrationsBusinessTests.cs" />
+    <Compile Include="BusinessTests\ReportsBusinessTests.cs" />
     <Compile Include="BusinessTests\TaskInfoBusinessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

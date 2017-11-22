@@ -1,38 +1,25 @@
-﻿using Moq;
-using MScResearchTool.Server.Core.Enums;
-using MScResearchTool.Server.Tests.Core.Units;
-using MScResearchTool.Server.Web.Converters;
+﻿using MScResearchTool.Server.Tests.Core.HelperTests;
 using MScResearchTool.Server.Web.Helpers;
 using System;
 using Xunit;
 
 namespace MScResearchTool.Server.Tests.Web.HelperTests
 {
-    public class IntegralInitializationHelperTests
+    public class IntegralInitializationHelperTests : IntegralInitializationHelperTestsBase
     {
-        private TestingUnit<IntegralInitializationHelper> GetUnit()
+        private readonly IntegralInitializationHelper _testingUnit;
+
+        public IntegralInitializationHelperTests()
         {
-            var unit = new TestingUnit<IntegralInitializationHelper>();
-
-            unit.AddDependency(new Mock<TaskTypeConverter>(MockBehavior.Strict));
-
-            return unit;
+            _testingUnit = GetUniversalMockedUnit();
         }
 
         [Theory]
         [InlineData("Trapezoid integration", true)]
         [InlineData("Square integration", false)]
-        public void IsForTrapezoidIntegration_TrueOrFalse_ProperlyAssigning(string input, bool condition) // TO MOCK
+        public void IsForTrapezoidIntegration_TrueOrFalse_ProperlyAssigning(string input, bool condition)
         {
-            TestingUnit<IntegralInitializationHelper> testingUnit = GetUnit();
-
-            var mockTaskTypeConverter = testingUnit.GetDependency<Mock<TaskTypeConverter>>();
-            mockTaskTypeConverter.Setup(ets => ets.EnumeratorToString(ETaskType.SquareIntegration)).CallBase();
-            mockTaskTypeConverter.Setup(ets => ets.EnumeratorToString(ETaskType.TrapezoidIntegration)).CallBase();
-
-            IntegralInitializationHelper integralInitializationHelper = testingUnit.GetResolvedTestingUnit();
-
-            var result = integralInitializationHelper.IsForTrapezoidIntegration(input);
+            var result = _testingUnit.IsForTrapezoidIntegration(input);
 
             Assert.Equal(condition, result);
         }
@@ -42,17 +29,9 @@ namespace MScResearchTool.Server.Tests.Web.HelperTests
         {
             var wrongInput = "some_random_string";
 
-            TestingUnit<IntegralInitializationHelper> testingUnit = GetUnit();
-
-            var mockTaskTypeConverter = testingUnit.GetDependency<Mock<TaskTypeConverter>>();
-            mockTaskTypeConverter.Setup(ets => ets.EnumeratorToString(ETaskType.SquareIntegration)).CallBase();
-            mockTaskTypeConverter.Setup(ets => ets.EnumeratorToString(ETaskType.TrapezoidIntegration)).CallBase();
-
-            IntegralInitializationHelper integralInitializationHelper = testingUnit.GetResolvedTestingUnit();
-
             Assert.Throws<ArgumentException>(() =>
             {
-                var result = integralInitializationHelper.IsForTrapezoidIntegration(wrongInput);
+                var result = _testingUnit.IsForTrapezoidIntegration(wrongInput);
             });
         }
 
@@ -64,7 +43,7 @@ namespace MScResearchTool.Server.Tests.Web.HelperTests
         [InlineData(10.0, 25.5, 99, false)]
         public void AreConstraintsCorrect_MultipleInputs_ProperlyReturning(double upperLimit, double lowerLimit, int precision, bool condition)
         {
-            var result = GetUnit().GetResolvedTestingUnit().AreConstraintsCorrect(upperLimit, lowerLimit, precision);
+            var result = _testingUnit.AreConstraintsCorrect(upperLimit, lowerLimit, precision);
 
             Assert.Equal(condition, result);
         }
@@ -79,7 +58,7 @@ namespace MScResearchTool.Server.Tests.Web.HelperTests
         [InlineData("x+5-10*x*x*x-adsdsdsadsadsadsadsa", false)]
         public void IsFormulaCorrectForCSharp_MultipleInputs_ProperlyTransformingFormula(string value, bool condition)
         {
-            var result = GetUnit().GetResolvedTestingUnit().IsFormulaCorrectForCSharp(value);
+            var result = _testingUnit.IsFormulaCorrectForCSharp(value);
 
             Assert.Equal(condition, result);
         }
@@ -87,7 +66,7 @@ namespace MScResearchTool.Server.Tests.Web.HelperTests
         [Fact]
         public void PrepareFormulaForExpression_StringInput_StringOutput()
         {
-            var res = GetUnit().GetResolvedTestingUnit().PrepareFormulaForExpression("x+2");
+            var res = _testingUnit.PrepareFormulaForExpression("x+2");
 
             Assert.IsType<string>(res);
         }

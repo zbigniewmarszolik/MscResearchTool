@@ -2,6 +2,7 @@
 using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Models;
 using System.Linq;
+using System;
 
 namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
@@ -23,6 +24,9 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
         public async Task ProcessResultAsync(IntegrationResult result)
         {
+            if (result == null)
+                throw new ArgumentNullException();
+
             if (result.Result.ToString() == "NaN")
             {
                 result.Result = 0.0;
