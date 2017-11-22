@@ -16,18 +16,18 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
         [return: GeneratedEnum]
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
-            PropertyInfo[] properties =
-                this.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            PropertyInfo[] properties = this.GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
-            foreach (var property in properties.Where(p => p.GetCustomAttributes(typeof(InjectDependencyAttribute), false).Any()))
+            foreach (var item in properties.Where(p => p.GetCustomAttributes(typeof(InjectDependencyAttribute), false).Any()))
             {
                 object instance = null;
-                if (!_container.TryResolve(property.PropertyType, out instance))
+
+                if (!_container.TryResolve(item.PropertyType, out instance))
                 {
-                    throw new InvalidOperationException("Could not resolve type " + property.PropertyType.ToString());
+                    throw new InvalidOperationException("Could not resolve type " + item.PropertyType.ToString());
                 }
 
-                property.SetValue(this, instance);
+                item.SetValue(this, instance);
             }
 
             return StartCommandResult.NotSticky;
