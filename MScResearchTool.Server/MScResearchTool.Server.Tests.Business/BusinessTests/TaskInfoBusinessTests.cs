@@ -2,24 +2,15 @@
 using MScResearchTool.Server.BusinessLogic.Businesses;
 using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Models;
+using MScResearchTool.Server.Tests.Core.BusinessTests;
 using MScResearchTool.Server.Tests.Core.Units;
 using System.Collections.Generic;
 using Xunit;
 
 namespace MScResearchTool.Server.Tests.Business.BusinessTests
 {
-    public class TaskInfoBusinessTests
+    public class TaskInfoBusinessTests : TaskInfoBusinessTestsBase
     {
-        private TestingUnit<TaskInfoBusiness> GetUnit()
-        {
-            var unit = new TestingUnit<TaskInfoBusiness>();
-
-            unit.AddDependency(new Mock<IIntegrationsBusiness>(MockBehavior.Strict));
-            unit.AddDependency(new Mock<IIntegrationDistributionsBusiness>(MockBehavior.Strict));
-
-            return unit;
-        }
-
         [Fact]
         public async void GetFullTasksAvailabilityAsync_NotEmptyInput_ReturnsTasksAvailability()
         {
