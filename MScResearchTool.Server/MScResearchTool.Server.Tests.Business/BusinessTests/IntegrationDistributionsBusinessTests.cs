@@ -10,7 +10,6 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
     public class IntegrationDistributionsBusinessTests : IntegrationDistributionsBusinessTestsBase
     {
         private readonly IntegrationDistributionsBusiness _testingUnit;
-        private int x = 5;
 
         public IntegrationDistributionsBusinessTests() : base()
         {
@@ -25,7 +24,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             Assert.NotNull(result);
             Assert.Equal(DistributionsDatabase.Count, result.Count);
 
-            foreach(var item in result)
+            foreach (var item in result)
             {
                 Assert.NotNull(item.Task);
             }
@@ -43,38 +42,33 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
                 Assert.NotNull(item.Task);
             }
 
-            foreach(var item in result)
+            foreach (var item in result)
             {
                 Assert.True(item.IsAvailable);
                 Assert.False(item.IsFinished);
             }
         }
 
-        [Theory]
-        [InlineData(10, true)]
-        [InlineData(20, false)]
-        public async void ReadByIdAsync_IdInput_ReturningLazyIfIdExists(int index, bool condition)
+        [Fact]
+        public async void ReadByIdAsync_ExistingIdInput_ReturningLazyIfIdExists()
+        {
+            var result = await _testingUnit.ReadByIdAsync(DistributionFirstId);
+
+            Assert.NotNull(result);
+            Assert.Null(result.Task);
+        }
+
+        [Fact]
+        public async void ReadByIdAsync_WrongIdInput_ReturningLazyIfIdExists()
         {
             IntegrationDistribution result = null;
 
-            try
-            {
-                result = await _testingUnit.ReadByIdAsync(index);
-            }
-            catch(Exception e)
-            {
-                result = null;
-            }
+            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
+             {
+                 result = await _testingUnit.ReadByIdAsync(NotExistingId);
+             });
 
-            var isNull = true;
-
-            if (result != null)
-                isNull = false;
-
-            Assert.NotEqual(condition, isNull);
-
-            if (!isNull)
-                Assert.Null(result.Task);
+            Assert.Null(result);
         }
 
         [Fact]
@@ -115,7 +109,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
 
             list = await _testingUnit.ReadAllEagerAsync();
 
-            foreach(var item in list)
+            foreach (var item in list)
             {
                 if (!item.IsFinished)
                     Assert.True(item.IsAvailable);

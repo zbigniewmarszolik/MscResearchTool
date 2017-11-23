@@ -16,6 +16,8 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
         protected int FirstId { get; private set; }
         protected int SecondId { get; private set; }
         protected int IntegrationId { get; private set; }
+        protected int DistributionFirstId { get; private set; }
+        protected int DistributionSecondId { get; private set; }
 
         protected IList<Report> ReportsDatabase { get; set; }
 
@@ -24,6 +26,8 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
             FirstId = 3;
             SecondId = 10;
             IntegrationId = 5;
+            DistributionFirstId = 10;
+            DistributionSecondId = 11;
 
             ReportsDatabase = new List<Report>()
             {
@@ -118,7 +122,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     DeviceTime = 2.37,
                     DownBoundary = 1,
                     Formula = "Sin(x-1)",
-                    Id = 10,
+                    Id = DistributionFirstId,
                     IsAvailable = false,
                     IsFinished = true,
                     IsResultNaN = false,
@@ -137,7 +141,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     DeviceTime = 3.0,
                     DownBoundary = 2,
                     Formula = "Sin(x-1)",
-                    Id = 11,
+                    Id = DistributionSecondId,
                     IsAvailable = false,
                     IsFinished = true,
                     IsResultNaN = false,

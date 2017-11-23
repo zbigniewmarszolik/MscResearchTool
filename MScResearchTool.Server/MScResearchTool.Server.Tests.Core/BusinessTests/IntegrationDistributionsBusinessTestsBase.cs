@@ -12,11 +12,26 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
 {
     public abstract class IntegrationDistributionsBusinessTestsBase : MockingTestsBase<TestingUnit<IntegrationDistributionsBusiness>>
     {
+        protected int IntegrationId { get; private set; }
+        protected int DistributionFirstId { get; private set; }
+        protected int DistributionSecondId { get; private set; }
+        protected int NotExistingId { get; private set; }
+
         protected IList<IntegrationDistribution> DistributionsDatabase { get; set; }
 
         public IntegrationDistributionsBusinessTestsBase()
         {
+            IntegrationId = 42;
+            DistributionFirstId = 10;
+            DistributionSecondId = 11;
+
+            var random = new Random();
+            NotExistingId = random.Next(1, 1000);
+
             DistributionsDatabase = CreateDistributions();
+
+            while (NotExistingId == DistributionFirstId && NotExistingId == DistributionSecondId)
+                NotExistingId = random.Next(1, 1000);
         }
 
         protected override TestingUnit<IntegrationDistributionsBusiness> GetUnit()
@@ -58,10 +73,6 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                 var oldItem = DistributionsDatabase.First(x => x.Id == updatedDistribution.Id);
                 var index = DistributionsDatabase.IndexOf(oldItem);
                 DistributionsDatabase[index] = updatedDistribution;
-
-                var item = DistributionsDatabase.First(x => x.Id == updatedDistribution.Id);
-                DistributionsDatabase.Remove(item);
-                DistributionsDatabase.Add(updatedDistribution);
             });
 
             mockDistributionsRepository.Setup(d => d.Delete(It.IsAny<int>())).Callback((int id) =>
@@ -134,7 +145,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                 Formula = "Sin(x-1)",
                 FullResult = 15.0,
                 FullTime = 4.19,
-                Id = 42,
+                Id = IntegrationId,
                 IsAvailable = false,
                 IsFinished = true,
                 IsResultNaN = false,
