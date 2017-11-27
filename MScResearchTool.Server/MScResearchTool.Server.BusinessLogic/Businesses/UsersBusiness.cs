@@ -17,7 +17,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             _usersRepository = usersRepository;
         }
 
-        public async Task CreateNewUser(User user)
+        public async Task CreateNewUserAsync(User user)
         {
             if (user == null)
                 throw new ArgumentNullException();
@@ -35,7 +35,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             if (users != null)
                 await Task.Run(() =>
                 {
-                    user = users.First(x => x.Name == username);
+                    user = users.FirstOrDefault(x => x.Name == username);
                 });
 
             return user;
@@ -51,13 +51,13 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             if (users != null)
                 await Task.Run(() =>
                 {
-                    user = users.First(x => x.Name == username && x.Password == password);
+                    user = users.FirstOrDefault(x => x.Name == username && x.Password == password);
                 });
 
             return user;
         }
 
-        public async Task<bool> AreUsersInDatabase()
+        public async Task<bool> AreUsersInDatabaseAsync()
         {
             IList<User> users = null;
 
@@ -72,6 +72,17 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             }
 
             else return false;
+        }
+
+        public async Task<bool> IsUsernameTakenAsync(string username)
+        {
+            IList<User> users = null;
+
+            users = await ReadAllUsers();
+
+            var isTaken = users.Any(x => x.Name == username);
+
+            return isTaken;
         }
 
         private async Task<IList<User>> ReadAllUsers()

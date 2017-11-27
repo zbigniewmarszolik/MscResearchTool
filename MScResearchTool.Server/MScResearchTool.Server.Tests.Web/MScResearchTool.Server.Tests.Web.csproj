@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HelperTests\HashHelperTests.cs" />
     <Compile Include="HelperTests\IntegralInitializationHelperTests.cs" />
     <Compile Include="HelperTests\ParseDoubleHelperTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

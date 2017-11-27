@@ -5,9 +5,10 @@ namespace MScResearchTool.Server.Core.Businesses
 {
     public interface IUsersBusiness
     {
-        Task CreateNewUser(User user);
+        Task CreateNewUserAsync(User user);
         Task<User> ReadUserByNameOnlyAsync(string username);
         Task<User> ReadUserByNameAndPasswordAsync(string username, string password);
-        Task<bool> AreUsersInDatabase();
+        Task<bool> AreUsersInDatabaseAsync();
+        Task<bool> IsUsernameTakenAsync(string username);
     }
 }

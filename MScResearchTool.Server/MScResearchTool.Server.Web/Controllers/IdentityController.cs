@@ -117,14 +117,14 @@ namespace MScResearchTool.Server.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoteRegistration([FromBody] User user)
         {
-            var areUsersAlready = await _usersBusiness.AreUsersInDatabase();
+            var areUsersAlready = await _usersBusiness.AreUsersInDatabaseAsync();
 
             if (areUsersAlready)
                 return NotFound();
 
             var userToSave = _userFactory.Create(user.Name, user.Password);
 
-            await _usersBusiness.CreateNewUser(userToSave);
+            await _usersBusiness.CreateNewUserAsync(userToSave);
 
             return Ok();
         }
@@ -154,12 +154,22 @@ namespace MScResearchTool.Server.Web.Controllers
                 return View();
             }
 
+            var isExisting = await _usersBusiness.IsUsernameTakenAsync(username);
+
+            if(isExisting)
+            {
+                regStatus = "Username already taken. Please try again.";
+                ViewData[EWebKeyValues.RegistrationResult.ToString()] = regStatus;
+
+                return View();
+            }
+
             var user = _userFactory.Create(username, pass);
 
-            await _usersBusiness.CreateNewUser(user);
+            await _usersBusiness.CreateNewUserAsync(user);
 
             regStatus = "User created succesfully.";
-            ViewData[EWebKeyValues.RegistrationResult.ToString()] = null;
+            ViewData[EWebKeyValues.RegistrationResult.ToString()] = regStatus;
 
             return View();
         }
