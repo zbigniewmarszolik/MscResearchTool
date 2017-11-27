@@ -1,16 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Enums;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Web.Converters;
 using MScResearchTool.Server.Web.Facades;
 using MScResearchTool.Server.Web.Factories;
-using MScResearchTool.Server.Web.ViewModels;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
+    [Authorize]
     public class TasksController : Controller
     {
         private IIntegrationsBusiness _integrationsBusiness { get; set; }

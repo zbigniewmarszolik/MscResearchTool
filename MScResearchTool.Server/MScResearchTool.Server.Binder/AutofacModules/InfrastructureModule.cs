@@ -11,6 +11,7 @@ namespace MScResearchTool.Server.Binder.AutofacModules
             builder.RegisterType<ReportsRepository>().As<IReportsRepository>();
             builder.RegisterType<IntegrationsRepository>().As<IIntegrationsRepository>();
             builder.RegisterType<IntegrationDistributionsRepository>().As<IIntegrationDistributionsRepository>();
+            builder.RegisterType<UsersRepository>().As<IUsersRepository>();
         }
     }
 }

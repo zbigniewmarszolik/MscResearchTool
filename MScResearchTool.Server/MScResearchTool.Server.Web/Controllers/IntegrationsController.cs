@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Enums;
 using MScResearchTool.Server.Core.Models;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
+    [Authorize]
     public class IntegrationsController : Controller
     {
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
