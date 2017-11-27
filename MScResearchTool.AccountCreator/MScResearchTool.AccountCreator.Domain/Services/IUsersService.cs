@@ -5,6 +5,6 @@ namespace MScResearchTool.AccountCreator.Domain.Services
 {
     public interface IUsersService
     {
-        Task PostUser(User userToPost);
+        Task PostUserAsync(User userToPost);
     }
 }

@@ -2,7 +2,7 @@
 using MScResearchTool.AccountCreator.Domain.Services;
 using System;
 
-namespace MScResearchTool.AccountCreator.Application
+namespace MScResearchTool.AccountCreator.Application.Managers
 {
     public class AccountManager
     {
@@ -30,15 +30,20 @@ namespace MScResearchTool.AccountCreator.Application
 
             try
             {
-                _usersService.PostUser(user);
+                Console.WriteLine();
+                Console.WriteLine("Processing request...");
+                Console.WriteLine();
+                _usersService.PostUserAsync(user).Wait();
             }
-            catch(Exception exc)
+            catch (Exception exc)
             {
                 Console.WriteLine(exc.Message);
                 return;
             }
 
             Console.WriteLine("Account " + username + " created succesfully.");
+            Console.WriteLine("Press ENTER to exit.");
+            Console.Read();
         }
     }
 }

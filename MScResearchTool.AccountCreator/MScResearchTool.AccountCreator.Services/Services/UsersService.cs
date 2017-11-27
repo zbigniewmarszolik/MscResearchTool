@@ -16,7 +16,7 @@ namespace MScResearchTool.AccountCreator.Services.Services
             Client = httpClientFactory.GetInstance();
         }
 
-        public async Task PostUser(User userToPost)
+        public async Task PostUserAsync(User userToPost)
         {
             var directUrl = ServerUrl + "CreateUser";
 

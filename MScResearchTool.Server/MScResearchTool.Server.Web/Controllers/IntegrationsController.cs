@@ -108,6 +108,7 @@ namespace MScResearchTool.Server.Web.Controllers
             }
         }
 
+        [AllowAnonymous]
         [Route("Api/PostIntegrationResult/{mode}")]
         [HttpPut]
         public async Task<IActionResult> PostIntegrationResult([FromBody]IntegrationResult integrated)
@@ -117,6 +118,7 @@ namespace MScResearchTool.Server.Web.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [Route("Api/GetIntegration/{mode}")]
         [HttpGet]
         public async Task<IActionResult> GetIntegration(string mode)

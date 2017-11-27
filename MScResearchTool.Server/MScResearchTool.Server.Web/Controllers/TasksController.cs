@@ -73,6 +73,7 @@ namespace MScResearchTool.Server.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        [AllowAnonymous]
         [Route("Api/CheckTasksAvailability/{mode}")]
         [HttpGet]
         public async Task<IActionResult> CheckTasksAvailability(string mode)

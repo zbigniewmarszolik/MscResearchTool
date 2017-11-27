@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using MScResearchTool.AccountCreator.Application.Managers;
+using MScResearchTool.AccountCreator.Application.Modules;
 using MScResearchTool.AccountCreator.Binder.Modules;
 
 namespace MScResearchTool.AccountCreator.Application
@@ -9,6 +11,7 @@ namespace MScResearchTool.AccountCreator.Application
         {
             var builder = new ContainerBuilder();
 
+            builder.RegisterModule<AppModule>();
             builder.RegisterModule<ServicesModule>();
 
             var container = builder.Build();
