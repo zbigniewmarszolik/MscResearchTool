@@ -33,17 +33,19 @@ namespace MScResearchTool.AccountCreator.Application.Managers
                 Console.WriteLine();
                 Console.WriteLine("Processing request...");
                 Console.WriteLine();
+
                 _usersService.PostUserAsync(user).Wait();
+
+                Console.WriteLine("Account " + username + " created succesfully.");
+                Console.WriteLine("Press ENTER to exit.");
+                Console.Read();
             }
             catch (Exception exc)
             {
-                Console.WriteLine(exc.Message);
-                return;
+                Console.WriteLine("Error: " + exc.InnerException.Message);
+                Console.WriteLine("Press ENTER to exit.");
+                Console.Read();
             }
-
-            Console.WriteLine("Account " + username + " created succesfully.");
-            Console.WriteLine("Press ENTER to exit.");
-            Console.Read();
         }
     }
 }
