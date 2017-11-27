@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Enums;
+using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Web.Factories;
 using MScResearchTool.Server.Web.Helpers;
 using MScResearchTool.Server.Web.ViewModels;
@@ -110,6 +111,22 @@ namespace MScResearchTool.Server.Web.Controllers
 
                 return View();
             }
+        }
+
+        [Route("Api/CreateUser")]
+        [HttpPost]
+        public async Task<IActionResult> RemoteRegistration([FromBody] User user)
+        {
+            var areUsersAlready = await _usersBusiness.AreUsersInDatabase();
+
+            if (areUsersAlready)
+                return NotFound();
+
+            var userToSave = _userFactory.Create(user.Name, user.Password);
+
+            await _usersBusiness.CreateNewUser(userToSave);
+
+            return Ok();
         }
 
         [Authorize]

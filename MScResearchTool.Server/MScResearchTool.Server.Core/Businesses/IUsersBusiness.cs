@@ -8,5 +8,6 @@ namespace MScResearchTool.Server.Core.Businesses
         Task CreateNewUser(User user);
         Task<User> ReadUserByNameOnlyAsync(string username);
         Task<User> ReadUserByNameAndPasswordAsync(string username, string password);
+        Task<bool> AreUsersInDatabase();
     }
 }

@@ -57,6 +57,23 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             return user;
         }
 
+        public async Task<bool> AreUsersInDatabase()
+        {
+            IList<User> users = null;
+
+            users = await ReadAllUsers();
+
+            if (users != null)
+            {
+                if (users.Count > 0)
+                    return true;
+
+                else return false;
+            }
+
+            else return false;
+        }
+
         private async Task<IList<User>> ReadAllUsers()
         {
             IList<User> allUsers = null;
