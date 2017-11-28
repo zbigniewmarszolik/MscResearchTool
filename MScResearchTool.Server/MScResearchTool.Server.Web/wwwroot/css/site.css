@@ -8,6 +8,7 @@
     line-height: 1.8;
     position: relative;
     -webkit-font-smoothing: antialiased;
+    text-align:center;
 }
 
 input, select {
@@ -18,6 +19,18 @@ input, select {
     text-align: center;
 }
 
+.login-form {
+    width: 30%;
+    display: inline-block;
+}
+
+.identity-input {
+    border: groove #000 3px;
+    background-color: #33BCBA;
+    font-size: x-large;
+    font-weight: bold;
+}
+
 .input-error {
     color: #000;
     font-weight: bold;
@@ -26,6 +39,14 @@ input, select {
 .blocks-container {
     display: inline-block;
     width: 600px;
+}
+
+.err-login {
+    color: #000;
+    font-weight: bold;
+    width: 50%;
+    display: inline-block;
+    text-align: center;
 }
 
 .block-button {

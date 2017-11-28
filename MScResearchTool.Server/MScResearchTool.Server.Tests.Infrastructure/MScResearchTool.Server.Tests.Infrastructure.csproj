@@ -61,6 +61,7 @@
     <Compile Include="RepositoryTests\IntegrationDistributionsRepositoryTests.cs" />
     <Compile Include="RepositoryTests\IntegrationsRepositoryTests.cs" />
     <Compile Include="RepositoryTests\ReportsRepositoryTests.cs" />
+    <Compile Include="RepositoryTests\UsersRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MScResearchTool.Server.Core\MScResearchTool.Server.Core.csproj">

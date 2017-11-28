@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "User registration";
+}
+
+<div class="login-form">
+    <form method="post" action="@Url.Action("Registration", "Identity")">
+        @Html.AntiForgeryToken()
+        <input class="identity-input" type="text" name="username" placeholder="Enter new username" required="required" />
+        <br />
+        <br />
+        <input class="identity-input" type="password" name="pass" placeholder="Enter new password" required="required" />
+        <br />
+        <br />
+        <input class="identity-input" type="password" name="passwordVerification" placeholder="Re-enter new password" required="required" />
+        <br />
+        <br />
+        <button class="info-button" type="submit">Register new account</button>
+    </form>
+</div>
+<br />
+<br />
+<div class="err-login">
+    @if (ViewData["NotMatchingPasswords"] != null)
+    {
+        @ViewData["NotMatchingPasswords"]
+    }
+</div>

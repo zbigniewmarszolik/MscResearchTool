@@ -15,6 +15,7 @@ namespace MScResearchTool.Server.Web.AutofacModules
         {
             builder.RegisterType<TaskTypeConverter>();
 
+            builder.RegisterType<HashHelper>();
             builder.RegisterType<IntegralInitializationHelper>();
             builder.RegisterType<ParseDoubleHelper>();
 
@@ -23,6 +24,7 @@ namespace MScResearchTool.Server.Web.AutofacModules
             builder.RegisterType<StatusStrategyFactory>();
             builder.RegisterType<TaskVMFactory>();
             builder.RegisterType<UnstuckStrategyFactory>();
+            builder.RegisterType<UserFactory>();
 
             builder.RegisterType<TaskVMFacade>();
 

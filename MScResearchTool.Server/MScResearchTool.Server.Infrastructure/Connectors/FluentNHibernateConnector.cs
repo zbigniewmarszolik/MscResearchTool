@@ -16,7 +16,8 @@ namespace MScResearchTool.Server.Infrastructure.Connectors
                 .Mappings(m => m.FluentMappings
                 .AddFromAssemblyOf<IntegrationMap>()
                 .AddFromAssemblyOf<IntegrationDistributionMap>()
-                .AddFromAssemblyOf<ReportMap>())
+                .AddFromAssemblyOf<ReportMap>()
+                .AddFromAssemblyOf<UserMap>())
                 .ExposeConfiguration(cfg => new SchemaUpdate(cfg)
                 .Execute(false, true))
                 .BuildSessionFactory();

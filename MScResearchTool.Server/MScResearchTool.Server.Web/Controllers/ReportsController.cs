@@ -6,9 +6,11 @@ using MScResearchTool.Server.Core.Businesses;
 using System.Threading.Tasks;
 using AutoMapper;
 using MScResearchTool.Server.Core.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
         private IReportsBusiness _reportsBusiness { get; set; }

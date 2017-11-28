@@ -68,6 +68,7 @@
     <Compile Include="BusinessTests\IntegrationsBusinessTests.cs" />
     <Compile Include="BusinessTests\ReportsBusinessTests.cs" />
     <Compile Include="BusinessTests\TaskInfoBusinessTests.cs" />
+    <Compile Include="BusinessTests\UsersBusinessTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

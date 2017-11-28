@@ -11,6 +11,8 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 {
     public abstract class BackgroundServiceBase : Service
     {
+        protected int BatteryBorder = 30;
+
         private IContainer _container => App.Container;
 
         [return: GeneratedEnum]

@@ -1,11 +1,14 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MScResearchTool.Server.Binder.AutofacModules;
+using MScResearchTool.Server.Core.Enums;
 using MScResearchTool.Server.Web.AutofacModules;
 using MScResearchTool.Server.Web.Configurations;
 using System;
@@ -27,7 +30,22 @@ namespace MScResearchTool.Server.Web
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = "/Identity/Login/";
+                    options.LogoutPath = "/Identity/Login/";
+                });
+
             services.AddMvc();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+            });
 
             var builder = new ContainerBuilder();
 
@@ -66,12 +84,14 @@ namespace MScResearchTool.Server.Web
             });
 
             app.UseStaticFiles();
+            app.UseSession();
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Reports}/{action=Index}/{id?}");
+                    template: "{controller=Identity}/{action=Index}/{id?}");
             });
         }
 

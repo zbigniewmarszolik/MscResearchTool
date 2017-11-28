@@ -93,6 +93,9 @@ namespace MScResearchTool.Mobile.Droid
 			// aapt resource value: 0x7f060004
 			public const int StartStopButton = 2131099652;
 			
+			// aapt resource value: 0x7f060007
+			public const int infoTextView = 2131099655;
+			
 			static Id()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

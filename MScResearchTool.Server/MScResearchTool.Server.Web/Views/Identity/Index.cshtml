@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Start</title>
+    <link href="@Url.Content("~/css/site.css")"
+          rel="stylesheet" type="text/css" />
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</head>
+<body>
+    <div class="login-form">
+        <form method="post" action="@Url.Action("Index", "Identity")" class="hidden">
+            @Html.AntiForgeryToken()
+            <input class="identity-input" type="text" name="Name" placeholder="Enter username" required="required" />
+            <br />
+            <br />
+            <input class="identity-input" type="password" name="Password" placeholder="Enter password" required="required" />
+            <br />
+            <br />
+            <button class="info-button" type="submit">Proceed</button>
+        </form>
+    </div>
+    <br />
+    <br />
+    <div class="err-login">
+        @if (ViewData["LoginFailed"] != null)
+        {
+            @ViewData["LoginFailed"]
+        }
+    </div>
+
+    <br />
+    <br />
+
+    <img src="@Url.Content("~/images/logo.png")" class="profile-img" />
+
+    <br />
+
+    <footer class="footer-bar">
+        <p>&copy; 2017 - Politechnika Śląska</p>
+    </footer>
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+
+    <script type="text/javascript">
+        cookieAlert();
+    </script>
+</body>
+</html>
