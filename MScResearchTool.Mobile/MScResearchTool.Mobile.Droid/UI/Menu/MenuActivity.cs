@@ -77,6 +77,8 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
         {
             var dcService = new Intent(this, typeof(ComputingBackgroundService));
             StartService(dcService);
+
+            JavaSystem.Exit(0);
         }
 
         public void StopService()
@@ -150,7 +152,8 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
             AlertDialog.Builder builder = new AlertDialog.Builder(this, Resource.Style.alertDialog);
 
             builder.SetMessage("Are you sure to allow the application to run as background process? " +
-                "It may keep consuming energy and computing resources.");
+                "It may keep consuming energy and computing resources, however it will always stop when battery" +
+                "level gets below 30%.");
 
             builder.SetPositiveButton("Yes", (sender, e) =>
             {

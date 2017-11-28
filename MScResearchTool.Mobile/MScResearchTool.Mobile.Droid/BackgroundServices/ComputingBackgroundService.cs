@@ -64,6 +64,8 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
             while (true)
             {
+                CheckBattery();
+
                 if (shouldTakeBreak)
                     Thread.Sleep(180000);
 
@@ -71,7 +73,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                 {
                     taskInfo = await _tasksService.GetTasksAvailabilityAsync();
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     BackgroundError("Service failed in connecting to the server for reading available tasks.");
                     shouldTakeBreak = true;
@@ -98,7 +100,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             {
                 integration = await _integrationsService.GetIntegrationAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 BackgroundError("Service failed in connecting to the server for getting integration task to calculate.");
                 return;
@@ -113,7 +115,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             {
                 await _integrationResultsService.PostResultAsync(result);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 BackgroundError("Service failed in connecting to the server for posting integration result.");
                 return;
@@ -129,6 +131,19 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             });
 
             _handler.Post(runnableToast);
+        }
+
+        private void CheckBattery()
+        {
+            var intentFilter = new IntentFilter(Intent.ActionBatteryChanged);
+            var batteryRegister = RegisterReceiver(null, intentFilter);
+            int batteryLevel = batteryRegister.GetIntExtra(BatteryManager.ExtraLevel, -1);
+            int batteryScale = batteryRegister.GetIntExtra(BatteryManager.ExtraScale, -1);
+
+            int batteryPercentage = (int)Math.Floor(batteryLevel * 100D / batteryScale);
+
+            if (batteryPercentage < BatteryBorder)
+                Process.KillProcess(Process.MyPid());
         }
     }
 }

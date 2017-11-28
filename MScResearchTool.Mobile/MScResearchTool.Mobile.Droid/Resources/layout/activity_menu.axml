@@ -18,4 +18,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="WORK IN BACKGROUND" />
+    <TextView
+        android:text="When application is set to run it background, it will keep running until stopped or until battery level goes below 30%."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:id="@+id/infoTextView" />
 </LinearLayout>
