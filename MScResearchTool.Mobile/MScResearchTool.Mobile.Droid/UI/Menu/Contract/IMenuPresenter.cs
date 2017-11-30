@@ -6,7 +6,6 @@
         void StartButtonClicked();
         void StopButtonClicked();
         void ManualButtonClicked();
-        void HideButtonClicked();
         void OnDestroy();
     }
 }

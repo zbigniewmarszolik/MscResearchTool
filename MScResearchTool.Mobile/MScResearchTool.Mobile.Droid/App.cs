@@ -4,6 +4,7 @@ using Autofac;
 using MScResearchTool.Mobile.Droid.AutofacModules;
 using MScResearchTool.Mobile.Binder.AutofacModules;
 using System;
+using Android.Util;
 
 namespace MScResearchTool.Mobile.Droid
 {
@@ -12,6 +13,8 @@ namespace MScResearchTool.Mobile.Droid
     {
         public static IContainer Container { get; set; }
 
+        private static string TAG = "MScResearchTool." + typeof(App).Name;
+
         public App(IntPtr handle, JniHandleOwnership transfer) : base(handle, transfer)
         {
 
@@ -19,6 +22,8 @@ namespace MScResearchTool.Mobile.Droid
 
         public override void OnCreate()
         {
+            Log.Info(TAG, "OnCreate()");
+
             InitializeContainer();
 
             base.OnCreate();

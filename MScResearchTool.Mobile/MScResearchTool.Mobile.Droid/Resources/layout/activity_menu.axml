@@ -7,17 +7,12 @@
         android:id="@+id/StartStopButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="START" />
+        android:text="" />
     <Button
         android:id="@+id/ManualButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="MANUAL FLOW CONTROL" />
-    <Button
-        android:id="@+id/HideButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="WORK IN BACKGROUND" />
     <TextView
         android:text="When application is set to run it background, it will keep running until stopped or until battery level goes below 30%."
         android:textAppearance="?android:attr/textAppearanceMedium"
