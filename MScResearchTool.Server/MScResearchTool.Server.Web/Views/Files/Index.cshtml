@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "Files";
+}
+
+<div>
+    <div>
+        <img src="@Url.Content("~/images/logo.png")" class="download-image" />
+        <input class="block-button" type="button" value="Download Android Application" onclick="location.href='@Url.Action("DownloadAndroidApplication", "Files")'" />
+    </div>
+    <div>
+        <img src="@Url.Content("~/images/logo.png")" class="download-image" />
+        <input class="block-button" type="button" value="Download Windows Desktop Client" onclick="location.href='@Url.Action("DownloadWindowsClient", "Files")'" />
+    </div>
+    <div>
+        <img src="@Url.Content("~/images/logo.png")" class="download-image" />
+        <input class="block-button" type="button" value="Download Account Manager" onclick="location.href='@Url.Action("DownloadAccountManager", "Files")'" />
+    </div>
+</div>

@@ -2,14 +2,11 @@
 {
     public interface IMenuView
     {
-        void StartService();
-        void StopService();
+        void RunService();
+        void TerminateService();
         bool IsComputingProcessRunning();
-        void EnableBackgroundButton();
-        void DisableBackgroundButton();
         void AssignStartToButton();
         void AssignStopToButton();
         void StartManualControl();
-        void CloseForeground();
     }
 }

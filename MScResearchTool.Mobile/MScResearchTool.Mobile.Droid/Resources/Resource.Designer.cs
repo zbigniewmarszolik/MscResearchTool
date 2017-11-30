@@ -72,9 +72,6 @@ namespace MScResearchTool.Mobile.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060006
-			public const int HideButton = 2131099654;
-			
 			// aapt resource value: 0x7f060000
 			public const int IntegrateButton = 2131099648;
 			
@@ -93,8 +90,8 @@ namespace MScResearchTool.Mobile.Droid
 			// aapt resource value: 0x7f060004
 			public const int StartStopButton = 2131099652;
 			
-			// aapt resource value: 0x7f060007
-			public const int infoTextView = 2131099655;
+			// aapt resource value: 0x7f060006
+			public const int infoTextView = 2131099654;
 			
 			static Id()
 			{

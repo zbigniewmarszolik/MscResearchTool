@@ -4,6 +4,7 @@ using Android.Widget;
 using MScResearchTool.Mobile.Droid.UI.Manual.Contract;
 using Android.Views;
 using MScResearchTool.Mobile.Droid.Attributes;
+using Android.Util;
 
 namespace MScResearchTool.Mobile.Droid.UI.Manual
 {
@@ -17,8 +18,11 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
         private Button _reconnectButton { get; set; }
         private ProgressBar _progressBar { get; set; }
 
+        private static string TAG = typeof(ManualActivity).Name;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Log.Info(TAG, "OnCreate()");
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.activity_manual);
@@ -26,6 +30,12 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             ViewComponentsInitialization();
 
             _presenter.OnTakeView(this);
+        }
+
+        protected override void OnDestroy()
+        {
+            Log.Info(TAG, "OnDestroy()");
+            base.OnDestroy();
         }
 
         protected override void ViewComponentsInitialization()
@@ -47,6 +57,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
 
         public override void OnBackPressed()
         {
+            Log.Info(TAG, "OnBackPressed()");
             base.OnBackPressed();
         }
 

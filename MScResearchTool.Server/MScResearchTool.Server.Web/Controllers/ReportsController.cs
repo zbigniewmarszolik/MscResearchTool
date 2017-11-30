@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MScResearchTool.Server.Web.ViewModels;
 using System.Collections.Generic;
 using MScResearchTool.Server.Core.Businesses;
@@ -61,11 +60,6 @@ namespace MScResearchTool.Server.Web.Controllers
             }
 
             return RedirectToAction("Index");
-        }
-
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

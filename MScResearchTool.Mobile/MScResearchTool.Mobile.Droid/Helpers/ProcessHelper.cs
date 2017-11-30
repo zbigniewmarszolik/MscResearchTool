@@ -27,23 +27,5 @@ namespace MScResearchTool.Mobile.Droid.Helpers
 
             return false;
         }
-
-        public void KillComputingServiceProcess(Context context)
-        {
-            ActivityManager activityManager = (ActivityManager)context.GetSystemService(Context.ActivityService);
-
-            IList<ActivityManager.RunningAppProcessInfo> informations = activityManager.RunningAppProcesses;
-
-            if (informations != null)
-            {
-                foreach (var item in informations)
-                {
-                    if (item.ProcessName.Equals(_computingProcessName))
-                    {
-                        Android.OS.Process.KillProcess(item.Pid);
-                    }
-                }
-            }
-        }
     }
 }

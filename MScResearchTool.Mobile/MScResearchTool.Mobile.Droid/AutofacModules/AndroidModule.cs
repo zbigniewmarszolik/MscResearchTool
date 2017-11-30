@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MScResearchTool.Mobile.Droid.Converters;
 using MScResearchTool.Mobile.Droid.Helpers;
 using MScResearchTool.Mobile.Droid.UI.Manual;
 using MScResearchTool.Mobile.Droid.UI.Manual.Contract;
@@ -11,11 +12,13 @@ namespace MScResearchTool.Mobile.Droid.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<MenuPresenter>().As<IMenuPresenter>();
-            builder.RegisterType<ManualPresenter>().As<IManualPresenter>();
+            builder.RegisterType<ButtonValuesConverter>();
 
             builder.RegisterType<DroidHardwareHelper>();
             builder.RegisterType<ProcessHelper>();
+
+            builder.RegisterType<MenuPresenter>().As<IMenuPresenter>();
+            builder.RegisterType<ManualPresenter>().As<IManualPresenter>();
         }
     }
 }

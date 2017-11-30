@@ -49,6 +49,9 @@
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
     <AndroidLinkMode>SdkOnly</AndroidLinkMode>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+    <AotAssemblies>false</AotAssemblies>
+    <EnableLLVM>false</EnableLLVM>
+    <BundleAssemblies>false</BundleAssemblies>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Autofac, Version=4.6.2.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
@@ -67,6 +70,7 @@
     <Compile Include="AutofacModules\AndroidModule.cs" />
     <Compile Include="BackgroundServices\BackgroundServiceBase.cs" />
     <Compile Include="BackgroundServices\ComputingBackgroundService.cs" />
+    <Compile Include="Converters\ButtonValuesConverter.cs" />
     <Compile Include="Enums\EButtonValues.cs" />
     <Compile Include="Helpers\DroidHardwareHelper.cs" />
     <Compile Include="Helpers\ProcessHelper.cs" />

@@ -32,7 +32,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                 item.SetValue(this, instance);
             }
 
-            return StartCommandResult.NotSticky;
+            return StartCommandResult.Sticky;
         }
     }
 }

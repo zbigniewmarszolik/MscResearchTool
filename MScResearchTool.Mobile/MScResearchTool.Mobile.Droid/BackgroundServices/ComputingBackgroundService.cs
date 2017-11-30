@@ -11,6 +11,7 @@ using Android.Widget;
 using MScResearchTool.Mobile.Domain.Models;
 using System;
 using MScResearchTool.Mobile.Droid.Attributes;
+using Android.Util;
 
 namespace MScResearchTool.Mobile.Droid.BackgroundServices
 {
@@ -32,6 +33,8 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
         private Handler _handler { get; set; }
 
+        private static string TAG = typeof(ComputingBackgroundService).Name;
+
         public override IBinder OnBind(Intent intent)
         {
             return null;
@@ -39,21 +42,34 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
+            Log.Info(TAG, "OnStartCommand()");
             base.OnStartCommand(intent, flags, startId);
 
             _handler = new Handler(Looper.MainLooper);
 
-            Task.Run(async () =>
+            var t = new Java.Lang.Thread(() =>
             {
-                await ControlComputations();
+                Task.Run(async () =>
+                {
+                    await ControlComputations();
+                });
             });
 
-            return StartCommandResult.NotSticky;
+            t.Start();
+
+            return StartCommandResult.Sticky;
         }
 
         public override void OnDestroy()
         {
-            base.OnDestroy();
+            Log.Info(TAG, "OnDestroy()");
+            SelfKill();
+        }
+
+        public override void OnTaskRemoved(Intent rootIntent)
+        {
+            Log.Info(TAG, "OnTaskRemoved()");
+            base.OnTaskRemoved(rootIntent);
         }
 
         private async Task ControlComputations()
@@ -64,10 +80,16 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
             while (true)
             {
+                Log.Info(TAG, "operation_start");
                 CheckBattery();
 
                 if (shouldTakeBreak)
+                {
+                    Log.Info(TAG, "BREAK");
                     Thread.Sleep(180000);
+                }
+
+                else Log.Info(TAG, "CONTINUE");
 
                 try
                 {
@@ -90,6 +112,41 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
                 else shouldTakeBreak = true;
             }
+        }
+
+        private void BackgroundError(string errorValue)
+        {
+            Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
+            {
+                var duration = ToastLength.Long;
+                Toast.MakeText(this, errorValue, duration).Show();
+            });
+
+            _handler.Post(runnableToast);
+        }
+
+        private void CheckBattery()
+        {
+            var intentFilter = new IntentFilter(Intent.ActionBatteryChanged);
+            var batteryRegister = RegisterReceiver(null, intentFilter);
+            int batteryLevel = batteryRegister.GetIntExtra(BatteryManager.ExtraLevel, -1);
+            int batteryScale = batteryRegister.GetIntExtra(BatteryManager.ExtraScale, -1);
+
+            int batteryPercentage = (int)Math.Floor(batteryLevel * 100D / batteryScale);
+
+            Log.Info(TAG, "CheckBattery()");
+
+            if (batteryPercentage < BatteryBorder)
+            {
+                Log.Info(TAG, "KILL_BECAUSE_BATTERY");
+                SelfKill();
+            }   
+        }
+
+        private void SelfKill()
+        {
+            StopSelf();
+            Process.KillProcess(Process.MyPid());
         }
 
         private async Task Integrate()
@@ -120,30 +177,6 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                 BackgroundError("Service failed in connecting to the server for posting integration result.");
                 return;
             }
-        }
-
-        private void BackgroundError(string errorValue)
-        {
-            Java.Lang.Runnable runnableToast = new Java.Lang.Runnable(() =>
-            {
-                var duration = ToastLength.Long;
-                Toast.MakeText(this, errorValue, duration).Show();
-            });
-
-            _handler.Post(runnableToast);
-        }
-
-        private void CheckBattery()
-        {
-            var intentFilter = new IntentFilter(Intent.ActionBatteryChanged);
-            var batteryRegister = RegisterReceiver(null, intentFilter);
-            int batteryLevel = batteryRegister.GetIntExtra(BatteryManager.ExtraLevel, -1);
-            int batteryScale = batteryRegister.GetIntExtra(BatteryManager.ExtraScale, -1);
-
-            int batteryPercentage = (int)Math.Floor(batteryLevel * 100D / batteryScale);
-
-            if (batteryPercentage < BatteryBorder)
-                Process.KillProcess(Process.MyPid());
         }
     }
 }

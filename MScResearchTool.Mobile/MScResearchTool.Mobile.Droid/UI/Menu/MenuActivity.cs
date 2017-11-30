@@ -1,10 +1,11 @@
 ﻿using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Util;
 using Android.Widget;
-using Java.Lang;
 using MScResearchTool.Mobile.Droid.Attributes;
 using MScResearchTool.Mobile.Droid.BackgroundServices;
+using MScResearchTool.Mobile.Droid.Converters;
 using MScResearchTool.Mobile.Droid.Enums;
 using MScResearchTool.Mobile.Droid.Helpers;
 using MScResearchTool.Mobile.Droid.UI.Manual;
@@ -19,13 +20,17 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
         private IMenuPresenter _presenter { get; set; }
         [InjectDependency]
         private ProcessHelper _processHelper { get; set; }
+        [InjectDependency]
+        private ButtonValuesConverter _buttonValuesConverter { get; set; }
 
         private Button _startStopButton { get; set; }
         private Button _manualButton { get; set; }
-        private Button _hideButton { get; set; }
+
+        private static string TAG = typeof(MenuActivity).Name;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Log.Info(TAG, "OnCreate()");
             base.OnCreate(savedInstanceState);
 
             SetContentView(Resource.Layout.activity_menu);
@@ -33,10 +38,13 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
             ViewComponentsInitialization();
 
             _presenter.OnTakeView(this);
+
+            HuaweiProtectedSettings();
         }
 
         protected override void OnDestroy()
         {
+            Log.Info(TAG, "OnDestroy()");
             _presenter.OnDestroy();
             base.OnDestroy();
         }
@@ -45,11 +53,10 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
         {
             _startStopButton = FindViewById<Button>(Resource.Id.StartStopButton);
             _manualButton = FindViewById<Button>(Resource.Id.ManualButton);
-            _hideButton = FindViewById<Button>(Resource.Id.HideButton);
 
             _startStopButton.Click += (sender, e) =>
             {
-                if (_startStopButton.Text == EButtonValues.START.ToString())
+                if (_startStopButton.Text == _buttonValuesConverter.EnumeratorToString(EButtonValues.START))
                 {
                     _presenter.StartButtonClicked();
                 }
@@ -61,29 +68,24 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
             {
                 _presenter.ManualButtonClicked();
             };
-
-            _hideButton.Click += (sender, e) =>
-            {
-                _presenter.HideButtonClicked();
-            };
         }
 
         public override void OnBackPressed()
         {
-            AbortApplicationForeground();
+            Log.Info(TAG, "OnBackPressed()");
+            base.OnBackPressed();
         }
 
-        public void StartService()
+        public void RunService()
         {
-            var dcService = new Intent(this, typeof(ComputingBackgroundService));
+            var dcService = new Intent(ApplicationContext, typeof(ComputingBackgroundService));
             StartService(dcService);
-
-            JavaSystem.Exit(0);
         }
 
-        public void StopService()
+        public void TerminateService()
         {
-            _processHelper.KillComputingServiceProcess(this);
+            var dcService = new Intent(ApplicationContext, typeof(ComputingBackgroundService));
+            StopService(dcService);
         }
 
         public bool IsComputingProcessRunning()
@@ -94,29 +96,19 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
             else return false;
         }
 
-        public void EnableBackgroundButton()
-        {
-            _hideButton.Enabled = true;
-        }
-
-        public void DisableBackgroundButton()
-        {
-            _hideButton.Enabled = false;
-        }
-
         public void AssignStartToButton()
         {
-            _startStopButton.Text = EButtonValues.START.ToString();
+            _startStopButton.Text = _buttonValuesConverter.EnumeratorToString(EButtonValues.START);
         }
 
         public void AssignStopToButton()
         {
-            _startStopButton.Text = EButtonValues.STOP.ToString();
+            _startStopButton.Text = _buttonValuesConverter.EnumeratorToString(EButtonValues.STOP);
         }
 
         public void StartManualControl()
         {
-            if(_processHelper.IsComputingServiceProcessRunning(this))
+            if (_processHelper.IsComputingServiceProcessRunning(this))
             {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this, Resource.Style.alertDialog);
 
@@ -125,7 +117,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
 
                 builder.SetPositiveButton("Yes", (sender, e) =>
                 {
-                    _processHelper.KillComputingServiceProcess(this);
+                    TerminateService();
                     AssignStartToButton();
                     StartActivity(typeof(ManualActivity));
                 });
@@ -142,31 +134,32 @@ namespace MScResearchTool.Mobile.Droid.UI.Menu
             else StartActivity(typeof(ManualActivity));
         }
 
-        public void CloseForeground()
+        private void HuaweiProtectedSettings()
         {
-            AbortApplicationForeground();
-        }
+            var sharedPreferences = GetSharedPreferences("protected", FileCreationMode.Private);
 
-        private void AbortApplicationForeground()
-        {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this, Resource.Style.alertDialog);
-
-            builder.SetMessage("Are you sure to allow the application to run as background process? " +
-                "It may keep consuming energy and computing resources, however it will always stop when battery" +
-                "level gets below 30%.");
-
-            builder.SetPositiveButton("Yes", (sender, e) =>
+            if ("huawei".Equals(Build.Manufacturer, System.StringComparison.CurrentCultureIgnoreCase) && !sharedPreferences.GetBoolean("protected", false))
             {
-                JavaSystem.Exit(0);
-            });
+                AlertDialog.Builder builder = new AlertDialog.Builder(this, Resource.Style.alertDialog);
 
-            builder.SetNegativeButton("No", (sender, e) =>
-            {
-                return;
-            });
+                builder.SetMessage("This application requires to be enabled in Protected Applications to work properly. Do you want to enable it now?");
 
-            Dialog dialogBox = builder.Create();
-            dialogBox.Show();
+                builder.SetPositiveButton("Yes", (sender, e) =>
+                {
+                    var intent = new Intent();
+                    intent.SetComponent(new ComponentName("com.huawei.systemmanager", "com.huawei.systemmanager.optimize.process.ProtectActivity"));
+                    StartActivity(intent);
+                    sharedPreferences.Edit().PutBoolean("protected", true).Commit();
+                });
+
+                builder.SetNegativeButton("No", (sender, e) =>
+                {
+                    return;
+                });
+
+                Dialog dialogBox = builder.Create();
+                dialogBox.Show();
+            }
         }
     }
 }
