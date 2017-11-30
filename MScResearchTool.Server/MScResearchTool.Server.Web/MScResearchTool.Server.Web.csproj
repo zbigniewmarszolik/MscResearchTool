@@ -40,6 +40,7 @@
   <ItemGroup>
     <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\apps\" />
   </ItemGroup>
 
 </Project>

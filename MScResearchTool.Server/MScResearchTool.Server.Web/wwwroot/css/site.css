@@ -49,6 +49,10 @@ input, select {
     text-align: center;
 }
 
+.download-image{
+    height: 200px;
+}
+
 .block-button {
     color: #fff;
     background-color: #6a6a6a;
@@ -56,7 +60,6 @@ input, select {
     height: 200px;
     cursor: default;
     white-space: normal;
-    border: none;
     -webkit-transition-duration: .4s;
     -moz-transition-duration: .4s;
     border: 1px solid #000;
@@ -217,6 +220,11 @@ button.block-button {
         height: 100px;
     }
 
+    .download-image{
+        height: 100px;
+        margin-top: 10px;
+    }
+
     .mobile-separator {
         display: inline;
     }
@@ -226,6 +234,10 @@ button.block-button {
     }
 
     .info-button {
+        width: 100%;
+    }
+
+    .login-form {
         width: 100%;
     }
 }
