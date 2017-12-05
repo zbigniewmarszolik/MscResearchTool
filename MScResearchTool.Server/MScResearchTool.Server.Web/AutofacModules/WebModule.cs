@@ -19,11 +19,11 @@ namespace MScResearchTool.Server.Web.AutofacModules
             builder.RegisterType<IntegralInitializationHelper>();
             builder.RegisterType<ParseDoubleHelper>();
 
-            builder.RegisterType<DeleteStrategyFactory>();
+            builder.RegisterType<DeleteStrategyFactory>().SingleInstance();
             builder.RegisterType<IntegrationVMFactory>();
-            builder.RegisterType<StatusStrategyFactory>();
+            builder.RegisterType<StatusStrategyFactory>().SingleInstance();
             builder.RegisterType<TaskVMFactory>();
-            builder.RegisterType<UnstuckStrategyFactory>();
+            builder.RegisterType<UnstuckStrategyFactory>().SingleInstance();
             builder.RegisterType<UserFactory>();
 
             builder.RegisterType<TaskVMFacade>();
