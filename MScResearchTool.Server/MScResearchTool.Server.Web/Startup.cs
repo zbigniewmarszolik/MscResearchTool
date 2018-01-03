@@ -1,14 +1,12 @@
 ﻿using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MScResearchTool.Server.Binder.AutofacModules;
-using MScResearchTool.Server.Core.Enums;
 using MScResearchTool.Server.Web.AutofacModules;
 using MScResearchTool.Server.Web.Configurations;
 using System;
@@ -70,7 +68,7 @@ namespace MScResearchTool.Server.Web
             }
             else
             {
-                app.UseExceptionHandler("/Reports/Error");
+                app.UseExceptionHandler("/Site/Error");
             }
 
             app.Use(async (context, next) =>
@@ -78,7 +76,7 @@ namespace MScResearchTool.Server.Web
                 await next();
                 if (context.Response.StatusCode == 404)
                 {
-                    context.Request.Path = "/Reports/Error/";
+                    context.Request.Path = "/Site/Error/";
                     await next();
                 }
             });
