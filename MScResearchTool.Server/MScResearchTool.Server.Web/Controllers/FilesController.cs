@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 
 namespace MScResearchTool.Server.Web.Controllers
 {
+    [Authorize]
     public class FilesController : Controller
     {
         private IHostingEnvironment _hostingEnvironment { get; set; }
