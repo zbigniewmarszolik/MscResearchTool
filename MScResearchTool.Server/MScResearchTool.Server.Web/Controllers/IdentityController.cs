@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -117,7 +116,9 @@ namespace MScResearchTool.Server.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> RemoteRegistration([FromBody] User user)
         {
-            var areUsersAlready = await _usersBusiness.AreUsersInDatabaseAsync();
+            var areUsersAlready = true;
+
+            areUsersAlready = await _usersBusiness.AreUsersInDatabaseAsync();
 
             if (areUsersAlready)
                 return NotFound();
