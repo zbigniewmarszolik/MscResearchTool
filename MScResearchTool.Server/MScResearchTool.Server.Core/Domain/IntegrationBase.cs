@@ -2,10 +2,9 @@
 
 namespace MScResearchTool.Server.Core.Domain
 {
-    public abstract class IntegrationBase : ModelBase
+    public abstract class IntegrationBase : TaskBase
     {
         // Basic properties:
-        public virtual DateTime CreationDate { get; set; }
         public virtual bool IsTrapezoidMethodRequested { get; set; }
 
         // Integral assumptions:
@@ -14,11 +13,7 @@ namespace MScResearchTool.Server.Core.Domain
         public virtual int Accuracy { get; set; } // Amount of squares / trapezoids. From this number, the integration step is calculated in algorithm internally.
 
         // Integral formula:
-        public virtual string Formula { get; set; }
-
-        // Status properties:
-        public virtual bool IsAvailable { get; set; }
-        public virtual bool IsFinished { get; set; }
+        public virtual string Formula { get; set; }    
 
         // Result error property:
         public virtual bool IsResultNaN { get; set; }

@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Businesses\IIntegrationsBusiness.cs" />
+    <Compile Include="Models\Cracking.cs" />
+    <Compile Include="Models\CrackingResult.cs" />
     <Compile Include="Models\Integration.cs" />
     <Compile Include="Models\IntegrationResult.cs" />
     <Compile Include="Models\TaskInfo.cs" />

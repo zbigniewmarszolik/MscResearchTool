@@ -46,11 +46,16 @@
     <Compile Include="Businesses\IReportsBusiness.cs" />
     <Compile Include="Businesses\ITaskInfoBusiness.cs" />
     <Compile Include="Businesses\IUsersBusiness.cs" />
+    <Compile Include="Domain\CrackingBase.cs" />
     <Compile Include="Domain\IntegrationBase.cs" />
     <Compile Include="Domain\ModelBase.cs" />
+    <Compile Include="Domain\TaskBase.cs" />
     <Compile Include="Enums\ECalculationMode.cs" />
     <Compile Include="Enums\ETaskType.cs" />
     <Compile Include="Enums\EWebKeyValues.cs" />
+    <Compile Include="Models\Cracking.cs" />
+    <Compile Include="Models\CrackingDistribution.cs" />
+    <Compile Include="Models\CrackingResult.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\IntegrationDistribution.cs" />
     <Compile Include="Models\IntegrationResult.cs" />

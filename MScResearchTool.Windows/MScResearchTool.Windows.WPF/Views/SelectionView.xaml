@@ -36,7 +36,7 @@
             </Style>
         </StackPanel.Resources>
         <Button Content="Start integration" Command="{Binding IntegrationCommand}" IsEnabled="{Binding IsIntegrationEnabled}"/>
-        <Button Content="Start other algorithm" IsEnabled="False"/>
+        <Button Content="Start cracking" IsEnabled="False"/>
         <TextBlock FontWeight="DemiBold" FontSize="20" Text="Connecting." Visibility="{Binding TextBoxVisibility}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 15, 0, 0" />
         <controls:ProgressRing IsActive="{Binding IsProgressing}" MinHeight="100" MinWidth="100" MaxHeight="100" MaxWidth="100" Margin="0, 15, 0, 0" />
         <Button Content="Reconnect" Command="{Binding ReconnectCommand}" IsEnabled="{Binding IsReconnectEnabled}" />
