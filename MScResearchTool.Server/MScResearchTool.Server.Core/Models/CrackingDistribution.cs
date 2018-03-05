@@ -11,5 +11,9 @@ namespace MScResearchTool.Server.Core.Models
         public virtual string DeviceCPU { get; set; }
         public virtual double DeviceResult { get; set; }
         public virtual double DeviceTime { get; set; }
+
+        // Dictionary range properties:
+        public char RangeBeginning { get; set; }
+        public char RangeEnding { get; set; }
     }
 }
