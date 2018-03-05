@@ -1,4 +1,7 @@
-﻿namespace MScResearchTool.Server.Core.Models
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace MScResearchTool.Server.Core.Models
 {
     public class CrackingCharacters
     {
@@ -6,13 +9,13 @@
 
         protected CrackingCharacters()
         {
-            Characters = new char[]
-            {
-                'a', 'b', 'c', 'd', 'e'
-            };
+            var chars = Enumerable.Range('0', '9' - '0' + 1).Select(i => (char)i).ToList();
+            chars.AddRange(Enumerable.Range('A', 'Z' - 'A' + 1).Select(i => (char)i));
+            chars.AddRange(Enumerable.Range('a', 'z' - 'a' + 1).Select(i => (char)i));
+            Characters = chars;
         }
 
-        public char[] Characters { get; }
+        public IList<char> Characters { get; }
 
         public static CrackingCharacters Instance()
         {

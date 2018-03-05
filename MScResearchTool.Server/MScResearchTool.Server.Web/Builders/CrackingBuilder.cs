@@ -1,5 +1,6 @@
 ﻿using MScResearchTool.Server.Core.Models;
 using System;
+using System.Collections.Generic;
 
 namespace MScResearchTool.Server.Web.Builders
 {
@@ -9,7 +10,7 @@ namespace MScResearchTool.Server.Web.Builders
         public string Password { get; set; }
         public string FileName { get; set; }
         public byte[] ArchiveContent { get; set; }
-        public char[] CharactersDictionary { get; set; }
+        public IList<char> CharactersDictionary { get; set; }
 
         public Cracking Build()
         {

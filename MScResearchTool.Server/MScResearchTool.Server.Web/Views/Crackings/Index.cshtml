@@ -5,7 +5,7 @@
 <div class="input-form">
     <form method="post" action="@Url.Action("Index", "Crackings")" enctype="multipart/form-data">
         @Html.AntiForgeryToken()
-        <label for="passwordToCrack">Password to break:</label>
+        <label for="passwordToCrack">Password to break (only small letters, big letters and numbers are allowed):</label>
         <br />
         <input id="passwordToCrack" type="text" name="ArchivePassword" required="required" />
         <br />
