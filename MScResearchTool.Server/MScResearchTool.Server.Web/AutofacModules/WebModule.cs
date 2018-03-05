@@ -15,6 +15,7 @@ namespace MScResearchTool.Server.Web.AutofacModules
         {
             builder.RegisterType<TaskTypeConverter>();
 
+            builder.RegisterType<CrackingInitializationHelper>();
             builder.RegisterType<HashHelper>();
             builder.RegisterType<IntegralInitializationHelper>();
             builder.RegisterType<ParseDoubleHelper>();

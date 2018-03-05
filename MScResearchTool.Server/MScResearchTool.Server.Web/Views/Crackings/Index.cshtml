@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Integral creation";
+}
+
+<div class="input-form">
+    <form method="post" action="@Url.Action("Index", "Crackings")" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <label for="passwordToCrack">Password to break:</label>
+        <br />
+        <input id="passwordToCrack" type="text" name="ArchivePassword" required="required" />
+        <br />
+        <br />
+        <label for="intervals">Number of range divisions:</label>
+        <br />
+        <input id="intervals" type="number" name="RangesCount" required="required" value="2" />
+        <br />
+        <br />
+        <label for="archiveFile">File to crack:</label>
+        <br />
+        <input id="archiveFile" type="file" accept="application/zip" name="archive" required="required" />
+        <br />
+        <br />
+        <br />
+        <input name="submitter" type="submit" value="Add single cracking task" class="info-button" />
+        <input name="submitter" type="submit" value="Add cracking task and prepare next" class="info-button" />
+    </form>
+
+    @if (ViewData["InputError"] != null)
+    {
+        <p class="input-error">@ViewData["InputError"]</p>
+    }
+</div>

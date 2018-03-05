@@ -54,11 +54,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connectors\FluentNHibernateConnector.cs" />
+    <Compile Include="Mappings\CrackingDistributionMap.cs" />
+    <Compile Include="Mappings\CrackingMap.cs" />
     <Compile Include="Mappings\IntegrationDistributionMap.cs" />
     <Compile Include="Mappings\IntegrationMap.cs" />
     <Compile Include="Mappings\ReportMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CrackingDistributionsRepository.cs" />
+    <Compile Include="Repositories\CrackingsRepository.cs" />
     <Compile Include="Repositories\UsersRepository.cs" />
     <Compile Include="Repositories\IntegrationDistributionsRepository.cs" />
     <Compile Include="Repositories\IntegrationsRepository.cs" />

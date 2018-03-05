@@ -13,7 +13,7 @@ namespace MScResearchTool.Server.Core.Models
         public virtual double DeviceTime { get; set; }
 
         // Dictionary range properties:
-        public char RangeBeginning { get; set; }
-        public char RangeEnding { get; set; }
+        public virtual char RangeBeginning { get; set; }
+        public virtual char RangeEnding { get; set; }
     }
 }

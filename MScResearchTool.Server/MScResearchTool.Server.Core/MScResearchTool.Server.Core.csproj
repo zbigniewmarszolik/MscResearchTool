@@ -40,6 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Businesses\ICrackingDistributionsBusiness.cs" />
+    <Compile Include="Businesses\ICrackingResultsBusiness.cs" />
+    <Compile Include="Businesses\ICrackingsBusiness.cs" />
     <Compile Include="Businesses\IIntegrationDistributionsBusiness.cs" />
     <Compile Include="Businesses\IIntegrationResultsBusiness.cs" />
     <Compile Include="Businesses\IIntegrationsBusiness.cs" />
@@ -54,6 +57,7 @@
     <Compile Include="Enums\ETaskType.cs" />
     <Compile Include="Enums\EWebKeyValues.cs" />
     <Compile Include="Models\Cracking.cs" />
+    <Compile Include="Models\CrackingCharacters.cs" />
     <Compile Include="Models\CrackingDistribution.cs" />
     <Compile Include="Models\CrackingResult.cs" />
     <Compile Include="Models\User.cs" />
@@ -63,6 +67,8 @@
     <Compile Include="Models\Report.cs" />
     <Compile Include="Models\TaskInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ICrackingDistributionsRepository.cs" />
+    <Compile Include="Repositories\ICrackingsRepository.cs" />
     <Compile Include="Repositories\IUsersRepository.cs" />
     <Compile Include="Repositories\IIntegrationDistributionsRepository.cs" />
     <Compile Include="Repositories\IIntegrationsRepository.cs" />

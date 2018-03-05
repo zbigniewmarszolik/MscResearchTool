@@ -7,9 +7,10 @@ namespace MScResearchTool.Server.Core.Domain
         // Task properties:
         public virtual byte[] ArchiveToCrack { get; set; }
         public virtual string ArchivePassword { get; set; }
+        public virtual string FileName { get; set; }
 
         // Global dictionary property:
-        public IList<char> AvailableCharacters { get; set; }
+        public virtual IList<char> AvailableCharacters { get; set; }
 
         // Result error property:
         public virtual bool IsArchiveUnbreakable { get; set; }
