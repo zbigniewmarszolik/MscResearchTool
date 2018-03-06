@@ -13,6 +13,8 @@ namespace MScResearchTool.Server.Web.Controllers
     [Authorize]
     public class TasksController : Controller
     {
+        private ICrackingsBusiness _crackingsBusiness { get; set; }
+        private ICrackingDistributionsBusiness _crackingDistributionsBusiness { get; set; }
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IIntegrationDistributionsBusiness _integrationDistributionsBusiness { get; set; }
         private ITaskInfoBusiness _taskInfoBusiness { get; set; }
@@ -22,7 +24,9 @@ namespace MScResearchTool.Server.Web.Controllers
         private TaskTypeConverter _taskTypeConverter { get; set; }
 
         public TasksController
-            (IIntegrationsBusiness integrationsBusiness,
+            (ICrackingsBusiness crackingsBusiness,
+            ICrackingDistributionsBusiness crackingDistributionsBusiness,
+            IIntegrationsBusiness integrationsBusiness,
             IIntegrationDistributionsBusiness integrationDistributionsBusiness,
             ITaskInfoBusiness taskInfoBusiness,
             DeleteStrategyFactory deleteStrategyFactory,
@@ -30,6 +34,8 @@ namespace MScResearchTool.Server.Web.Controllers
             TaskVMFacade taskVMFacade,
             TaskTypeConverter taskTypeConverter)
         {
+            _crackingsBusiness = crackingsBusiness;
+            _crackingDistributionsBusiness = crackingDistributionsBusiness;
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
             _taskInfoBusiness = taskInfoBusiness;
@@ -69,6 +75,8 @@ namespace MScResearchTool.Server.Web.Controllers
         {
             await _integrationDistributionsBusiness.UnstuckTakenAsync();
             await _integrationsBusiness.UnstuckTakenAsync();
+            await _crackingDistributionsBusiness.UnstuckTakenAsync();
+            await _crackingsBusiness.UnstuckTakenAsync();
 
             return RedirectToAction("Index");
         }

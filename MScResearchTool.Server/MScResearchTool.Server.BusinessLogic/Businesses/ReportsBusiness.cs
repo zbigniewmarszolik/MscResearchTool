@@ -13,19 +13,37 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
     public class ReportsBusiness : IReportsBusiness
     {
+        private ICrackingsBusiness _crackingsBusiness { get; set; }
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IReportsRepository _reportsRepository { get; set; }
 
-        public ReportsBusiness(IIntegrationsBusiness integrationsBusiness, IReportsRepository reportsRepository)
+        public ReportsBusiness
+            (ICrackingsBusiness crackingsBusiness,
+            IIntegrationsBusiness integrationsBusiness,
+            IReportsRepository reportsRepository)
         {
+            _crackingsBusiness = crackingsBusiness;
             _integrationsBusiness = integrationsBusiness;
             _reportsRepository = reportsRepository;
         }
 
-        public async Task GenerateIntegrationReportAsync(int fullIntegrationid)
+        public async Task GenerateCrackingReportAsync(int fullCrackingId)
+        {
+            var crackingsCollection = await _crackingsBusiness.ReadAllEagerAsync();
+            var crackingToReport = crackingsCollection.Where(x => x.Id == fullCrackingId).First();
+
+            var report = await PrepareCrackingReportAsync(crackingToReport);
+
+            await Task.Run(() =>
+            {
+                _reportsRepository.Create(report);
+            });
+        }
+
+        public async Task GenerateIntegrationReportAsync(int fullIntegrationId)
         {
             var integrationsCollection = await _integrationsBusiness.ReadAllEagerAsync();
-            var integrationToReport = integrationsCollection.Where(x => x.Id == fullIntegrationid).First();
+            var integrationToReport = integrationsCollection.Where(x => x.Id == fullIntegrationId).First();
 
             var report = await PrepareIntegrationReportAsync(integrationToReport);
 
@@ -54,6 +72,11 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             {
                 _reportsRepository.Delete(reportId);
             });
+        }
+
+        private async Task<Report> PrepareCrackingReportAsync(Cracking cracking)
+        {
+            return null;
         }
 
         private async Task<Report> PrepareIntegrationReportAsync(Integration integration)
