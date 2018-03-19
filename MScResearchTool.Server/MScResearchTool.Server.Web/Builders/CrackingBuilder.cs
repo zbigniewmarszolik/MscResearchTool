@@ -9,6 +9,7 @@ namespace MScResearchTool.Server.Web.Builders
         public int NumberOfDistributions { get; set; }
         public string Password { get; set; }
         public string FileName { get; set; }
+        public string SerializedArchiveContent { get; set; }
         public byte[] ArchiveContent { get; set; }
         public IList<char> CharactersDictionary { get; set; }
 
@@ -22,6 +23,7 @@ namespace MScResearchTool.Server.Web.Builders
                 DroidRanges = NumberOfDistributions,
                 ArchivePassword = Password,
                 FileName = FileName,
+                SerializedContentFound = SerializedArchiveContent,
                 ArchiveToCrack = ArchiveContent,
                 AvailableCharacters = CharactersDictionary
             };

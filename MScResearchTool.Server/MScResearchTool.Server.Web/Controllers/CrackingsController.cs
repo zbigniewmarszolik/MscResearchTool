@@ -72,6 +72,7 @@ namespace MScResearchTool.Server.Web.Controllers
             builder.FileName = Path.GetFileNameWithoutExtension(archive.FileName);
             builder.ArchiveContent = fileAsArray;
             builder.CharactersDictionary = CrackingCharacters.Instance().Characters;
+            builder.SerializedArchiveContent = _crackingInitializationHelper.SerializedContent;
 
             var cracking = builder.Build();
 

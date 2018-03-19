@@ -13,6 +13,7 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.ArchiveToCrack);
             Map(x => x.ArchivePassword);
             Map(x => x.FileName);
+            Map(x => x.SerializedContentFound).CustomSqlType("LONGTEXT");
             Map(x => x.IsAvailable);
             Map(x => x.IsFinished);
             Map(x => x.IsArchiveUnbreakable);
