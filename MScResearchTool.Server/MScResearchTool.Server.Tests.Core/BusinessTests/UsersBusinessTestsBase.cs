@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace MScResearchTool.Server.Tests.Core.BusinessTests
 {
-    public abstract class UsersBusinessTestsBase : MockingTestsBase<TestingUnit<UsersBusiness>>
+    public abstract class UsersBusinessTestsBase : MockBase<TestingUnit<UsersBusiness>>
     {
         protected string ExistingName { get; private set; }
         protected string ExistingPassword { get; private set; }

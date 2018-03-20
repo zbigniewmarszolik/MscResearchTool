@@ -40,21 +40,29 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                 var eagerDistributions = await _integrationDistributionsBusiness.ReadAllEagerAsync();
                 var eagerDistribution = eagerDistributions.FirstOrDefault(x => x.Id == result.Id);
 
-                eagerDistribution.IsFinished = true;
-                eagerDistribution.DeviceRAM = result.RAM;
-                eagerDistribution.DeviceCPU = result.CPU;
-                eagerDistribution.DeviceResult = result.Result;
-                eagerDistribution.DeviceTime = result.ElapsedSeconds;
-                eagerDistribution.IsResultNaN = result.IsResultNotANumber;
+                if(eagerDistribution == null)
+                {
+                    return;
+                }
 
-                var integration = await _integrationsBusiness.ReadByIdAsync(eagerDistribution.Task.Id);
-                integration.PartialTime += result.ElapsedSeconds;
-                integration.PartialResult += result.Result;
+                else
+                {
+                    eagerDistribution.IsFinished = true;
+                    eagerDistribution.DeviceRAM = result.RAM;
+                    eagerDistribution.DeviceCPU = result.CPU;
+                    eagerDistribution.DeviceResult = result.Result;
+                    eagerDistribution.DeviceTime = result.ElapsedSeconds;
+                    eagerDistribution.IsResultNaN = result.IsResultNotANumber;
 
-                await _integrationDistributionsBusiness.UpdateAsync(eagerDistribution);
-                await _integrationsBusiness.UpdateAsync(integration);
+                    var integration = await _integrationsBusiness.ReadByIdAsync(eagerDistribution.Task.Id);
+                    integration.PartialTime += result.ElapsedSeconds;
+                    integration.PartialResult += result.Result;
 
-                await VerifyCompletionAsync(integration.Id);
+                    await _integrationDistributionsBusiness.UpdateAsync(eagerDistribution);
+                    await _integrationsBusiness.UpdateAsync(integration);
+
+                    await VerifyCompletionAsync(integration.Id);
+                }
             }
 
             else

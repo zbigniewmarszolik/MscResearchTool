@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MScResearchTool.Server.Tests.Core.BusinessTests
 {
-    public abstract class IntegrationResultsBusinessTestsBase : MockingTestsBase<TestingUnit<IntegrationResultsBusiness>>
+    public abstract class IntegrationResultsBusinessTestsBase : MockBase<TestingUnit<IntegrationResultsBusiness>>
     {
         protected int IntegrationId { get; private set; }
         protected int DistributionFirstId { get; private set; }

@@ -23,11 +23,19 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
                 new Integration()
             });
 
-            TaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
+            var mockCrackingsBusiness = testingUnit.GetDependency<Mock<ICrackingsBusiness>>();
+            mockCrackingsBusiness.Setup(av => av.ReadAvailableAsync()).ReturnsAsync(new List<Cracking>()
+            {
+                new Cracking(),
+                new Cracking()
+            });
+
+            ITaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
 
             var result = await taskInfoBusiness.GetFullTasksAvailabilityAsync();
 
             Assert.True(result.IsIntegrationAvailable);
+            Assert.True(result.IsCrackingAvailable);
         }
 
         [Fact]
@@ -38,11 +46,15 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var mockIntegrationsBusiness = testingUnit.GetDependency<Mock<IIntegrationsBusiness>>();
             mockIntegrationsBusiness.Setup(av => av.ReadAvailableAsync()).ReturnsAsync(new List<Integration>());
 
-            TaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
+            var mockCrackingsBusiness = testingUnit.GetDependency<Mock<ICrackingsBusiness>>();
+            mockCrackingsBusiness.Setup(av => av.ReadAvailableAsync()).ReturnsAsync(new List<Cracking>());
+
+            ITaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
 
             var result = await taskInfoBusiness.GetFullTasksAvailabilityAsync();
 
             Assert.False(result.IsIntegrationAvailable);
+            Assert.False(result.IsCrackingAvailable);
         }
 
         [Fact]
@@ -59,11 +71,21 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
                 new IntegrationDistribution()
             });
 
-            TaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
+            var mockCrackingDistsBusiness = testingUnit.GetDependency<Mock<ICrackingDistributionsBusiness>>();
+            mockCrackingDistsBusiness.Setup(avd => avd.ReadAvailableAsync()).ReturnsAsync(new List<CrackingDistribution>()
+            {
+                new CrackingDistribution(),
+                new CrackingDistribution(),
+                new CrackingDistribution(),
+                new CrackingDistribution()
+            });
+
+            ITaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
 
             var result = await taskInfoBusiness.GetDistributedTasksAvailabilityAsync();
 
             Assert.True(result.IsIntegrationAvailable);
+            Assert.True(result.IsCrackingAvailable);
         }
 
         [Fact]
@@ -74,11 +96,15 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var mockIntegrationDistsBusiness = testingUnit.GetDependency<Mock<IIntegrationDistributionsBusiness>>();
             mockIntegrationDistsBusiness.Setup(avd => avd.ReadAvailableAsync()).ReturnsAsync(new List<IntegrationDistribution>());
 
-            TaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
+            var mockCrackingDistsBusiness = testingUnit.GetDependency<Mock<ICrackingDistributionsBusiness>>();
+            mockCrackingDistsBusiness.Setup(avd => avd.ReadAvailableAsync()).ReturnsAsync(new List<CrackingDistribution>());
+
+            ITaskInfoBusiness taskInfoBusiness = testingUnit.GetResolvedTestingUnit();
 
             var result = await taskInfoBusiness.GetDistributedTasksAvailabilityAsync();
 
             Assert.False(result.IsIntegrationAvailable);
+            Assert.False(result.IsCrackingAvailable);
         }
     }
 }

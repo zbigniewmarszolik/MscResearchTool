@@ -12,12 +12,11 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.ArchiveToCrack);
             Map(x => x.ArchivePassword);
             Map(x => x.FileName);
-            Map(x => x.SerializedContentFound).CustomSqlType("LONGTEXT");
             Map(x => x.RangeBeginning);
             Map(x => x.RangeEnding);
             Map(x => x.IsAvailable);
             Map(x => x.IsFinished);
-            Map(x => x.IsArchiveUnbreakable);
+            Map(x => x.IsArchiveUnbreakableInsideRange);
             Map(x => x.DeviceRAM);
             Map(x => x.DeviceCPU);
             Map(x => x.DeviceResult);

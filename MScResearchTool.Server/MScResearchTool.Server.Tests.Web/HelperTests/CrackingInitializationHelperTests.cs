@@ -60,7 +60,6 @@ namespace MScResearchTool.Server.Tests.Web.HelperTests
             var result = helper.IsArchiveExtractable(outArray, password);
 
             Assert.Equal(isExtractable, result);
-            Assert.Equal(content, helper.SerializedContent);
         }
     }
 }

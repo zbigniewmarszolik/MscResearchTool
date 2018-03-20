@@ -7,8 +7,6 @@ namespace MScResearchTool.Server.Web.Helpers
 {
     public class CrackingInitializationHelper
     {
-        public string SerializedContent { get; private set; }
-
         public byte[] ProcessFormFileToArray(IFormFile formFile)
         {
             using (var memoryStream = new MemoryStream())
@@ -21,8 +19,6 @@ namespace MScResearchTool.Server.Web.Helpers
 
         public bool IsArchiveExtractable(byte[] arrayFile, string providedPassword) // TO DO (SharpZipLib test)
         {
-            SerializedContent = string.Empty;
-
             ZipFile zipFile = null;
 
             try
@@ -38,11 +34,7 @@ namespace MScResearchTool.Server.Web.Helpers
                     }
 
                     var entryName = entry.Name;
-
-                    SerializedContent += entryName;
-
                     var buffer = new byte[4096];
-
                     var zipStream = zipFile.GetInputStream(entry);
                 }
 

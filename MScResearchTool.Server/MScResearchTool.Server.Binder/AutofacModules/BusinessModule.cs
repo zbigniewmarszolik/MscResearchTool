@@ -22,6 +22,7 @@ namespace MScResearchTool.Server.Binder.AutofacModules
 
             builder.RegisterType<UsersBusiness>().As<IUsersBusiness>();
 
+            builder.RegisterType<CrackingDistributionFactory>();
             builder.RegisterType<IntegrationDistributionFactory>();
         }
     }

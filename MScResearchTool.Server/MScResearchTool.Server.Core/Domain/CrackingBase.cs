@@ -8,12 +8,8 @@ namespace MScResearchTool.Server.Core.Domain
         public virtual byte[] ArchiveToCrack { get; set; }
         public virtual string ArchivePassword { get; set; }
         public virtual string FileName { get; set; }
-        public virtual string SerializedContentFound { get; set; }
 
         // Global dictionary property:
         public virtual IList<char> AvailableCharacters { get; set; }
-
-        // Result error property:
-        public virtual bool IsArchiveUnbreakable { get; set; }
     }
 }

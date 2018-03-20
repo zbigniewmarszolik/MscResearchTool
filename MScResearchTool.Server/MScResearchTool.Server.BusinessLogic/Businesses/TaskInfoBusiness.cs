@@ -18,7 +18,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             IIntegrationDistributionsBusiness integrationDistributionsBusiness)
         {
             _crackingsBusiness = crackingsBusiness;
-            _crackingDistributionsBusiness = _crackingDistributionsBusiness;
+            _crackingDistributionsBusiness = crackingDistributionsBusiness;
             _integrationsBusiness = integrationsBusiness;
             _integrationDistributionsBusiness = integrationDistributionsBusiness;
         }

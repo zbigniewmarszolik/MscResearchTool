@@ -9,8 +9,8 @@ namespace MScResearchTool.Server.Core.Models
         public virtual IList<CrackingDistribution> Distributions { get; set; }
 
         // Result properties:
-        public virtual double FullResult { get; set; }
-        public virtual double PartialResult { get; set; }
+        public virtual string FullResult { get; set; }
+        public virtual string PartialResult { get; set; }
         public virtual double FullTime { get; set; }
         public virtual double PartialTime { get; set; }
         public virtual int DesktopRAM { get; set; }

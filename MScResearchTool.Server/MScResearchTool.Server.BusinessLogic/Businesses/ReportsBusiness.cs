@@ -16,6 +16,10 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
         private ICrackingsBusiness _crackingsBusiness { get; set; }
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
         private IReportsRepository _reportsRepository { get; set; }
+        private BaseFont _baseFont { get; set; }
+        private Font _titleStyle { get; set; }
+        private Font _headerStyle { get; set; }
+        private Font _bodyStyle { get; set; }
 
         public ReportsBusiness
             (ICrackingsBusiness crackingsBusiness,
@@ -25,6 +29,11 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             _crackingsBusiness = crackingsBusiness;
             _integrationsBusiness = integrationsBusiness;
             _reportsRepository = reportsRepository;
+
+            _baseFont = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
+            _titleStyle = new Font(_baseFont, 20, Font.BOLD);
+            _headerStyle = new Font(_baseFont, 12, Font.BOLD);
+            _bodyStyle = new Font(_baseFont, 12, Font.NORMAL);
         }
 
         public async Task GenerateCrackingReportAsync(int fullCrackingId)
@@ -76,12 +85,57 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
         private async Task<Report> PrepareCrackingReportAsync(Cracking cracking)
         {
-            return null;
+            var report = new Report();
+
+            var generationDate = DateTime.Now;
+            var title = "Brute-force password breaking report for [" + cracking.Id + "] ID";
+            var titleWithExtension = title + ".pdf";
+
+            await Task.Run(() =>
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    var document = new Document();
+                    PdfWriter.GetInstance(document, memoryStream);
+                    document.Open();
+
+                    document.Add(new Paragraph(title, _titleStyle));
+
+                    document.Add(new Paragraph("ZIP archive name: " + cracking.FileName, _bodyStyle));
+                    document.Add(new Paragraph("ZIP archive password: " + cracking.ArchivePassword, _bodyStyle));
+                    document.Add(new Paragraph("Task creation date: " + cracking.CreationDate, _bodyStyle));
+                    document.Add(new Paragraph("Task completion date:  " + generationDate, _bodyStyle));
+                    document.Add(new Paragraph("Amount of distributions for Android OS: " + cracking.DroidRanges, _bodyStyle));
+
+                    document.Add(new Paragraph(" "));
+
+                    document.Add(new Paragraph("Desktop results section:", _headerStyle));
+
+                    document.Add(new Paragraph("Time [seconds]: " + cracking.FullTime, _bodyStyle));
+                    document.Add(new Paragraph("CPU info: " + cracking.DesktopCPU, _bodyStyle));
+                    document.Add(new Paragraph("RAM amount [MB]: " + cracking.DesktopRAM, _bodyStyle));
+
+                    document.Add(new Paragraph(" "));
+
+                    document.Add(new Paragraph("Android results section:", _headerStyle));
+
+                    document.Add(new Paragraph("Time [seconds]: " + cracking.PartialTime, _bodyStyle));
+
+                    document.Close();
+
+                    report.ContentPdf = memoryStream.ToArray();
+                }
+
+                report.Title = titleWithExtension;
+                report.GenerationDate = generationDate;
+            });
+
+            return report;
         }
 
         private async Task<Report> PrepareIntegrationReportAsync(Integration integration)
         {
-            Report report = new Report();
+            var report = new Report();
 
             var generationDate = DateTime.Now;
             var title = "";
@@ -95,12 +149,6 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
             var titleWithExtension = title + ".pdf";
 
-            var bfTimes = BaseFont.CreateFont(BaseFont.TIMES_ROMAN, BaseFont.CP1252, false);
-
-            var titleStyle = new Font(bfTimes, 20, Font.BOLD);
-            var headerStyle = new Font(bfTimes, 12, Font.BOLD);
-            var standardStyle = new Font(bfTimes, 12, Font.NORMAL);
-
             await Task.Run(() =>
             {
                 using (var memoryStream = new MemoryStream())
@@ -109,53 +157,53 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     PdfWriter.GetInstance(document, memoryStream);
                     document.Open();
 
-                    document.Add(new Paragraph(title, titleStyle));
+                    document.Add(new Paragraph(title, _titleStyle));
 
-                    document.Add(new Paragraph("Formula: " + integration.UnresolvedFormula, standardStyle));
-                    document.Add(new Paragraph("Accuracy: " + integration.Accuracy, standardStyle));
-                    document.Add(new Paragraph("Lower integration limit: " + integration.DownBoundary, standardStyle));
-                    document.Add(new Paragraph("Upper integration limit: " + integration.UpBoundary, standardStyle));
-                    document.Add(new Paragraph("Task creation date: " + integration.CreationDate, standardStyle));
-                    document.Add(new Paragraph("Task completion date:  " + generationDate, standardStyle));
-                    document.Add(new Paragraph("Amount of distributions for Android OS: " + integration.DroidIntervals, standardStyle));
+                    document.Add(new Paragraph("Formula: " + integration.UnresolvedFormula, _bodyStyle));
+                    document.Add(new Paragraph("Accuracy: " + integration.Accuracy, _bodyStyle));
+                    document.Add(new Paragraph("Lower integration limit: " + integration.DownBoundary, _bodyStyle));
+                    document.Add(new Paragraph("Upper integration limit: " + integration.UpBoundary, _bodyStyle));
+                    document.Add(new Paragraph("Task creation date: " + integration.CreationDate, _bodyStyle));
+                    document.Add(new Paragraph("Task completion date:  " + generationDate, _bodyStyle));
+                    document.Add(new Paragraph("Amount of distributions for Android OS: " + integration.DroidIntervals, _bodyStyle));
 
                     document.Add(new Paragraph(" "));
 
-                    document.Add(new Paragraph("Desktop results section:", headerStyle));
+                    document.Add(new Paragraph("Desktop results section:", _headerStyle));
 
                     if (integration.IsResultNaN)
-                        document.Add(new Paragraph("Result: NOT A NUMBER", standardStyle));
+                        document.Add(new Paragraph("Result: NOT A NUMBER", _bodyStyle));
 
-                    else document.Add(new Paragraph("Result: " + integration.FullResult, standardStyle));
+                    else document.Add(new Paragraph("Result: " + integration.FullResult, _bodyStyle));
 
-                    document.Add(new Paragraph("Time [seconds]: " + integration.FullTime, standardStyle));
-                    document.Add(new Paragraph("CPU info: " + integration.DesktopCPU, standardStyle));
-                    document.Add(new Paragraph("RAM amount [MB]: " + integration.DesktopRAM, standardStyle));
+                    document.Add(new Paragraph("Time [seconds]: " + integration.FullTime, _bodyStyle));
+                    document.Add(new Paragraph("CPU info: " + integration.DesktopCPU, _bodyStyle));
+                    document.Add(new Paragraph("RAM amount [MB]: " + integration.DesktopRAM, _bodyStyle));
 
                     document.Add(new Paragraph(" "));
 
-                    document.Add(new Paragraph("Android results section:", headerStyle));
+                    document.Add(new Paragraph("Android results section:", _headerStyle));
 
                     if (integration.Distributions.Any(x => x.IsResultNaN))
-                        document.Add(new Paragraph("Result: NOT A NUMBER", standardStyle));
+                        document.Add(new Paragraph("Result: NOT A NUMBER", _bodyStyle));
 
-                    else document.Add(new Paragraph("Result: " + integration.PartialResult, standardStyle));
+                    else document.Add(new Paragraph("Result: " + integration.PartialResult, _bodyStyle));
 
-                    document.Add(new Paragraph("Time [seconds]: " + integration.PartialTime, standardStyle));
+                    document.Add(new Paragraph("Time [seconds]: " + integration.PartialTime, _bodyStyle));
 
                     document.Add(new Paragraph(" "));
-                    document.Add(new Paragraph("Detailed Android calculations for each device:", headerStyle));
+                    document.Add(new Paragraph("Detailed Android calculations for each device:", _headerStyle));
 
                     for (var i = 1; i <= integration.Distributions.Count; i++)
                     {
-                        if(integration.Distributions[i - 1].IsResultNaN)
-                            document.Add(new Paragraph("[" + i + "] " + "device result: NOT A NUMBER", standardStyle));
+                        if (integration.Distributions[i - 1].IsResultNaN)
+                            document.Add(new Paragraph("[" + i + "] " + "device result: NOT A NUMBER", _bodyStyle));
 
-                        else document.Add(new Paragraph("[" + i + "] " + "device result: " + integration.Distributions[i - 1].DeviceResult, standardStyle));
+                        else document.Add(new Paragraph("[" + i + "] " + "device result: " + integration.Distributions[i - 1].DeviceResult, _bodyStyle));
 
-                        document.Add(new Paragraph("[" + i + "] " + "device time [seconds]: " + integration.Distributions[i - 1].DeviceTime, standardStyle));
-                        document.Add(new Paragraph("[" + i + "] " + "device CPU info: " + integration.Distributions[i - 1].DeviceCPU, standardStyle));
-                        document.Add(new Paragraph("[" + i + "] " + "device RAM amount [MB]: " + integration.Distributions[i - 1].DeviceRAM, standardStyle));
+                        document.Add(new Paragraph("[" + i + "] " + "device time [seconds]: " + integration.Distributions[i - 1].DeviceTime, _bodyStyle));
+                        document.Add(new Paragraph("[" + i + "] " + "device CPU info: " + integration.Distributions[i - 1].DeviceCPU, _bodyStyle));
+                        document.Add(new Paragraph("[" + i + "] " + "device RAM amount [MB]: " + integration.Distributions[i - 1].DeviceRAM, _bodyStyle));
                     }
 
                     document.Close();
@@ -165,7 +213,6 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
 
                 report.Title = titleWithExtension;
                 report.GenerationDate = generationDate;
-
             });
 
             return report;

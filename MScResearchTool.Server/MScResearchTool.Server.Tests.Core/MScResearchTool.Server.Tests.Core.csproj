@@ -95,7 +95,7 @@
     <Compile Include="BusinessTests\ReportsBusinessTestsBase.cs" />
     <Compile Include="BusinessTests\TaskInfoBusinessTestsBase.cs" />
     <Compile Include="BusinessTests\UsersBusinessTestsBase.cs" />
-    <Compile Include="Core\MockingTestsBase.cs" />
+    <Compile Include="Core\MockBase.cs" />
     <Compile Include="HelperTests\IntegralInitializationHelperTestsBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Units\TestingUnit.cs" />

@@ -52,6 +52,22 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
         }
 
         [Fact]
+        public async void GenerateCrackingReportAsync_IdInput_CreatingNewReport()
+        {
+            var res = await _testingUnit.ReadAllAsync();
+            var before = res.Count;
+
+            await _testingUnit.GenerateCrackingReportAsync(CrackingId);
+
+            var result = await _testingUnit.ReadAllAsync();
+
+            var after = result.Count;
+
+            Assert.NotNull(result);
+            Assert.Equal(before + 1, after);
+        }
+
+        [Fact]
         public async void GenerateIntegrationReportAsync_IdInput_CreatingNewReport()
         {
             var res = await _testingUnit.ReadAllAsync();
@@ -64,7 +80,6 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var after = result.Count;
 
             Assert.NotNull(result);
-
             Assert.Equal(before + 1, after);
         }
     }

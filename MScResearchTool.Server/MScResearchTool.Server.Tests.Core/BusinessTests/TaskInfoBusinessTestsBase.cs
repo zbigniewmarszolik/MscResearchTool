@@ -6,12 +6,14 @@ using MScResearchTool.Server.Tests.Core.Units;
 
 namespace MScResearchTool.Server.Tests.Core.BusinessTests
 {
-    public abstract class TaskInfoBusinessTestsBase : MockingTestsBase<TestingUnit<TaskInfoBusiness>>
+    public abstract class TaskInfoBusinessTestsBase : MockBase<TestingUnit<TaskInfoBusiness>>
     {
         protected override TestingUnit<TaskInfoBusiness> GetUnit()
         {
             var unit = new TestingUnit<TaskInfoBusiness>();
 
+            unit.AddDependency(new Mock<ICrackingsBusiness>(MockBehavior.Strict));
+            unit.AddDependency(new Mock<ICrackingDistributionsBusiness>(MockBehavior.Strict));
             unit.AddDependency(new Mock<IIntegrationsBusiness>(MockBehavior.Strict));
             unit.AddDependency(new Mock<IIntegrationDistributionsBusiness>(MockBehavior.Strict));
 

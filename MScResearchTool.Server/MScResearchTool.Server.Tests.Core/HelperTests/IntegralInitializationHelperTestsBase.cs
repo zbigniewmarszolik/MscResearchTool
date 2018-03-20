@@ -7,7 +7,7 @@ using MScResearchTool.Server.Web.Helpers;
 
 namespace MScResearchTool.Server.Tests.Core.HelperTests
 {
-    public abstract class IntegralInitializationHelperTestsBase : MockingTestsBase<TestingUnit<IntegralInitializationHelper>>
+    public abstract class IntegralInitializationHelperTestsBase : MockBase<TestingUnit<IntegralInitializationHelper>>
     {
         protected override TestingUnit<IntegralInitializationHelper> GetUnit()
         {

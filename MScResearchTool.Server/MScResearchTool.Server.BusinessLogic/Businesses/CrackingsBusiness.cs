@@ -1,55 +1,156 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MScResearchTool.Server.BusinessLogic.Factories;
 using MScResearchTool.Server.Core.Businesses;
 using MScResearchTool.Server.Core.Models;
+using MScResearchTool.Server.Core.Repositories;
 
 namespace MScResearchTool.Server.BusinessLogic.Businesses
 {
     public class CrackingsBusiness : ICrackingsBusiness
     {
-        public Task CascadeDeleteAsync(int taskId)
+        private ICrackingsRepository _crackingsRepository { get; set; }
+        private CrackingDistributionFactory _crackingDistributionFactory { get; set; }
+
+        public CrackingsBusiness
+            (ICrackingsRepository crackingsRepository,
+            CrackingDistributionFactory crackingDistributionFactory)
         {
-            throw new System.NotImplementedException();
+            _crackingsRepository = crackingsRepository;
+            _crackingDistributionFactory = crackingDistributionFactory;
         }
 
-        public Task DistributeAndPersistAsync(Cracking crackingTask)
+        public async Task DistributeAndPersistAsync(Cracking crackingTask)
         {
-            throw new System.NotImplementedException();
+            await Task.Run(async () =>
+            {
+                crackingTask.Distributions = await DistributeCrackingsAsync(crackingTask);
+
+                _crackingsRepository.Create(crackingTask);
+            });
         }
 
-        public Task<IList<Cracking>> ReadAllAsync()
+        public async Task<IList<Cracking>> ReadAllAsync()
         {
-            throw new System.NotImplementedException();
+            return await ReadCrackingTasksAsync();
         }
 
-        public Task<IList<Cracking>> ReadAllEagerAsync()
+        public async Task<IList<Cracking>> ReadAllEagerAsync()
         {
-            throw new System.NotImplementedException();
+            IList<Cracking> results = null;
+
+            await Task.Run(() =>
+            {
+                results = _crackingsRepository.ReadEager();
+            });
+
+            return results;
         }
 
-        public Task<IList<Cracking>> ReadAvailableAsync()
+        public async Task<IList<Cracking>> ReadAvailableAsync()
         {
-            throw new System.NotImplementedException();
+            var resultSet = await ReadCrackingTasksAsync();
+
+            return resultSet.Where(x => x.IsAvailable && !x.IsFinished).ToList();
         }
 
-        public Task<Cracking> ReadByIdAsync(int taskId)
+        public async Task<Cracking> ReadByIdAsync(int taskId)
         {
-            throw new System.NotImplementedException();
+            var singleResult = await ReadCrackingTasksAsync();
+
+            return singleResult.Where(x => x.Id == taskId).First();
         }
 
-        public Task UnstuckByIdAsync(int taskId)
+        public async Task UpdateAsync(Cracking integrationTask)
         {
-            throw new System.NotImplementedException();
+            await Task.Run(() =>
+            {
+                _crackingsRepository.Update(integrationTask);
+            });
         }
 
-        public Task UnstuckTakenAsync()
+        public async Task UnstuckTakenAsync()
         {
-            throw new System.NotImplementedException();
+            var set = await ReadCrackingTasksAsync();
+            var stuck = set.Where(x => x.IsFinished == false && x.IsAvailable == false).ToList();
+
+            await Task.Run(() =>
+            {
+                foreach (var item in stuck)
+                {
+                    item.IsAvailable = true;
+                    _crackingsRepository.Update(item);
+                }
+            });
         }
 
-        public Task UpdateAsync(Cracking integrationTask)
+        public async Task UnstuckByIdAsync(int taskId)
         {
-            throw new System.NotImplementedException();
+            var task = await ReadByIdAsync(taskId);
+
+            await Task.Run(() =>
+            {
+                if (!task.IsAvailable && !task.IsFinished)
+                {
+                    task.IsAvailable = true;
+                    _crackingsRepository.Update(task);
+                }
+            });
+        }
+
+        public async Task CascadeDeleteAsync(int taskId)
+        {
+            await Task.Run(() =>
+            {
+                _crackingsRepository.Delete(taskId);
+            });
+        }
+
+        private async Task<IList<CrackingDistribution>> DistributeCrackingsAsync(Cracking task)
+        {
+            IList<CrackingDistribution> distributions = new List<CrackingDistribution>();
+
+            var charactersCollectionCount = CrackingCharacters.Instance().Characters.Count;
+
+            var elementsPerDistribution = charactersCollectionCount / task.DroidRanges;
+
+            await Task.Run(() =>
+            {
+                for(int i = 0; i < task.DroidRanges; i++)
+                {
+                    var startingElementIndex = i * elementsPerDistribution;
+                    var endingElementIndex = i * elementsPerDistribution + elementsPerDistribution - 1;
+
+                    if(endingElementIndex >= charactersCollectionCount)
+                    {
+                        endingElementIndex = charactersCollectionCount - 1;
+                    }
+
+                    var dist = _crackingDistributionFactory.GetInstance(task, startingElementIndex, endingElementIndex);
+
+                    distributions.Add(dist);
+                }
+            });
+
+            return distributions;
+        }
+
+        private async Task<IList<Cracking>> ReadCrackingTasksAsync()
+        {
+            IList<Cracking> results = null;
+
+            await Task.Run(() =>
+            {
+                results = _crackingsRepository.Read();
+            });
+
+            foreach (var item in results)
+            {
+                item.Distributions = null;
+            }
+
+            return results;
         }
     }
 }
