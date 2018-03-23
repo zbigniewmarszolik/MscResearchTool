@@ -7,23 +7,23 @@ using Xunit;
 
 namespace MScResearchTool.Server.Tests.Business.BusinessTests
 {
-    public class IntegrationsBusinessTests : IntegrationsBusinessTestsBase
+    public class CrackingsBusinessTests : CrackingsBusinessTestsBase
     {
-        private readonly IntegrationsBusiness _testingUnit;
+        private readonly CrackingsBusiness _testingUnit;
 
-        public IntegrationsBusinessTests() : base()
+        public CrackingsBusinessTests() : base()
         {
             _testingUnit = GetUniversalMockedUnit();
         }
 
         [Fact]
-        public async void DistributeAndPersistAsync_IntegrationInput_DistributingAndSaving()
+        public async void DistributeAndPersistAsync_CrackingInput_DistributingAndSaving()
         {
-            var integrationToDistribute = CreateIntegrationToDistribute();
+            var crackingToDistribute = CreateCrackingToDistribute();
 
-            var idHold = integrationToDistribute.Id;
+            var idHold = crackingToDistribute.Id;
 
-            await _testingUnit.DistributeAndPersistAsync(integrationToDistribute);
+            await _testingUnit.DistributeAndPersistAsync(crackingToDistribute);
 
             var getBack = await _testingUnit.ReadByIdAsync(idHold);
 
@@ -45,7 +45,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var result = await _testingUnit.ReadAllEagerAsync();
 
             Assert.NotNull(result);
-            Assert.Equal(IntegrationsDatabase.Count, result.Count);
+            Assert.Equal(CrackingsDatabase.Count, result.Count);
 
             foreach (var item in result)
             {
@@ -75,7 +75,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
         [Fact]
         public async void ReadByIdAsync_ExistingIdInput_ReturningLazyIfIdExists()
         {
-            var result = await _testingUnit.ReadByIdAsync(IntegrationId);
+            var result = await _testingUnit.ReadByIdAsync(CrackingId);
 
             Assert.NotNull(result);
             Assert.Null(result.Distributions);
@@ -84,7 +84,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
         [Fact]
         public async void ReadByIdAsync_WrongIdInput_ReturningLazyIfIdExists()
         {
-            Integration result = null;
+            Cracking result = null;
 
             await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
@@ -103,7 +103,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var beforeUpdate = update.FullResult;
             var idHold = update.Id;
 
-            var updatingResultValue = 114.392;
+            var updatingResultValue = "xPass";
 
             update.FullResult = updatingResultValue;
 
@@ -165,7 +165,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var list = await _testingUnit.ReadAllAsync();
             var beforeDelete = list.Count();
 
-            await _testingUnit.CascadeDeleteAsync(IntegrationId);
+            await _testingUnit.CascadeDeleteAsync(CrackingId);
 
             list = await _testingUnit.ReadAllAsync();
             var afterDelete = list.Count();
@@ -174,9 +174,9 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             Assert.Equal(afterDelete + 1, beforeDelete);
 
             await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-             {
-                 var result = await _testingUnit.ReadByIdAsync(IntegrationId);
-             });
+            {
+                var result = await _testingUnit.ReadByIdAsync(CrackingId);
+            });
         }
 
         [Fact]

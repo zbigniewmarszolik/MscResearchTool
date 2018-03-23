@@ -7,36 +7,13 @@ using Xunit;
 
 namespace MScResearchTool.Server.Tests.Business.BusinessTests
 {
-    public class IntegrationsBusinessTests : IntegrationsBusinessTestsBase
+    public class CrackingDistributionsBusinessTests : CrackingDistributionsBusinessTestsBase
     {
-        private readonly IntegrationsBusiness _testingUnit;
+        private readonly CrackingDistributionsBusiness _testingUnit;
 
-        public IntegrationsBusinessTests() : base()
+        public CrackingDistributionsBusinessTests() : base()
         {
             _testingUnit = GetUniversalMockedUnit();
-        }
-
-        [Fact]
-        public async void DistributeAndPersistAsync_IntegrationInput_DistributingAndSaving()
-        {
-            var integrationToDistribute = CreateIntegrationToDistribute();
-
-            var idHold = integrationToDistribute.Id;
-
-            await _testingUnit.DistributeAndPersistAsync(integrationToDistribute);
-
-            var getBack = await _testingUnit.ReadByIdAsync(idHold);
-
-            Assert.NotNull(getBack);
-        }
-
-        [Fact]
-        public void DistributeAndPersistAsync_NullInput_ThrowingException()
-        {
-            Assert.ThrowsAsync<InvalidOperationException>(async () =>
-            {
-                await _testingUnit.DistributeAndPersistAsync(null);
-            });
         }
 
         [Fact]
@@ -45,11 +22,11 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var result = await _testingUnit.ReadAllEagerAsync();
 
             Assert.NotNull(result);
-            Assert.Equal(IntegrationsDatabase.Count, result.Count);
+            Assert.Equal(DistributionsDatabase.Count, result.Count);
 
             foreach (var item in result)
             {
-                Assert.NotNull(item.Distributions);
+                Assert.NotNull(item.Task);
             }
         }
 
@@ -62,7 +39,7 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
 
             foreach (var item in result)
             {
-                Assert.NotNull(item.Distributions);
+                Assert.NotNull(item.Task);
             }
 
             foreach (var item in result)
@@ -75,16 +52,16 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
         [Fact]
         public async void ReadByIdAsync_ExistingIdInput_ReturningLazyIfIdExists()
         {
-            var result = await _testingUnit.ReadByIdAsync(IntegrationId);
+            var result = await _testingUnit.ReadByIdAsync(DistributionFirstId);
 
             Assert.NotNull(result);
-            Assert.Null(result.Distributions);
+            Assert.Null(result.Task);
         }
 
         [Fact]
         public async void ReadByIdAsync_WrongIdInput_ReturningLazyIfIdExists()
         {
-            Integration result = null;
+            CrackingDistribution result = null;
 
             await Assert.ThrowsAsync<InvalidOperationException>(async () =>
             {
@@ -100,21 +77,21 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
             var list = await _testingUnit.ReadAllEagerAsync();
             var update = list.First();
 
-            var beforeUpdate = update.FullResult;
+            var beforeUpdate = update.DeviceTime;
             var idHold = update.Id;
 
-            var updatingResultValue = 114.392;
+            var updatingValue = 99.0;
 
-            update.FullResult = updatingResultValue;
+            update.DeviceTime = updatingValue;
 
             await _testingUnit.UpdateAsync(update);
 
             list = await _testingUnit.ReadAllEagerAsync();
             var updated = list.First(x => x.Id == idHold);
 
-            var afterUpdate = updated.FullResult;
+            var afterUpdate = updated.DeviceTime;
 
-            Assert.Equal(updatingResultValue, afterUpdate);
+            Assert.Equal(updatingValue, afterUpdate);
             Assert.NotEqual(beforeUpdate, afterUpdate);
         }
 
@@ -151,41 +128,12 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
 
             var idHold = toTest.Id;
 
-            await _testingUnit.UnstuckByIdAsync(idHold);
+            await _testingUnit.UnstuckByIdAsync(toTest.Task.Id);
 
             var afterUnstuck = await _testingUnit.ReadByIdAsync(idHold);
 
             if (!afterUnstuck.IsFinished)
                 Assert.True(afterUnstuck.IsAvailable);
-        }
-
-        [Fact]
-        public async void CascadeDeleteAsync_ExistingId_DeletingWithCascade()
-        {
-            var list = await _testingUnit.ReadAllAsync();
-            var beforeDelete = list.Count();
-
-            await _testingUnit.CascadeDeleteAsync(IntegrationId);
-
-            list = await _testingUnit.ReadAllAsync();
-            var afterDelete = list.Count();
-
-            Assert.NotEqual(beforeDelete, afterDelete);
-            Assert.Equal(afterDelete + 1, beforeDelete);
-
-            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-             {
-                 var result = await _testingUnit.ReadByIdAsync(IntegrationId);
-             });
-        }
-
-        [Fact]
-        public async void CascadeDeleteAsync_WrongId_DeletingWithCascade()
-        {
-            await Assert.ThrowsAsync<InvalidOperationException>(async () =>
-            {
-                await _testingUnit.CascadeDeleteAsync(NotExistingId);
-            });
         }
     }
 }

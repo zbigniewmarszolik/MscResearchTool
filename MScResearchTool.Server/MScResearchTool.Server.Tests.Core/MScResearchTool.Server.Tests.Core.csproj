@@ -89,6 +89,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessTests\CrackingDistributionsBusinessTestsBase.cs" />
+    <Compile Include="BusinessTests\CrackingResultsBusinessTestsBase.cs" />
+    <Compile Include="BusinessTests\CrackingsBusinessTestsBase.cs" />
     <Compile Include="BusinessTests\IntegrationDistributionsBusinessTestsBase.cs" />
     <Compile Include="BusinessTests\IntegrationResultsBusinessTestsBase.cs" />
     <Compile Include="BusinessTests\IntegrationsBusinessTestsBase.cs" />

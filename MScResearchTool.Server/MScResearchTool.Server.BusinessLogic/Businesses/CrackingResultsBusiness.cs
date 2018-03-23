@@ -84,6 +84,10 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                 cracking.FullResult = result.PasswordResult;
                 cracking.DesktopRAM = result.RAM;
                 cracking.DesktopCPU = result.CPU;
+
+                await _crackingsBusiness.UpdateAsync(cracking);
+
+                await VerifyCompletionAsync(result.Id);
             }
         }
 

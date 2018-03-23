@@ -101,6 +101,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessTests\CrackingDistributionsBusinessTests.cs" />
+    <Compile Include="BusinessTests\CrackingResultsBusinessTests.cs" />
+    <Compile Include="BusinessTests\CrackingsBusinessTests.cs" />
     <Compile Include="BusinessTests\IntegrationDistributionsBusinessTests.cs" />
     <Compile Include="BusinessTests\IntegrationResultsBusinessTests.cs" />
     <Compile Include="BusinessTests\IntegrationsBusinessTests.cs" />

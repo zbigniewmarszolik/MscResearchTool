@@ -180,7 +180,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                 IsAvailable = false,
                 IsFinished = true,
                 PartialResult = "passw0rd",
-                PartialTime = 5.37,
+                PartialTime = 5.37
             };
 
             cracking.Distributions = new List<CrackingDistribution>()
@@ -197,7 +197,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     Id = DistributionFirstId,
                     IsAvailable = false,
                     IsFinished = true,
-                    Task = null,
+                    Task = null
                 },
 
                 new CrackingDistribution()
@@ -212,7 +212,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     Id = DistributionSecondId,
                     IsAvailable = false,
                     IsFinished = true,
-                    Task = null,
+                    Task = null
                 }
             };
 
