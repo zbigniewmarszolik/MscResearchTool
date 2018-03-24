@@ -31,6 +31,33 @@ namespace MScResearchTool.Server.Tests.Business.BusinessTests
         }
 
         [Fact]
+        public async void DistributeAndPersistAsync_CertainInput_DistributingProperly()
+        {
+            var integrationToDistribute = CreateIntegrationToDistribute();
+
+            var idHold = integrationToDistribute.Id;
+
+            integrationToDistribute.UpBoundary = 4.0;
+            integrationToDistribute.DownBoundary = 2.0;
+
+            foreach(var item in integrationToDistribute.Distributions)
+            {
+                item.UpBoundary = 0.0;
+                item.DownBoundary = 0.0;
+            }
+
+            await _testingUnit.DistributeAndPersistAsync(integrationToDistribute);
+
+            var allEagerIntegrations = await _testingUnit.ReadAllEagerAsync();
+            var getBack = allEagerIntegrations.First(x => x.Id == idHold);
+
+            Assert.Equal(2.0, getBack.Distributions.First().DownBoundary);
+            Assert.Equal(3.0, getBack.Distributions.First().UpBoundary);
+            Assert.Equal(3.0, getBack.Distributions.Skip(1).Take(1).First().DownBoundary);
+            Assert.Equal(4.0, getBack.Distributions.Skip(1).Take(1).First().UpBoundary);
+        }
+
+        [Fact]
         public void DistributeAndPersistAsync_NullInput_ThrowingException()
         {
             Assert.ThrowsAsync<InvalidOperationException>(async () =>

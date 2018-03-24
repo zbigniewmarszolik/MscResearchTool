@@ -18,7 +18,7 @@ namespace MScResearchTool.Server.BusinessLogic.Factories
                 IsFinished = false,
                 IsArchiveUnbreakableInsideRange = false,
                 RangeBeginning = CrackingCharacters.Instance().Characters[firstIndex],
-                RangeEnding = CrackingCharacters.Instance().Characters[lastIndex],
+                RangeEnding = CrackingCharacters.Instance().Characters[lastIndex]
             };
 
             return instance;

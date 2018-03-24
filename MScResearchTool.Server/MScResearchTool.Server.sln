@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Tests.Web", "MScResearchTool.Server.Tests.Web\MScResearchTool.Server.Tests.Web.csproj", "{A5F45EEE-A91A-40F5-A48F-4B72A5F18265}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MScResearchTool.Server.Tests.Model", "MScResearchTool.Server.Tests.Model\MScResearchTool.Server.Tests.Model.csproj", "{882BD0DE-AD37-4A00-BD12-D9E7800F8820}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,6 +118,14 @@ Global
 		{A5F45EEE-A91A-40F5-A48F-4B72A5F18265}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5F45EEE-A91A-40F5-A48F-4B72A5F18265}.Release|x86.ActiveCfg = Release|x86
 		{A5F45EEE-A91A-40F5-A48F-4B72A5F18265}.Release|x86.Build.0 = Release|x86
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Debug|x86.Build.0 = Debug|Any CPU
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Release|Any CPU.Build.0 = Release|Any CPU
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Release|x86.ActiveCfg = Release|Any CPU
+		{882BD0DE-AD37-4A00-BD12-D9E7800F8820}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -86,7 +86,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
             var mockDistributionsFactory = testingUnit.GetDependency<Mock<CrackingDistributionFactory>>();
 
             mockDistributionsFactory.Setup(g => g.GetInstance(It.IsAny<Cracking>(), It.IsAny<int>(), It.IsAny<int>()))
-                .Returns((Cracking task, double downLimit, double upLimit) =>
+                .Returns((Cracking task, int firstIndex, int lastIndex) =>
                 {
                     var mockInstance = new CrackingDistribution()
                     {
@@ -100,7 +100,9 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                         Id = 998,
                         IsAvailable = true,
                         IsFinished = false,
-                        Task = task
+                        Task = task,
+                        RangeBeginning = CrackingCharacters.Instance().Characters[firstIndex],
+                        RangeEnding = CrackingCharacters.Instance().Characters[lastIndex]
                     };
 
                     return mockInstance;
@@ -195,7 +197,8 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                 IsAvailable = false,
                 IsFinished = false,
                 PartialResult = "passw0rd",
-                PartialTime = 5.37
+                PartialTime = 5.37,
+                AvailableCharacters = CrackingCharacters.Instance().Characters
             };
 
             cracking.Distributions = new List<CrackingDistribution>()
