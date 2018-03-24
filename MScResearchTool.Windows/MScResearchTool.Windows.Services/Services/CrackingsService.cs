@@ -1,25 +1,25 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
 using MScResearchTool.Windows.Domain.Models;
 using MScResearchTool.Windows.Domain.Services;
 using MScResearchTool.Windows.Services.Factories;
-using System;
-using System.Net.Http;
 using Newtonsoft.Json;
 
 namespace MScResearchTool.Windows.Services.Services
 {
-    public class TasksService : ServiceBase, ITasksService
+    public class CrackingsService : ServiceBase, ICrackingsService
     {
         public Action<string> ConnectionErrorAction { get; set; }
 
-        public TasksService(HttpClientFactory httpClientFactory)
+        public CrackingsService(HttpClientFactory httpClientFactory)
         {
             Client = httpClientFactory.GetInstance();
         }
 
-        public async Task<TaskInfo> GetTasksAvailabilityAsync()
+        public async Task<Cracking> GetCrackingAsync()
         {
-            var directUrl = ServerUrl + "CheckTasksAvailability" + ClientMode;
+            var directUrl = ServerUrl + "GetCracking" + ClientMode;
 
             var uri = new Uri(string.Format(directUrl));
 
@@ -27,18 +27,18 @@ namespace MScResearchTool.Windows.Services.Services
             {
                 HttpResponseMessage responseMessage = await Client.GetAsync(uri);
 
-                if (responseMessage.IsSuccessStatusCode)
+                if(responseMessage.IsSuccessStatusCode)
                 {
                     var responseData = responseMessage.Content.ReadAsStringAsync().Result;
 
-                    var taskInfo = JsonConvert.DeserializeObject<TaskInfo>(responseData);
+                    var cracking = JsonConvert.DeserializeObject<Cracking>(responseData);
 
-                    return taskInfo;
+                    return cracking;
                 }
             }
             catch(Exception e)
             {
-                ConnectionErrorAction("Error connecting to the server for reading available tasks with following exception: " + "\n" + e.Message);
+                ConnectionErrorAction("Error connecting to the server for getting cracking task to break password with following exception: " + "\n" + e.Message);
             }
 
             return null;

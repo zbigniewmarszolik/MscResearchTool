@@ -38,7 +38,7 @@ namespace MScResearchTool.Windows.Services.Services
             }
             catch(Exception e)
             {
-                ConnectionErrorAction("Error connecting to the server for getting integration task to calculate.");
+                ConnectionErrorAction("Error connecting to the server for getting integration task to calculate with following exception: " + "\n" + e.Message);
             }
 
             return null;

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Businesses\ICrackingsBusiness.cs" />
     <Compile Include="Businesses\IIntegrationsBusiness.cs" />
     <Compile Include="Models\Cracking.cs" />
     <Compile Include="Models\CrackingResult.cs" />
@@ -48,6 +49,8 @@
     <Compile Include="Models\IntegrationResult.cs" />
     <Compile Include="Models\TaskInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ICrackingResultsService.cs" />
+    <Compile Include="Services\ICrackingsService.cs" />
     <Compile Include="Services\IIntegrationResultsService.cs" />
     <Compile Include="Services\IIntegrationsService.cs" />
     <Compile Include="Services\ITasksService.cs" />

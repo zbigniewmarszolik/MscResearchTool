@@ -8,6 +8,7 @@ namespace MScResearchTool.Windows.Domain.ViewModels
     {
         Action AppStateChangedAction { get; set; }
 
+        ICommand CrackingCommand { get; }
         ICommand IntegrationCommand { get; }
         ICommand ReconnectCommand { get; }
 

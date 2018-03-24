@@ -1,26 +1,26 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using MScResearchTool.Windows.Domain.Models;
 using MScResearchTool.Windows.Domain.Services;
 using MScResearchTool.Windows.Services.Factories;
-using System;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Text;
 
 namespace MScResearchTool.Windows.Services.Services
 {
-    public class IntegrationResultsService : ServiceBase, IIntegrationResultsService
+    public class CrackingResultsService : ServiceBase, ICrackingResultsService
     {
         public Action<string> ConnectionErrorAction { get; set; }
 
-        public IntegrationResultsService(HttpClientFactory httpClientFactory)
+        public CrackingResultsService(HttpClientFactory httpClientFactory)
         {
             Client = httpClientFactory.GetInstance();
         }
 
-        public async Task PostResultAsync(IntegrationResult result)
+        public async Task PostResultAsync(CrackingResult result)
         {
-            var directUrl = ServerUrl + "PostIntegrationResult" + ClientMode;
+            var directUrl = ServerUrl + "PostCrackingResult" + ClientMode;
 
             var uri = new Uri(string.Format(directUrl));
 
@@ -33,9 +33,9 @@ namespace MScResearchTool.Windows.Services.Services
                 {
                     x.Result.EnsureSuccessStatusCode();
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
-                    ConnectionErrorAction("Error connecting to the server for posting integration result with following exception: " + "\n" + e.Message);
+                    ConnectionErrorAction("Error connecting to the server for posting cracking result with following exception: " + "\n" + e.Message);
                 }
             });
         }

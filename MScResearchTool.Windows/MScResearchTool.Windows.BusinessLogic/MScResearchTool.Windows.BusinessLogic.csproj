@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Businesses\CrackingsBusiness.cs" />
     <Compile Include="Businesses\IntegrationsBusiness.cs" />
     <Compile Include="Helpers\HardwareInfoHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -45,6 +45,8 @@
   <ItemGroup>
     <Compile Include="Factories\HttpClientFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\CrackingResultsService.cs" />
+    <Compile Include="Services\CrackingsService.cs" />
     <Compile Include="Services\IntegrationResultsService.cs" />
     <Compile Include="Services\IntegrationsService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
