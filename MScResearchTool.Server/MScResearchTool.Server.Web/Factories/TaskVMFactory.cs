@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using MScResearchTool.Server.Core.Models;
 using MScResearchTool.Server.Web.ViewModels;
-using System.Linq;
 using MScResearchTool.Server.Web.Converters;
 using MScResearchTool.Server.Core.Enums;
 using MScResearchTool.Server.Web.Strategies.StatusStrategy;
@@ -17,6 +16,41 @@ namespace MScResearchTool.Server.Web.Factories
         {
             _taskTypeConverter = taskTypeConverter;
             _statusStrategyFactory = statusStrategyFactory;
+        }
+
+        public IList<TaskViewModel> GetCrackingsCollection(IList<Cracking> crackings)
+        {
+            var collection = new List<TaskViewModel>();
+
+            foreach(var item in crackings)
+            {
+                var collectionElement = new TaskViewModel()
+                {
+                    CreationDate = item.CreationDate,
+                    DroidsCount = item.DroidRanges,
+                    ModelId = item.Id,
+                    TaskType = _taskTypeConverter.EnumeratorToString(ETaskType.Cracking)
+                };
+
+                var state = new Status(item.IsFinished, item.IsAvailable);
+
+                IList<Status> distStates = new List<Status>();
+
+                foreach(var j in item.Distributions)
+                {
+                    distStates.Add(new Status(j.IsFinished, j.IsAvailable));
+                }
+
+                var mainStatusStrategy = _statusStrategyFactory.CreateForMainTask(state);
+                collectionElement.TaskStatus = mainStatusStrategy.MainTaskStatus();
+
+                var distributionsStatusStrategy = _statusStrategyFactory.CreateForDistributions(distStates);
+                collectionElement.TaskStatus += distributionsStatusStrategy.DistributionsStatus();
+
+                collection.Add(collectionElement);
+            }
+
+            return collection;
         }
 
         public IList<TaskViewModel> GetIntegrationsCollection(IList<Integration> integrations)

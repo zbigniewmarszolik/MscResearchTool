@@ -28,7 +28,7 @@ namespace MScResearchTool.Server.Web.Helpers
                 Expression exp = new Expression(formulaWithAssignedVariable);
                 expResult = exp.Evaluate();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

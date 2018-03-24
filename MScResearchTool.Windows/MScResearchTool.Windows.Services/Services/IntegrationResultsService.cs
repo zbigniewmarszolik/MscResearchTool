@@ -33,9 +33,9 @@ namespace MScResearchTool.Windows.Services.Services
                 {
                     x.Result.EnsureSuccessStatusCode();
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
-                    ConnectionErrorAction("Error connecting to the server for posting integration result.");
+                    ConnectionErrorAction("Error connecting to the server for posting integration result with following exception: " + "\n" + e.Message);
                 }
             });
         }

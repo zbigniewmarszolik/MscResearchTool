@@ -29,6 +29,7 @@ namespace MScResearchTool.Server.Web.Converters
         {
             _taskTypeDictionary.Add(ETaskType.SquareIntegration, "Square integration");
             _taskTypeDictionary.Add(ETaskType.TrapezoidIntegration, "Trapezoid integration");
+            _taskTypeDictionary.Add(ETaskType.Cracking, "Cracking");
         }
     }
 }

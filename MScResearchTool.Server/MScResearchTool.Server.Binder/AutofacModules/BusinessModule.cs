@@ -11,11 +11,18 @@ namespace MScResearchTool.Server.Binder.AutofacModules
         {
             builder.RegisterType<ReportsBusiness>().As<IReportsBusiness>();
             builder.RegisterType<TaskInfoBusiness>().As<ITaskInfoBusiness>();
+
+            builder.RegisterType<CrackingsBusiness>().As<ICrackingsBusiness>();
+            builder.RegisterType<CrackingDistributionsBusiness>().As<ICrackingDistributionsBusiness>();
+            builder.RegisterType<CrackingResultsBusiness>().As<ICrackingResultsBusiness>();
+
             builder.RegisterType<IntegrationsBusiness>().As<IIntegrationsBusiness>();
             builder.RegisterType<IntegrationDistributionsBusiness>().As<IIntegrationDistributionsBusiness>();
             builder.RegisterType<IntegrationResultsBusiness>().As<IIntegrationResultsBusiness>();
+
             builder.RegisterType<UsersBusiness>().As<IUsersBusiness>();
 
+            builder.RegisterType<CrackingDistributionFactory>();
             builder.RegisterType<IntegrationDistributionFactory>();
         }
     }

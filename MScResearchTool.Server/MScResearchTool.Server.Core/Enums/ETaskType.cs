@@ -2,6 +2,6 @@
 {
     public enum ETaskType
     {
-        SquareIntegration, TrapezoidIntegration, Other
+        SquareIntegration, TrapezoidIntegration, Cracking
     }
 }

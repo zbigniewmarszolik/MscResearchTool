@@ -206,10 +206,6 @@ button.block-button {
     display: none;
 }
 
-.desktop-separator {
-    display: inline;
-}
-
 @media screen and (max-width: 767px) {
     .blocks-container {
         width: 100%;
@@ -227,10 +223,6 @@ button.block-button {
 
     .mobile-separator {
         display: inline;
-    }
-
-    .desktop-separator {
-        display: none;
     }
 
     .info-button {

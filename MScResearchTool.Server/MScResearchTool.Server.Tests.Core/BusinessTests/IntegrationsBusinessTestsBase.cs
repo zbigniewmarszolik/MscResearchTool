@@ -11,7 +11,7 @@ using System;
 
 namespace MScResearchTool.Server.Tests.Core.BusinessTests
 {
-    public abstract class IntegrationsBusinessTestsBase : MockingTestsBase<TestingUnit<IntegrationsBusiness>>
+    public abstract class IntegrationsBusinessTestsBase : MockBase<TestingUnit<IntegrationsBusiness>>
     {
         protected int IntegrationId { get; private set; }
         protected int DistributionFirstId { get; private set; }

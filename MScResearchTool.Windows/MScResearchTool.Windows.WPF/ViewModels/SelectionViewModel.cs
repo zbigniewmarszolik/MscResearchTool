@@ -15,6 +15,9 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         public Action AppStateChangedAction { get; set; }
         public Action WindowLoadedAction { get; set; }
 
+        private ICommand _crackingCommand;
+        public ICommand CrackingCommand => _crackingCommand ?? (_crackingCommand = new DelegateCommand(() => OnCrackingClicked()));
+
         private ICommand _integrationCommand;
         public ICommand IntegrationCommand => _integrationCommand ?? (_integrationCommand = new DelegateCommand(() => OnIntegrationClicked()));
 
@@ -22,6 +25,9 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         public ICommand ReconnectCommand => _reconnectCommand ?? (_reconnectCommand = new DelegateCommand(() => OnReconnectClicked()));
 
         private ITasksService _tasksService { get; set; }
+        private ICrackingsService _crackingsService { get; set; }
+        private ICrackingResultsService _crackingResultsService { get; set; }
+        private ICrackingsBusiness _crackingsBusiness { get; set; }
         private IIntegrationsService _integrationsService { get; set; }
         private IIntegrationResultsService _integrationResultsService { get; set; }
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
@@ -32,6 +38,14 @@ namespace MScResearchTool.Windows.WPF.ViewModels
             get => _isReconnectEnabled;
             set { _isReconnectEnabled = value; OnPropertyChanged(() => IsReconnectEnabled); }
         }
+
+        private bool _isCrackingEnabled;
+        public bool IsCrackingEnabled
+        {
+            get => _isCrackingEnabled;
+            set { _isCrackingEnabled = value; OnPropertyChanged(() => IsCrackingEnabled); }
+        }
+
 
         private bool _isIntegrationEnabled;
         public bool IsIntegrationEnabled
@@ -55,12 +69,18 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         }
 
         public SelectionViewModel
-            (ITasksService tasksService, 
+            (ITasksService tasksService,
+            ICrackingsService crackingsService,
+            ICrackingResultsService crackingResultsService,
+            ICrackingsBusiness crackingsBusiness,
             IIntegrationsService integrationsService,
             IIntegrationResultsService integrationResultsService,
             IIntegrationsBusiness integrationsBusiness)
         {
             _tasksService = tasksService;
+            _crackingsService = crackingsService;
+            _crackingResultsService = crackingResultsService;
+            _crackingsBusiness = crackingsBusiness;
             _integrationsService = integrationsService;
             _integrationResultsService = integrationResultsService;
             _integrationsBusiness = integrationsBusiness;
@@ -98,7 +118,7 @@ namespace MScResearchTool.Windows.WPF.ViewModels
                 IsReconnectEnabled = true;
                 return;
             }
-            
+
             else if (available.IsIntegrationAvailable)
                 IsIntegrationEnabled = true;
 
@@ -110,11 +130,45 @@ namespace MScResearchTool.Windows.WPF.ViewModels
             OnWindowLoaded();
         }
 
+        private void OnCrackingClicked()
+        {
+            ProcessCracking();
+
+            AppStateChangedAction?.Invoke();
+        }
+
         private void OnIntegrationClicked()
         {
             ProcessIntegration();
 
             AppStateChangedAction?.Invoke();
+        }
+
+        private async void ProcessCracking()
+        {
+            IsReconnectEnabled = false;
+            IsCrackingEnabled = false;
+
+            var crackingTask = await _crackingsService.GetCrackingAsync();
+
+            AppStateChangedAction?.Invoke();
+
+            if (crackingTask == null)
+                return;
+
+            var crackingResult = await _crackingsBusiness.BreakPasswordAsync(crackingTask);
+
+            AppStateChangedAction?.Invoke();
+
+            await _crackingResultsService.PostResultAsync(crackingResult);
+
+            AppStateChangedAction?.Invoke();
+
+            var messageBox = new MessageWindow("Task finished",
+                "Following password was found: " + crackingResult.PasswordResult + ". Elapsed time: " + crackingResult.ElapsedSeconds.ToString() + "seconds. ", "OK");
+            messageBox.ShowDialog();
+
+            OnWindowLoaded();
         }
 
         private async void ProcessIntegration()
@@ -137,8 +191,8 @@ namespace MScResearchTool.Windows.WPF.ViewModels
 
             AppStateChangedAction?.Invoke();
 
-            var messageBox = new MessageWindow("Task finished", 
-                "Task calculated with following result: " + integrationResult.Result.ToString() + ". Elapsed time: " + integrationResult.ElapsedSeconds.ToString() + " seconds. ", "OK");
+            var messageBox = new MessageWindow("Task finished",
+                "Integral calculated with following result: " + integrationResult.Result.ToString() + ". Elapsed time: " + integrationResult.ElapsedSeconds.ToString() + " seconds. ", "OK");
             messageBox.ShowDialog();
 
             OnWindowLoaded();

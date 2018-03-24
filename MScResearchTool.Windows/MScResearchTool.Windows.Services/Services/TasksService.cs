@@ -38,7 +38,7 @@ namespace MScResearchTool.Windows.Services.Services
             }
             catch(Exception e)
             {
-                ConnectionErrorAction("Error connecting to the server for reading available tasks.");
+                ConnectionErrorAction("Error connecting to the server for reading available tasks with following exception: " + "\n" + e.Message);
             }
 
             return null;

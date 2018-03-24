@@ -11,7 +11,7 @@ namespace MScResearchTool.Mobile.Droid
     [Application]
     public class App : Application
     {
-        public static IContainer Container { get; set; }
+        internal static IContainer Container { get; set; }
 
         private static string TAG = "MScResearchTool." + typeof(App).Name;
 

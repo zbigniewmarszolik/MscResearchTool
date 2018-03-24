@@ -9,11 +9,10 @@
       android:layout_height="wrap_content"
       android:text="Start integration" />
   <Button
-      android:id="@+id/OtherButton"
+      android:id="@+id/CrackButton"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Start other algorithm"
-      android:enabled="false" />
+      android:text="Start cracking" />
   <Button
       android:id="@+id/ReconnectButton"
       android:layout_width="match_parent"

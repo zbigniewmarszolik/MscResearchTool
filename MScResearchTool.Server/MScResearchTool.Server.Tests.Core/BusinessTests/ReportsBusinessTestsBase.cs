@@ -11,10 +11,11 @@ using System.Linq;
 
 namespace MScResearchTool.Server.Tests.Core.BusinessTests
 {
-    public abstract class ReportsBusinessTestsBase : MockingTestsBase<TestingUnit<ReportsBusiness>>
+    public abstract class ReportsBusinessTestsBase : MockBase<TestingUnit<ReportsBusiness>>
     {
         protected int FirstId { get; private set; }
         protected int SecondId { get; private set; }
+        protected int CrackingId { get; private set; }
         protected int IntegrationId { get; private set; }
         protected int DistributionFirstId { get; private set; }
         protected int DistributionSecondId { get; private set; }
@@ -25,6 +26,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
         {
             FirstId = 3;
             SecondId = 10;
+            CrackingId = 30;
             IntegrationId = 5;
             DistributionFirstId = 10;
             DistributionSecondId = 11;
@@ -51,6 +53,7 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
         {
             var unit = new TestingUnit<ReportsBusiness>();
 
+            unit.AddDependency(new Mock<ICrackingsBusiness>(MockBehavior.Strict));
             unit.AddDependency(new Mock<IIntegrationsBusiness>(MockBehavior.Strict));
             unit.AddDependency(new Mock<IReportsRepository>(MockBehavior.Strict));
 
@@ -81,6 +84,13 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
             mockIntegrationsBusiness.Setup(re => re.ReadAllEagerAsync()).ReturnsAsync(new List<Integration>()
             {
                 CreateIntegration()
+            });
+
+            var mockCrackingsBusiness = testingUnit.GetDependency<Mock<ICrackingsBusiness>>();
+
+            mockCrackingsBusiness.Setup(re => re.ReadAllEagerAsync()).ReturnsAsync(new List<Cracking>()
+            {
+                CreateCracking()
             });
 
             return testingUnit.GetResolvedTestingUnit();
@@ -152,6 +162,61 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
             };
 
             return integration;
+        }
+
+        protected Cracking CreateCracking()
+        {
+            var cracking = new Cracking()
+            {
+                FileName = "file.zip",
+                ArchivePassword = "passw0rd",
+                CreationDate = new DateTime(2017, 9, 30),
+                DesktopCPU = "X6 1000MHz",
+                DesktopRAM = 1024,
+                DroidRanges = 2,
+                FullResult = "passw0rd",
+                FullTime = 4.19,
+                Id = CrackingId,
+                IsAvailable = false,
+                IsFinished = true,
+                PartialResult = "passw0rd",
+                PartialTime = 5.37
+            };
+
+            cracking.Distributions = new List<CrackingDistribution>()
+            {
+                new CrackingDistribution()
+                {
+                    FileName = "file.zip",
+                    ArchivePassword = "passw0rd",
+                    CreationDate = new DateTime(2017, 10, 1),
+                    DeviceCPU = "arm 900MHz",
+                    DeviceRAM = 512,
+                    DeviceResult = null,
+                    DeviceTime = 2.37,
+                    Id = DistributionFirstId,
+                    IsAvailable = false,
+                    IsFinished = true,
+                    Task = null
+                },
+
+                new CrackingDistribution()
+                {
+                    FileName = "file.zip",
+                    ArchivePassword = "passw0rd",
+                    CreationDate = new DateTime(2017, 10, 1),
+                    DeviceCPU = "arm2 933MHz",
+                    DeviceRAM = 512,
+                    DeviceResult = "passw0rd",
+                    DeviceTime = 3.0,
+                    Id = DistributionSecondId,
+                    IsAvailable = false,
+                    IsFinished = true,
+                    Task = null
+                }
+            };
+
+            return cracking;
         }
     }
 }

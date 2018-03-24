@@ -10,7 +10,7 @@ using System;
 
 namespace MScResearchTool.Server.Tests.Core.BusinessTests
 {
-    public abstract class IntegrationDistributionsBusinessTestsBase : MockingTestsBase<TestingUnit<IntegrationDistributionsBusiness>>
+    public abstract class IntegrationDistributionsBusinessTestsBase : MockBase<TestingUnit<IntegrationDistributionsBusiness>>
     {
         protected int IntegrationId { get; private set; }
         protected int DistributionFirstId { get; private set; }

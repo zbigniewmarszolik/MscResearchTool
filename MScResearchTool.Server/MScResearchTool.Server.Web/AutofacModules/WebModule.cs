@@ -15,6 +15,7 @@ namespace MScResearchTool.Server.Web.AutofacModules
         {
             builder.RegisterType<TaskTypeConverter>();
 
+            builder.RegisterType<CrackingInitializationHelper>();
             builder.RegisterType<HashHelper>();
             builder.RegisterType<IntegralInitializationHelper>();
             builder.RegisterType<ParseDoubleHelper>();
@@ -27,6 +28,9 @@ namespace MScResearchTool.Server.Web.AutofacModules
             builder.RegisterType<UserFactory>();
 
             builder.RegisterType<TaskVMFacade>();
+
+            builder.RegisterType<CrackingDeleteStrategy>().Keyed<IDeleteStrategy>(ETaskType.Cracking);
+            builder.RegisterType<CrackingUnstuckStrategy>().Keyed<IUnstuckStrategy>(ETaskType.Cracking);
 
             builder.RegisterType<IntegrationDeleteStrategy>().Keyed<IDeleteStrategy>(ETaskType.SquareIntegration);
             builder.RegisterType<IntegrationDeleteStrategy>().Keyed<IDeleteStrategy>(ETaskType.TrapezoidIntegration);

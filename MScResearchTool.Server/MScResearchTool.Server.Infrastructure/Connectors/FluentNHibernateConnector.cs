@@ -14,6 +14,8 @@ namespace MScResearchTool.Server.Infrastructure.Connectors
                 .Database(MySQLConfiguration.Standard
                 .ConnectionString(c => c.Server("localhost").Database("msc_database").Username("root").Password("pass")).ShowSql())
                 .Mappings(m => m.FluentMappings
+                .AddFromAssemblyOf<CrackingMap>()
+                .AddFromAssemblyOf<CrackingDistributionMap>()
                 .AddFromAssemblyOf<IntegrationMap>()
                 .AddFromAssemblyOf<IntegrationDistributionMap>()
                 .AddFromAssemblyOf<ReportMap>()
