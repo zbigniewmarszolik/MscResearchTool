@@ -8,6 +8,7 @@ namespace MScResearchTool.Mobile.Binder.AutofacModules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<CrackingsBusiness>().As<ICrackingsBusiness>();
             builder.RegisterType<IntegrationsBusiness>().As<IIntegrationsBusiness>();
         }
     }

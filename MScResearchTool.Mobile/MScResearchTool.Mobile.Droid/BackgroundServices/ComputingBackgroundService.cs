@@ -23,6 +23,12 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
         [InjectDependency]
         private ITasksService _tasksService { get; set; }
         [InjectDependency]
+        private ICrackingsService _crackingsService { get; set; }
+        [InjectDependency]
+        private ICrackingResultsService _crackingResultsService { get; set; }
+        [InjectDependency]
+        private ICrackingsBusiness _crackingsBusiness { get; set; }
+        [InjectDependency]
         private IIntegrationsService _integrationsService { get; set; }
         [InjectDependency]
         private IIntegrationResultsService _integrationResultsService { get; set; }
@@ -103,7 +109,14 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                     continue;
                 }
 
-                if (taskInfo.IsIntegrationAvailable)
+                if(taskInfo.IsCrackingAvailable)
+                {
+                    shouldTakeBreak = false;
+
+                    await TryCrack();
+                }
+
+                else if (taskInfo.IsIntegrationAvailable)
                 {
                     shouldTakeBreak = false;
 
@@ -149,6 +162,41 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             Process.KillProcess(Process.MyPid());
         }
 
+        private async Task TryCrack()
+        {
+            CrackingDistribution cracking = null;
+
+            try
+            {
+                cracking = await _crackingsService.GetCrackingAsync();
+            }
+            catch(Exception e)
+            {
+                BackgroundError("Service failed in connecting to the server for getting integration task to break password with following exception: " + "\n" + e.Message);
+                return;
+            }
+
+            var result = await _crackingsBusiness.AttemptPasswordBreakingPasswordAsync(cracking);
+
+            if (result == null)
+            {
+                return;
+            }
+
+            result.CPU = _droidHardwareHelper.GetProcessorInfo();
+            result.RAM = _droidHardwareHelper.GetMemoryAmount();
+
+            try
+            {
+                await _crackingResultsService.PostResultAsync(result);
+            }
+            catch (Exception e)
+            {
+                BackgroundError("Service failed in connecting to the server for posting cracking result with following exception: " + "\n" + e.Message);
+                return;
+            }
+        }
+
         private async Task Integrate()
         {
             IntegrationDistribution integration = null;
@@ -159,7 +207,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             }
             catch (Exception e)
             {
-                BackgroundError("Service failed in connecting to the server for getting integration task to calculate.");
+                BackgroundError("Service failed in connecting to the server for getting integration task to calculate with following exception: " + "\n" + e.Message);
                 return;
             }
 
@@ -174,7 +222,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             }
             catch (Exception e)
             {
-                BackgroundError("Service failed in connecting to the server for posting integration result.");
+                BackgroundError("Service failed in connecting to the server for posting integration result with following exception: " + "\n" + e.Message);
                 return;
             }
         }

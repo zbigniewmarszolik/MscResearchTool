@@ -3,11 +3,12 @@
     public interface IManualView
     {
         void DisableAllButtons();
+        void EnableCracking();
         void EnableIntegration();
         void EnableReconnect();
         void EnableProgressBar();
         void DisableProgressBar();
-        void ShowResult(double result, double seconds);
+        void ShowResult(string result, double seconds);
         void ShowServerError(string errorMessage);
     }
 }

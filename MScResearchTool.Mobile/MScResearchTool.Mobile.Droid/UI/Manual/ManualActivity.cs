@@ -14,6 +14,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
         [InjectDependency]
         private IManualPresenter _presenter { get; set; }
 
+        private Button _crackButton { get; set; }
         private Button _integrateButton { get; set; }
         private Button _reconnectButton { get; set; }
         private ProgressBar _progressBar { get; set; }
@@ -40,9 +41,15 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
 
         protected override void ViewComponentsInitialization()
         {
+            _crackButton = FindViewById<Button>(Resource.Id.CrackButton);
             _integrateButton = FindViewById<Button>(Resource.Id.IntegrateButton);
             _reconnectButton = FindViewById<Button>(Resource.Id.ReconnectButton);
             _progressBar = FindViewById<ProgressBar>(Resource.Id.MainProgressBar);
+
+            _crackButton.Click += (sender, e) =>
+            {
+                _presenter.CrackButtonClicked();
+            };
 
             _integrateButton.Click += (sender, e) =>
             {
@@ -63,8 +70,14 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
 
         public void DisableAllButtons()
         {
+            _crackButton.Enabled = false;
             _integrateButton.Enabled = false;
             _reconnectButton.Enabled = false;
+        }
+
+        public void EnableCracking()
+        {
+            _crackButton.Enabled = true;
         }
 
         public void EnableIntegration()
@@ -87,7 +100,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _progressBar.Visibility = ViewStates.Invisible;
         }
 
-        public void ShowResult(double result, double seconds)
+        public void ShowResult(string result, double seconds)
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(this, Resource.Style.alertDialog);
 

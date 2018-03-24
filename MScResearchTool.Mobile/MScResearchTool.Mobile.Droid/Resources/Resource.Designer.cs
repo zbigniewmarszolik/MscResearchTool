@@ -72,6 +72,9 @@ namespace MScResearchTool.Mobile.Droid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f060001
+			public const int CrackButton = 2131099649;
+			
 			// aapt resource value: 0x7f060000
 			public const int IntegrateButton = 2131099648;
 			
@@ -80,9 +83,6 @@ namespace MScResearchTool.Mobile.Droid
 			
 			// aapt resource value: 0x7f060005
 			public const int ManualButton = 2131099653;
-			
-			// aapt resource value: 0x7f060001
-			public const int OtherButton = 2131099649;
 			
 			// aapt resource value: 0x7f060002
 			public const int ReconnectButton = 2131099650;

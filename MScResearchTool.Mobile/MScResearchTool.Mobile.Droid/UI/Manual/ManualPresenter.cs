@@ -12,6 +12,9 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
     {
         private IManualView _view { get; set; }
         private ITasksService _tasksService { get; set; }
+        private ICrackingsService _crackingsService { get; set; }
+        private ICrackingResultsService _crackingResultsService { get; set; }
+        private ICrackingsBusiness _crackingsBusiness { get; set; }
         private IIntegrationsService _integrationsService { get; set; }
         private IIntegrationResultsService _integrationResultsService { get; set; }
         private IIntegrationsBusiness _integrationsBusiness { get; set; }
@@ -19,12 +22,18 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
 
         public ManualPresenter
             (ITasksService tasksService,
+            ICrackingsService crackingsService,
+            ICrackingResultsService crackingResultsService,
+            ICrackingsBusiness crackingsBusiness,
             IIntegrationsService integrationsService,
             IIntegrationResultsService integrationResultsService,
             IIntegrationsBusiness integrationsBusiness,
             DroidHardwareHelper droidHardwareHelper)
         {
             _tasksService = tasksService;
+            _crackingsService = crackingsService;
+            _crackingResultsService = crackingResultsService;
+            _crackingsBusiness = crackingsBusiness;
             _integrationsService = integrationsService;
             _integrationResultsService = integrationResultsService;
             _integrationsBusiness = integrationsBusiness;
@@ -43,6 +52,50 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             await CheckForTasks();
         }
 
+        public async void CrackButtonClicked()
+        {
+            _view.DisableAllButtons();
+            _view.EnableProgressBar();
+
+            CrackingDistribution cracking = null;
+
+            try
+            {
+                cracking = await _crackingsService.GetCrackingAsync();
+            }
+            catch(Exception e)
+            {
+                _view.DisableProgressBar();
+                _view.DisableAllButtons();
+                _view.ShowServerError("Error connecting to the server for getting cracking task to break password with exception: " + "\n" + e.Message);
+                return;
+            }
+
+            var result = await _crackingsBusiness.AttemptPasswordBreakingPasswordAsync(cracking);
+
+            if(result == null)
+            {
+                return;
+            }
+
+            result.CPU = _droidHardwareHelper.GetProcessorInfo();
+            result.RAM = _droidHardwareHelper.GetMemoryAmount();
+
+            try
+            {
+                await _crackingResultsService.PostResultAsync(result);
+            }
+            catch(Exception e)
+            {
+                _view.DisableProgressBar();
+                _view.ShowServerError("Error connecting to the server for posting cracking result with exception: " + "\n" + e.Message);
+                return;
+            }
+
+            _view.DisableProgressBar();
+            _view.ShowResult(result.PasswordResult, result.ElapsedSeconds);
+        }
+
         public async void IntegrateButtonClicked()
         {
             _view.DisableAllButtons();
@@ -58,7 +111,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             {
                 _view.DisableProgressBar();
                 _view.DisableAllButtons();
-                _view.ShowServerError("Error connecting to the server for getting integration task to calculate.");
+                _view.ShowServerError("Error connecting to the server for getting integration task to calculate with exception: " + "\n" + e.Message);
                 return;
             }
 
@@ -74,12 +127,12 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             catch (Exception e)
             {
                 _view.DisableProgressBar();
-                _view.ShowServerError("Error connecting to the server for posting integration result.");
+                _view.ShowServerError("Error connecting to the server for posting integration result with exception: " + "\n" + e.Message);
                 return;
             }
 
             _view.DisableProgressBar();
-            _view.ShowResult(result.Result, result.ElapsedSeconds);
+            _view.ShowResult(result.Result.ToString(), result.ElapsedSeconds);
         }
 
         public async void ReconnectButtonClicked()
