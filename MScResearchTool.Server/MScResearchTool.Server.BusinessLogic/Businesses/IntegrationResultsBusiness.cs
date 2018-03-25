@@ -53,6 +53,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     eagerDistribution.DeviceResult = result.Result;
                     eagerDistribution.DeviceTime = result.ElapsedSeconds;
                     eagerDistribution.IsResultNaN = result.IsResultNotANumber;
+                    eagerDistribution.BatteryUsage = result.BatteryUsage;
 
                     var integration = await _integrationsBusiness.ReadByIdAsync(eagerDistribution.Task.Id);
                     integration.PartialTime += result.ElapsedSeconds;

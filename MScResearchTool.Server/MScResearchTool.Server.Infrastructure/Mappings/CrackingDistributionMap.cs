@@ -16,11 +16,12 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.RangeEnding);
             Map(x => x.IsAvailable);
             Map(x => x.IsFinished);
-            Map(x => x.IsArchiveUnbreakableInsideRange);
             Map(x => x.DeviceRAM);
             Map(x => x.DeviceCPU);
             Map(x => x.DeviceResult);
             Map(x => x.DeviceTime);
+            Map(x => x.BatteryUsage);
+            Map(x => x.IsFounder);
             References(x => x.Task)
                 .Column("CrackingId");
             Table("distributed_crackings");

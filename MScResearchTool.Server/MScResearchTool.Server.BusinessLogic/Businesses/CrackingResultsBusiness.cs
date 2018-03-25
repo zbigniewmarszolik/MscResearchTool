@@ -56,6 +56,8 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     eagerDistribution.DeviceCPU = result.CPU;
                     eagerDistribution.DeviceResult = result.PasswordResult;
                     eagerDistribution.DeviceTime = result.ElapsedSeconds;
+                    eagerDistribution.BatteryUsage = result.BatteryUsage;
+                    eagerDistribution.IsFounder = true;
 
                     var cracking = await _crackingsBusiness.ReadByIdAsync(eagerDistribution.Task.Id);
                     cracking.PartialTime = result.ElapsedSeconds;

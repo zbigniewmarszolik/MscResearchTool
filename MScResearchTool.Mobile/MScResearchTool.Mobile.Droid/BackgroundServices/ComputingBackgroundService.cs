@@ -138,14 +138,24 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
             _handler.Post(runnableToast);
         }
 
+        private double GetCurrentBatteryLevel()
+        {
+            var intentFilter = new IntentFilter(Intent.ActionBatteryChanged);
+            var batteryRegister = RegisterReceiver(null, intentFilter);
+            var batteryLevel = batteryRegister.GetIntExtra(BatteryManager.ExtraLevel, -1);
+            var batteryScale = batteryRegister.GetIntExtra(BatteryManager.ExtraScale, -1);
+
+            return Math.Floor(batteryLevel * 100D / batteryScale);
+        }
+
         private void CheckBattery()
         {
             var intentFilter = new IntentFilter(Intent.ActionBatteryChanged);
             var batteryRegister = RegisterReceiver(null, intentFilter);
-            int batteryLevel = batteryRegister.GetIntExtra(BatteryManager.ExtraLevel, -1);
-            int batteryScale = batteryRegister.GetIntExtra(BatteryManager.ExtraScale, -1);
+            var batteryLevel = batteryRegister.GetIntExtra(BatteryManager.ExtraLevel, -1);
+            var batteryScale = batteryRegister.GetIntExtra(BatteryManager.ExtraScale, -1);
 
-            int batteryPercentage = (int)Math.Floor(batteryLevel * 100D / batteryScale);
+            var batteryPercentage = (int)Math.Floor(batteryLevel * 100D / batteryScale);
 
             Log.Info(TAG, "CheckBattery()");
 
@@ -164,7 +174,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
         private async Task TryCrack()
         {
-            CrackingDistribution cracking = null;
+            CrackingDistribution cracking = null; 
 
             try
             {
@@ -176,7 +186,9 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                 return;
             }
 
+            var batteryBeforeCracking = GetCurrentBatteryLevel();
             var result = await _crackingsBusiness.AttemptPasswordBreakingPasswordAsync(cracking);
+            var batteryAfterCracking = GetCurrentBatteryLevel();
 
             if (result == null)
             {
@@ -185,6 +197,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
 
             result.CPU = _droidHardwareHelper.GetProcessorInfo();
             result.RAM = _droidHardwareHelper.GetMemoryAmount();
+            result.BatteryUsage = batteryBeforeCracking - batteryAfterCracking;
 
             try
             {
@@ -211,10 +224,13 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                 return;
             }
 
+            var batteryBeforeIntegrating = GetCurrentBatteryLevel();
             var result = await _integrationsBusiness.CalculateIntegrationAsync(integration);
+            var batteryAfterIntegrating = GetCurrentBatteryLevel();
 
             result.CPU = _droidHardwareHelper.GetProcessorInfo();
             result.RAM = _droidHardwareHelper.GetMemoryAmount();
+            result.BatteryUsage = batteryBeforeIntegrating - batteryAfterIntegrating;
 
             try
             {

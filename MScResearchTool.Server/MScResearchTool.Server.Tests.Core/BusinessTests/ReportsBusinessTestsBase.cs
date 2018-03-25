@@ -138,7 +138,8 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     IsResultNaN = false,
                     IsTrapezoidMethodRequested = false,
                     Task = null,
-                    UpBoundary = 2
+                    UpBoundary = 2,
+                    BatteryUsage = 1.3
                 },
 
                 new IntegrationDistribution()
@@ -157,7 +158,8 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     IsResultNaN = false,
                     IsTrapezoidMethodRequested = false,
                     Task = null,
-                    UpBoundary = 3
+                    UpBoundary = 3,
+                    BatteryUsage = 5.22
                 }
             };
 
@@ -197,7 +199,9 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     Id = DistributionFirstId,
                     IsAvailable = false,
                     IsFinished = true,
-                    Task = null
+                    Task = null,
+                    IsFounder = true,
+                    BatteryUsage = 10.1
                 },
 
                 new CrackingDistribution()
@@ -212,7 +216,8 @@ namespace MScResearchTool.Server.Tests.Core.BusinessTests
                     Id = DistributionSecondId,
                     IsAvailable = false,
                     IsFinished = true,
-                    Task = null
+                    Task = null,
+                    IsFounder = false
                 }
             };
 

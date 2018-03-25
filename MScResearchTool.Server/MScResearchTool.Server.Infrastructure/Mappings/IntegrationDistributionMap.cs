@@ -21,6 +21,7 @@ namespace MScResearchTool.Server.Infrastructure.Mappings
             Map(x => x.DeviceCPU);
             Map(x => x.DeviceResult);
             Map(x => x.DeviceTime);
+            Map(x => x.BatteryUsage);
             References(x => x.Task)
                 .Column("IntegrationId");
             Table("distributed_integrations");

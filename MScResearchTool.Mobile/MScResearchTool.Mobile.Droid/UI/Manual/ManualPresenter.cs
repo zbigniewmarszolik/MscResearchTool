@@ -5,6 +5,8 @@ using MScResearchTool.Mobile.Domain.Services;
 using System.Threading.Tasks;
 using System;
 using MScResearchTool.Mobile.Domain.Models;
+using Android.Content;
+using Android.OS;
 
 namespace MScResearchTool.Mobile.Droid.UI.Manual
 {
@@ -71,15 +73,18 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
                 return;
             }
 
+            var batteryBeforeCracking = GetCurrentBatteryLevel();
             var result = await _crackingsBusiness.AttemptPasswordBreakingPasswordAsync(cracking);
+            var batteryAfterCracking = GetCurrentBatteryLevel();
 
-            if(result == null)
+            if (result == null)
             {
                 return;
             }
 
             result.CPU = _droidHardwareHelper.GetProcessorInfo();
             result.RAM = _droidHardwareHelper.GetMemoryAmount();
+            result.BatteryUsage = batteryBeforeCracking - batteryAfterCracking;
 
             try
             {
@@ -115,10 +120,13 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
                 return;
             }
 
+            var batteryBeforeIntegrating = GetCurrentBatteryLevel();
             var result = await _integrationsBusiness.CalculateIntegrationAsync(integration);
+            var batteryAfterIntegrating = GetCurrentBatteryLevel();
 
             result.CPU = _droidHardwareHelper.GetProcessorInfo();
             result.RAM = _droidHardwareHelper.GetMemoryAmount();
+            result.BatteryUsage = batteryBeforeIntegrating - batteryAfterIntegrating;
 
             try
             {
@@ -169,6 +177,22 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             _view.EnableReconnect();
 
             _view.DisableProgressBar();
+        }
+
+        private double GetCurrentBatteryLevel()
+        {
+            var batteryLevelString = BatteryManager.ExtraLevel;
+            var batteryScaleString = BatteryManager.ExtraScale;
+
+            var isLevelParseable = double.TryParse(batteryLevelString, out var batteryLevel);
+            var isScaleParseable = double.TryParse(batteryScaleString, out var batteryScale);
+
+            if(!isLevelParseable && !isScaleParseable)
+            {
+                return 0.0;
+            }
+
+            else return Math.Floor(batteryLevel * 100D / batteryScale);
         }
     }
 }
