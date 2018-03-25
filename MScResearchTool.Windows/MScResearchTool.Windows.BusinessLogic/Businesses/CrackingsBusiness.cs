@@ -36,8 +36,6 @@ namespace MScResearchTool.Windows.BusinessLogic.Businesses
 
         private CrackingResult BreakArchive(Cracking crackingTask)
         {
-            char[] range = { 'a', 'b', 'c' };
-
             var passwordFound = string.Empty;
 
             var watch = Stopwatch.StartNew();

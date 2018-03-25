@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="NCalc, Version=1.3.8.0, Culture=neutral, PublicKeyToken=973cde3f1cafed03, processorArchitecture=MSIL">
       <HintPath>..\packages\ncalc.1.3.8\lib\NCalc.dll</HintPath>
     </Reference>
@@ -45,7 +48,9 @@
   <ItemGroup>
     <Compile Include="Businesses\CrackingsBusiness.cs" />
     <Compile Include="Businesses\IntegrationsBusiness.cs" />
+    <Compile Include="Helper\UnzippingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SecretGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MScResearchTool.Mobile.Domain\MScResearchTool.Mobile.Domain.csproj">
