@@ -84,7 +84,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AutofacModules\UserInterfaceModule.cs" />
-    <Compile Include="Siema.cs" />
     <Compile Include="ViewManager.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SelectionViewModel.cs" />
