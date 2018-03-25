@@ -103,7 +103,7 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                 }
                 catch (Exception e)
                 {
-                    BackgroundError("Service failed in connecting to the server for reading available tasks.");
+                    BackgroundError("Service failed in connecting to the server for reading available tasks with exception: " + "\n" + e.Message);
                     shouldTakeBreak = true;
                     taskInfo = null;
                     continue;

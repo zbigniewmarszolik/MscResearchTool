@@ -1,4 +1,5 @@
 ﻿using Android.OS;
+using Android.Util;
 using Java.IO;
 using Java.Lang;
 using Java.Text;
@@ -8,6 +9,8 @@ namespace MScResearchTool.Mobile.Droid.Helpers
 {
     public class DroidHardwareHelper
     {
+        private static string TAG = typeof(DroidHardwareHelper).Name;
+
         private string _cpuInfPath = "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq";
         private string _ramInfoPath = "/proc/meminfo";
 
@@ -34,7 +37,7 @@ namespace MScResearchTool.Mobile.Droid.Helpers
                 }
                 catch (IOException e)
                 {
-
+                    Log.Info(TAG, e.Message);
                 }
             }
             return sb.ToString();
@@ -67,7 +70,7 @@ namespace MScResearchTool.Mobile.Droid.Helpers
             }
             catch (Exception e)
             {
-
+                Log.Info(TAG, e.Message);
             }
 
             return (int)mb;
