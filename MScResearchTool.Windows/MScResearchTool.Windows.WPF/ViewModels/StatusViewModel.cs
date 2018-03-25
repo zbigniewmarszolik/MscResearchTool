@@ -50,7 +50,7 @@ namespace MScResearchTool.Windows.WPF.ViewModels
             else if (StatusText == "Obtaining task metadata.")
                 return "Processing task.";
 
-            else if (StatusText == "Calculating task.")
+            else if (StatusText == "Processing task.")
                 return "Sending results to server.";
 
             else
