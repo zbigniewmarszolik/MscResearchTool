@@ -167,7 +167,7 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             catch (Exception e)
             {
                 _view.DisableProgressBar();
-                _view.ShowServerError("Error connecting to the server for reading available tasks.");
+                _view.ShowServerError("Error connecting to the server for reading available tasks with exception: " + "\n" + e.Message);
                 return;
             }
 
