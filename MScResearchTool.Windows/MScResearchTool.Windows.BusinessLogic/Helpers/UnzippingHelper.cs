@@ -1,30 +1,19 @@
 ﻿using ICSharpCode.SharpZipLib.Zip;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.IO;
 
-namespace MScResearchTool.Server.Web.Helpers
+namespace MScResearchTool.Windows.BusinessLogic.Helpers
 {
-    public class CrackingInitializationHelper
+    public class UnzippingHelper
     {
-        public byte[] ProcessFormFileToArray(IFormFile formFile)
-        {
-            using (var memoryStream = new MemoryStream())
-            {
-                formFile.CopyTo(memoryStream);
-
-                return memoryStream.ToArray();
-            }
-        }
-
-        public bool IsArchiveExtractable(byte[] arrayFile, string providedPassword)
+        public bool IsArchiveExtractableWithPassword(byte[] archive, string passwordToValidate)
         {
             ZipFile zipFile = null;
 
             try
             {
-                zipFile = new ZipFile(new MemoryStream(arrayFile));
-                zipFile.Password = providedPassword;
+                zipFile = new ZipFile(new MemoryStream(archive));
+                zipFile.Password = passwordToValidate;
 
                 foreach(ZipEntry entry in zipFile)
                 {
@@ -40,7 +29,7 @@ namespace MScResearchTool.Server.Web.Helpers
 
                 return true;
             }
-            catch (Exception)
+            catch(Exception)
             {
                 return false;
             }
