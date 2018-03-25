@@ -10,6 +10,7 @@ namespace MScResearchTool.Windows.Binder.AutofacModules
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<HardwareInfoHelper>().As<HardwareInfoHelper>();
+            builder.RegisterType<UnzippingHelper>().As<UnzippingHelper>();
             builder.RegisterType<CrackingsBusiness>().As<ICrackingsBusiness>();
             builder.RegisterType<IntegrationsBusiness>().As<IIntegrationsBusiness>();
         }

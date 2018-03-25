@@ -11,5 +11,8 @@ namespace MScResearchTool.Server.Core.Models
         public virtual string DeviceCPU { get; set; }
         public virtual double DeviceResult { get; set; }
         public virtual double DeviceTime { get; set; }
+
+        // Battery property:
+        public virtual double BatteryUsage { get; set; }
     }
 }

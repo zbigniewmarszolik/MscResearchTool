@@ -91,6 +91,8 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
             var title = "Brute-force password breaking report for [" + cracking.Id + "] ID";
             var titleWithExtension = title + ".pdf";
 
+            var founderBatteryUsage = cracking.Distributions.First(x => x.IsFounder).BatteryUsage;
+
             await Task.Run(() =>
             {
                 using (var memoryStream = new MemoryStream())
@@ -120,6 +122,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     document.Add(new Paragraph("Android results section:", _headerStyle));
 
                     document.Add(new Paragraph("Time [seconds]: " + cracking.PartialTime, _bodyStyle));
+                    document.Add(new Paragraph("Battery usage [%]: " + founderBatteryUsage, _bodyStyle));
 
                     document.Close();
 
@@ -204,6 +207,7 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                         document.Add(new Paragraph("[" + i + "] " + "device time [seconds]: " + integration.Distributions[i - 1].DeviceTime, _bodyStyle));
                         document.Add(new Paragraph("[" + i + "] " + "device CPU info: " + integration.Distributions[i - 1].DeviceCPU, _bodyStyle));
                         document.Add(new Paragraph("[" + i + "] " + "device RAM amount [MB]: " + integration.Distributions[i - 1].DeviceRAM, _bodyStyle));
+                        document.Add(new Paragraph("[" + i + "] " + "battery usage [%]: " + integration.Distributions[i - 1].BatteryUsage, _bodyStyle));
                     }
 
                     document.Close();
