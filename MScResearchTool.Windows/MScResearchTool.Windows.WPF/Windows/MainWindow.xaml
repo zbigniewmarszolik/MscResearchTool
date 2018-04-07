@@ -8,7 +8,7 @@
                       GlowBrush="Black"
                       mc:Ignorable="d"
                       WindowStartupLocation="CenterScreen"
-                      Title="MSC Research Tool" Height="768" Width="1366">
+                      Title="MSC Research Tool" Height="720" Width="1280">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
