@@ -106,6 +106,7 @@ namespace MScResearchTool.Windows.WPF.ViewModels
             TextBoxVisibility = Visibility.Visible;
             IsReconnectEnabled = false;
             IsIntegrationEnabled = false;
+            IsCrackingEnabled = false;
             IsProgressing = true;
 
             var available = await _tasksService.GetTasksAvailabilityAsync();
