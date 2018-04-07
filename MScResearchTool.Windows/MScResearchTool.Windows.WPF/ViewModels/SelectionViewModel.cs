@@ -159,6 +159,7 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         {
             IsReconnectEnabled = false;
             IsCrackingEnabled = false;
+            IsIntegrationEnabled = false;
 
             var crackingTask = await _crackingsService.GetCrackingAsync();
 
@@ -186,6 +187,7 @@ namespace MScResearchTool.Windows.WPF.ViewModels
         {
             IsReconnectEnabled = false;
             IsIntegrationEnabled = false;
+            IsCrackingEnabled = false;
 
             var integrationTask = await _integrationsService.GetIntegrationAsync();
 
