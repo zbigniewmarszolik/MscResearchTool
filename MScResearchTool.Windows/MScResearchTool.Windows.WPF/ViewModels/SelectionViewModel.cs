@@ -119,8 +119,18 @@ namespace MScResearchTool.Windows.WPF.ViewModels
                 return;
             }
 
-            else if (available.IsIntegrationAvailable)
-                IsIntegrationEnabled = true;
+            else
+            {
+                if(available.IsIntegrationAvailable)
+                {
+                    IsIntegrationEnabled = true;
+                }
+
+                if(available.IsCrackingAvailable)
+                {
+                    IsCrackingEnabled = true;
+                }
+            }
 
             IsReconnectEnabled = true;
         }

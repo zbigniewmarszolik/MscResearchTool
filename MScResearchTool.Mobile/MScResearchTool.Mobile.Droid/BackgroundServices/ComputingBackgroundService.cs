@@ -109,18 +109,18 @@ namespace MScResearchTool.Mobile.Droid.BackgroundServices
                     continue;
                 }
 
-                if(taskInfo.IsCrackingAvailable)
-                {
-                    shouldTakeBreak = false;
-
-                    await TryCrack();
-                }
-
-                else if (taskInfo.IsIntegrationAvailable)
+                if(taskInfo.IsIntegrationAvailable)
                 {
                     shouldTakeBreak = false;
 
                     await Integrate();
+                }
+
+                else if(taskInfo.IsCrackingAvailable)
+                {
+                    shouldTakeBreak = false;
+
+                    await TryCrack();
                 }
 
                 else shouldTakeBreak = true;

@@ -174,6 +174,9 @@ namespace MScResearchTool.Mobile.Droid.UI.Manual
             if (check.IsIntegrationAvailable)
                 _view.EnableIntegration();
 
+            if (check.IsCrackingAvailable)
+                _view.EnableCracking();
+
             _view.EnableReconnect();
 
             _view.DisableProgressBar();
