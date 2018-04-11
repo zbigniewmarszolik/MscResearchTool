@@ -112,6 +112,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 {
                     dto.IsAvailable = false;
                     await _crackingsBusiness.UpdateAsync(dto);
+                    dto.AvailableCharacters = CrackingCharacters.Instance().Characters;
                 }
 
                 return Ok(dto);
@@ -125,6 +126,7 @@ namespace MScResearchTool.Server.Web.Controllers
                 {
                     dto.IsAvailable = false;
                     await _crackingDistributionsBusiness.UpdateAsync(dto);
+                    dto.AvailableCharacters = CrackingCharacters.Instance().Characters;
                 }
 
                 dto.Task = null;
