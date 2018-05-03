@@ -15,9 +15,9 @@ namespace MScResearchTool.Windows.BusinessLogic.Helpers
                 zipFile = new ZipFile(new MemoryStream(archive));
                 zipFile.Password = passwordToValidate;
 
-                foreach(ZipEntry entry in zipFile)
+                foreach (ZipEntry entry in zipFile)
                 {
-                    if(!entry.IsFile)
+                    if (!entry.IsFile)
                     {
                         continue;
                     }
@@ -29,7 +29,7 @@ namespace MScResearchTool.Windows.BusinessLogic.Helpers
 
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }

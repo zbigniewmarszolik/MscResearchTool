@@ -40,31 +40,31 @@ namespace MScResearchTool.Windows.BusinessLogic.Businesses
 
             var watch = Stopwatch.StartNew();
 
-            Parallel.For(3, 10, (i, state) =>
+            for (var i = 3; i <= 10; i++)
             {
                 var generator = new SecretGenerator(crackingTask.AvailableCharacters, i);
 
                 var secretAttempt = string.Empty;
                 var isFound = false;
 
-                while(secretAttempt != null)
+                while (secretAttempt != null)
                 {
                     secretAttempt = generator.Next();
 
                     isFound = _unzippingHelper.IsArchiveExtractableWithPassword(crackingTask.ArchiveToCrack, secretAttempt);
 
-                    if(isFound)
+                    if (isFound)
                     {
                         break;
                     }
                 }
 
-                if(isFound)
+                if (isFound)
                 {
                     passwordFound = secretAttempt;
-                    state.Break();
+                    break;
                 }
-            });
+            }
 
             watch.Stop();
             var elapsedMiliSeconds = watch.ElapsedMilliseconds;

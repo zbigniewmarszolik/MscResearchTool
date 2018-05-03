@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace MScResearchTool.Mobile.BusinessLogic.Businesses
             _unzippingHelper = unzippingHelper;
         }
 
-        public async Task<CrackingResult> AttemptPasswordBreakingPasswordAsync(CrackingDistribution crackingDistributionTask) // if will not find, return NULL, it is handled in further steps by NULL
+        public async Task<CrackingResult> AttemptPasswordBreakingPasswordAsync(CrackingDistribution crackingDistributionTask)
         {
             CrackingResult result = null;
 
@@ -41,42 +40,42 @@ namespace MScResearchTool.Mobile.BusinessLogic.Businesses
 
             var watch = Stopwatch.StartNew();
 
-            Parallel.For(2, 9, (i, state) =>
+            for(var i = 2; i <= 9; i++)
             {
                 var generator = new SecretGenerator(crackingDistribution.AvailableCharacters, i);
 
                 var secretAttempt = string.Empty;
                 var isFound = false;
 
-                while(secretAttempt != null)
+                while (secretAttempt != null)
                 {
                     secretAttempt = generator.Next();
 
-                    foreach(var item in range)
+                    foreach (var item in range)
                     {
                         var test = item.ToString();
                         test += secretAttempt;
 
-                        isFound = _unzippingHelper.IsArchiveExtractableWithPassword(crackingDistribution.ArchiveToCrack, secretAttempt);
+                        isFound = _unzippingHelper.IsArchiveExtractableWithPassword(crackingDistribution.ArchiveToCrack, test);
 
-                        if(isFound)
+                        if (isFound)
                         {
                             passwordFound = test;
                             break;
                         }
                     }
 
-                    if(isFound)
+                    if (isFound)
                     {
                         break;
                     }
                 }
 
-                if(isFound)
+                if (isFound)
                 {
-                    state.Break();
+                    break;
                 }
-            });
+            }
 
             watch.Stop();
             var elapsedMiliseconds = watch.ElapsedMilliseconds;
