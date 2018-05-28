@@ -122,6 +122,8 @@ namespace MScResearchTool.Server.BusinessLogic.Businesses
                     document.Add(new Paragraph("Android results section:", _headerStyle));
 
                     document.Add(new Paragraph("Time [seconds]: " + cracking.PartialTime, _bodyStyle));
+                    document.Add(new Paragraph("Device CPU info: " + cracking.Distributions.First(x => x.IsFounder).DeviceCPU, _bodyStyle));
+                    document.Add(new Paragraph("Device RAM amount [MB]: " + cracking.Distributions.First(x => x.IsFounder).DeviceRAM, _bodyStyle));
                     document.Add(new Paragraph("Battery usage [%]: " + founderBatteryUsage, _bodyStyle));
 
                     document.Close();
